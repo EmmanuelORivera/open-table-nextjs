@@ -1,10 +1,16 @@
-const Hero = () => {
+const Hero = ({ children }: { children?: React.ReactNode }) => {
+  const sectionVerticalPadding = children ? 'py-20' : 'py-8'
+
   return (
-    <section className="py-20 bg-gradient-to-r from-[#0f1f47] to-[#5f6984]">
+    <section
+      className={`${sectionVerticalPadding} bg-gradient-to-r from-[#0f1f47] to-[#5f6984]`}
+    >
       <div className="text-center">
-        <h1 className="text-white text-5xl font-bold mb-10 sm:mb-5">
-          Find your table for any occasion
-        </h1>
+        {children && (
+          <h1 className="text-white text-5xl font-bold mb-10 sm:mb-5">
+            {children}
+          </h1>
+        )}
         {/* SEARCH BAR */}
         <div className="flex flex-col gap-4 w-[90%] max-w-3xl sm:flex-row mx-auto">
           <input
