@@ -1,4 +1,12 @@
-const Hero = ({ children }: { children?: React.ReactNode }) => {
+import SearchBar from './SearchBar'
+
+const Hero = ({
+  children,
+  displaySearchBar = true,
+}: {
+  children?: React.ReactNode
+  displaySearchBar?: boolean
+}) => {
   const sectionVerticalPadding = children ? 'py-20' : 'py-8'
 
   return (
@@ -12,16 +20,7 @@ const Hero = ({ children }: { children?: React.ReactNode }) => {
           </h1>
         )}
         {/* SEARCH BAR */}
-        <div className="flex flex-col gap-4 w-[90%] max-w-3xl sm:flex-row mx-auto">
-          <input
-            className="rounded p-2 flex-grow"
-            type="text"
-            placeholder="State, city or town"
-          />
-          <button className="rounded bg-red-600  py-2 text-white sm:w-32 sm:max-w-md">
-            Let's go
-          </button>
-        </div>
+        {displaySearchBar && <SearchBar />}
         {/* SEARCH BAR */}
       </div>
     </section>
