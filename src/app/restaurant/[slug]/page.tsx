@@ -5,7 +5,7 @@ const RestaurantDetails = () => {
   return (
     <article className="bg-gray-100 min-h-screen">
       <div className="max-w-screen-2xl m-auto bg-white ">
-        <Hero displaySearchBar={false}>Milestones Grill (Toronto)</Hero>
+        <Hero title="Milestones Grill (Toronto)"></Hero>
         {/* DESCRIPTION PORTION */}
         <div className="px-4 lg:grid lg:grid-cols-[repeat(2,minmax(200px,550px))] lg:gap-10 justify-center">
           <div className="-mt-11 mx-auto max-w-screen-md lg:max-w-screen-md">

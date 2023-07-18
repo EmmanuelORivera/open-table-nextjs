@@ -1,10 +1,13 @@
 import Hero from '@/components/Hero'
+import SearchBar from '@/components/SearchBar'
 
 const Search = () => {
   return (
     <article className="bg-gray-100 text-sm">
       <div className="max-w-screen-2xl m-auto bg-white">
-        <Hero />
+        <Hero>
+          <SearchBar />
+        </Hero>
         <div className="sm:flex  gap-10 container max-w-7xl mx-auto p-3">
           {/* TODO: Display this option on mobile screen */}
           <div className="w-1/5 hidden sm:block">
