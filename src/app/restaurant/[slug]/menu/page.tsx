@@ -1,10 +1,9 @@
 import Hero from '@/components/Hero'
-import React from 'react'
 
 const MenuPage = () => {
   return (
-    <main className="bg-gray-100 min-h-screen">
-      <main className="max-w-screen-2xl m-auto bg-white">
+    <section className="bg-gray-100 min-h-screen">
+      <div className="max-w-screen-2xl m-auto bg-white">
         <Hero title="Milestones Grill (Toronto)">
           <h1 className=""></h1>
         </Hero>
@@ -45,8 +44,8 @@ const MenuPage = () => {
           </div>
         </div>
         {/* DESCRIPTION PORTION */}
-      </main>
-    </main>
+      </div>
+    </section>
   )
 }
 
