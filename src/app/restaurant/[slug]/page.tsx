@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero'
 import MakeAReservation from '@/components/MakeAReservation'
+import Link from 'next/link'
 
 const RestaurantDetails = () => {
   return (
@@ -7,19 +8,17 @@ const RestaurantDetails = () => {
       <div className="max-w-screen-2xl m-auto bg-white ">
         <Hero title="Milestones Grill (Toronto)"></Hero>
         {/* DESCRIPTION PORTION */}
-        <div className="px-4 lg:grid lg:grid-cols-[repeat(2,minmax(200px,550px))] lg:gap-10 justify-center">
+        <div className="px-4 lg:grid lg:grid-cols-[repeat(2,minmax(200px,550px))] lg:gap-10 justify-end">
           <div className="-mt-11 mx-auto max-w-screen-md lg:max-w-screen-md">
             <div className="bg-white mx-auto rounded p-3 shadow text-sm">
               {/* RESAURANT NAVBAR */}
               <nav className="flex text-reg border-b pb-2">
-                <a href="" className="mr-7">
-                  {' '}
-                  Overview{' '}
-                </a>
-                <a href="" className="mr-7">
-                  {' '}
-                  Menu{' '}
-                </a>
+                <Link href="/restaurant/milestone-grill" className="mr-7">
+                  Overview
+                </Link>
+                <Link href="/restaurant/milestone-grill/menu" className="mr-7">
+                  Menu
+                </Link>
               </nav>
               {/* RESAURANT NAVBAR */} {/* TITLE */}
               <div className="mt-4 border-b pb-6">

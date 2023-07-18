@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero'
+import Link from 'next/link'
 
 const MenuPage = () => {
   return (
@@ -6,18 +7,16 @@ const MenuPage = () => {
       <div className="max-w-screen-2xl m-auto bg-white">
         <Hero title="Milestones Grill (Toronto)"></Hero>
         {/* HEADER */} {/* DESCRIPTION PORTION */}
-        <div className="flex m-auto w-2/3 justify-between items-start 0 -mt-11">
-          <div className="bg-white w-[100%] rounded p-3 shadow">
+        <div className="px-4 flex m-auto w-full max-w-screen-lg  justify-between items-start 0 -mt-11">
+          <div className="bg-white w-[100%] rounded p-3 shadow text-sm">
             {/* RESAURANT NAVBAR */}
             <nav className="flex text-reg border-b pb-2">
-              <a href="" className="mr-7">
-                {' '}
-                Overview{' '}
-              </a>
-              <a href="" className="mr-7">
-                {' '}
-                Menu{' '}
-              </a>
+              <Link href="/restaurant/milestone-grill" className="mr-7">
+                Overview
+              </Link>
+              <Link href="/restaurant/milestone-grill/menu" className="mr-7">
+                Menu
+              </Link>
             </nav>
             {/* RESAURANT NAVBAR */} {/* MENU */}
             <div className="bg-white mt-5">
