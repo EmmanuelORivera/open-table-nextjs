@@ -122,7 +122,7 @@ const RestaurantDetails = () => {
           </div>
 
           <div>
-            <MakeAReservation className="fixed -my-11 bg-white rounded" />
+            <MakeAReservation className="fixed -mt-11 bg-white rounded" />
           </div>
         </div>
         {/* DESCRIPTION PORTION */} {/* RESERVATION CARD PORTION */}{' '}
