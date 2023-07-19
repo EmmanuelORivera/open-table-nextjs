@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero'
 import Link from 'next/link'
+import RestaurantTabs from '../components/RestaurantTabs'
 
 const MenuPage = () => {
   return (
@@ -9,16 +10,8 @@ const MenuPage = () => {
         {/* HEADER */} {/* DESCRIPTION PORTION */}
         <div className="px-4 flex m-auto w-full max-w-screen-lg  justify-between items-start 0 -mt-11">
           <div className="bg-white w-[100%] rounded p-3 shadow text-sm">
-            {/* RESAURANT NAVBAR */}
-            <nav className="flex text-reg border-b pb-2">
-              <Link href="/restaurant/milestone-grill" className="mr-7">
-                Overview
-              </Link>
-              <Link href="/restaurant/milestone-grill/menu" className="mr-7">
-                Menu
-              </Link>
-            </nav>
-            {/* RESAURANT NAVBAR */} {/* MENU */}
+            <RestaurantTabs />
+            {/* MENU */}
             <div className="bg-white mt-5">
               <div>
                 <div className="mt-4 pb-1 mb-1">
