@@ -1,4 +1,4 @@
-import Card from '@/components/Card'
+import RestaurantCard from '@/components/RestaurantCard'
 import Hero from '@/components/Hero'
 import SearchBar from '@/components/SearchBar'
 
@@ -8,11 +8,9 @@ export default function Home() {
       <Hero title="Find your table for any occasion">
         <SearchBar />
       </Hero>
-      {/* CARDS */}
-      <div className="py-3 mt-10 flex flex-wrap justify-center">
-        <Card />
+      <div className="py-3 px-36 mt-10 flex flex-wrap ">
+        <RestaurantCard />
       </div>
-      {/* CARDS */}
     </div>
   )
 }

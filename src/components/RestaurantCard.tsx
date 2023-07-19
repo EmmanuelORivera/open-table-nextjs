@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-const Card = () => {
+const RestaurantCard = () => {
   return (
     <div className="pb-3 w-full max-w-[270px] rounded overflow-hidden border cursor-pointer">
       <Link href="/restaurant/milestones-grill">
@@ -28,4 +28,4 @@ const Card = () => {
   )
 }
 
-export default Card
+export default RestaurantCard
