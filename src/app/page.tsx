@@ -4,7 +4,7 @@ import SearchBar from '@/components/SearchBar'
 
 export default function Home() {
   return (
-    <div className="bg-white container mx-auto">
+    <div>
       <Hero title="Find your table for any occasion">
         <SearchBar />
       </Hero>

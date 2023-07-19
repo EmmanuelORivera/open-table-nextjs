@@ -9,30 +9,24 @@ import Reviews from './components/Reviews'
 
 const RestaurantDetails = () => {
   return (
-    <article className="bg-gray-100 min-h-screen">
-      <div className="max-w-screen-2xl m-auto bg-white ">
-        <Hero title="Milestones Grill (Toronto)"></Hero>
-        {/* DESCRIPTION PORTION */}
-        <div className="px-4 lg:grid lg:grid-cols-[repeat(2,minmax(200px,550px))] lg:gap-10 justify-end">
-          <div className="-mt-11 mx-auto max-w-screen-md lg:max-w-screen-md">
-            <div className="bg-white mx-auto rounded p-3 shadow text-sm">
-              <RestaurantTabs />
-              <Title title="Milesstone Grill" />
-              <Rating />
-              <Description />
-              <MakeAReservation hideOnLargeScreen />
-              <Images />
-              <Reviews />
-            </div>
-          </div>
-
-          <div>
-            <MakeAReservation className="fixed -mt-11 bg-white rounded" />
+    <article>
+      <Hero title="Milestones Grill (Toronto)"></Hero>
+      <div className="px-4 lg:grid lg:grid-cols-[repeat(2,minmax(200px,550px))] lg:gap-10 justify-end">
+        <div className="-mt-11 mx-auto max-w-screen-md lg:max-w-screen-md">
+          <div className="bg-white mx-auto rounded p-3 shadow text-sm">
+            <RestaurantTabs />
+            <Title title="Milesstone Grill" />
+            <Rating />
+            <Description />
+            <MakeAReservation hideOnLargeScreen />
+            <Images />
+            <Reviews />
           </div>
         </div>
-        {/* DESCRIPTION PORTION */} {/* RESERVATION CARD PORTION */}{' '}
-        {/* RESERVATION
-    CARD PORTION */}
+
+        <div>
+          <MakeAReservation className="fixed -mt-11 bg-white rounded" />
+        </div>
       </div>
     </article>
   )
