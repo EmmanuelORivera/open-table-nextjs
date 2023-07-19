@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const SearchRestaurantCard = () => {
   return (
-    <div className="flex border-b  pb-3">
+    <div className="flex border-b h-[1%] pb-3">
       <img
         src="https://images.otstatic.com/prod1/49153814/2/medium.jpg"
         alt=""
