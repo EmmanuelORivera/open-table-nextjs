@@ -1,6 +1,10 @@
-import Hero from '@/components/Hero'
 import RestaurantTabs from '../components/RestaurantTabs'
 import Menu from '../components/Menu'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Menu of Milesones Grill | OpenTable',
+}
 
 const MenuPage = () => {
   return (
