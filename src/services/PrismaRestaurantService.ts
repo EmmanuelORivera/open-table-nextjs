@@ -18,6 +18,7 @@ export class PrismaRestaurantService implements RestaurantService {
         cuisine: true,
         location: true,
         price: true,
+        slug: true,
       },
     })
 

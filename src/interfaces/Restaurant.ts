@@ -7,4 +7,5 @@ export interface Restaurant {
   cuisine: Cuisine
   location: Location
   price: Price
+  slug: string
 }
