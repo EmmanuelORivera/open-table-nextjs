@@ -1,11 +1,9 @@
 import RestaurantCard from '@/components/RestaurantCard'
 import Hero from '@/components/Hero'
 import SearchBar from '@/components/SearchBar'
-import {
-  RestaurantService,
-  PrismaRestaurantService,
-} from '@/services/RestaurantService'
+import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
 import { Restaurant } from '@/interfaces/Restaurant'
+import { RestaurantService } from '@/interfaces/RestaurantService'
 
 export default async function Home() {
   const restaurantService: RestaurantService = new PrismaRestaurantService()
