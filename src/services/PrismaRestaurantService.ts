@@ -1,9 +1,6 @@
 import { Restaurant } from '@/interfaces/Restaurant'
+import { RestaurantService } from '@/interfaces/RestaurantService'
 import { PrismaClient } from '@prisma/client'
-
-export interface RestaurantService {
-  fetchRestaurants: () => Promise<Restaurant[]>
-}
 
 export class PrismaRestaurantService implements RestaurantService {
   private prisma: PrismaClient
