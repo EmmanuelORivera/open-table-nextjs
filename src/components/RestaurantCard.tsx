@@ -1,7 +1,8 @@
+import { Restaurant } from '@/interfaces/Restaurant'
 import Link from 'next/link'
 import React from 'react'
 
-const RestaurantCard = () => {
+const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   return (
     <div className="pb-3 w-full max-w-[270px] rounded overflow-hidden border cursor-pointer">
       <Link href="/restaurant/milestones-grill">
