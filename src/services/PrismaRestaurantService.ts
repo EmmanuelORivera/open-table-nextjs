@@ -1,4 +1,4 @@
-import { Restaurant } from '@/interfaces/Restaurant'
+import { Restaurant, RestaurantBySlug } from '@/interfaces/Restaurant'
 import { Restaurant as PrismaRestaurant } from '@prisma/client'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { PrismaClient } from '@prisma/client'
@@ -34,13 +34,23 @@ export class PrismaRestaurantService implements RestaurantService {
     return restaurants
   }
 
-  async fetchRestaurant(slug: string): Promise<PrismaRestaurant | null> {
+  async fetchRestaurantBySlug(slug: string): Promise<RestaurantBySlug> {
     const restaurant = await this.prisma.restaurant.findUnique({
       where: {
         slug,
       },
+      select: {
+        id: true,
+        name: true,
+        images: true,
+        description: true,
+        slug: true,
+      },
     })
 
+    if (!restaurant) {
+      throw new Error('restaurant does not exists')
+    }
     return restaurant
   }
 }
