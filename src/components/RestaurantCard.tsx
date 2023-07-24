@@ -21,7 +21,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
           <div className="flex font-light capitalize">
             <p className=" mr-3">{restaurant.cuisine.name}</p>
             <RestaurantPrice price={restaurant.price} />
-            <p>{restaurant.location.name}</p>
+            <p className="ml-3">{restaurant.location.name}</p>
           </div>
           <p className="text-sm mt-1 font-bold">Booked 3 times today</p>
         </div>
