@@ -1,34 +1,19 @@
-const Images = () => {
+const Images = ({ images }: { images: string[] }) => {
+  const totalOfImages = images.length
+  const titleText = totalOfImages === 1 ? 'photo' : 'photos'
   return (
     <div>
-      <h2 className="font-bold text-3xl mt-10 mb-7 border-b pb-5">5 photos</h2>
+      <h2 className="font-bold text-3xl mt-10 mb-7 border-b pb-5">
+        {totalOfImages} {titleText}
+      </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-[repeat(4,150px)] md:grid-rows-2  gap-1">
-        <img
-          className="rounded col-span-2 row-span-2 object-cover h-full w-full"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/3/41701449.jpg"
-          alt=""
-        />
-
-        <img
-          className="rounded h-full w-full object-cover"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701450.jpg"
-          alt=""
-        />
-        <img
-          className="rounded h-full w-full object-cover"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701452.jpg"
-          alt=""
-        />
-        <img
-          className="rounded h-full w-full object-cover"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701453.jpg"
-          alt=""
-        />
-        <img
-          className="rounded h-full w-full object-cover"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701454.jpg"
-          alt=""
-        />
+        {images.map((image, index) => (
+          <img
+            className="rounded col-span-2 row-span-2 object-cover h-full w-full"
+            src={image}
+            alt={`restaurant image ${index + 1}`}
+          />
+        ))}
       </div>
     </div>
   )
