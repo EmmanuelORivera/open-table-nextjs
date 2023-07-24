@@ -5,10 +5,16 @@ export const metadata: Metadata = {
   title: 'Restaurant',
 }
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const layout = ({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: { slug: string }
+}) => {
   return (
     <section>
-      <Hero title="Milestones Grill (Toronto)"></Hero>
+      <Hero title={params.slug}></Hero>
       {children}
     </section>
   )
