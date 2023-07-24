@@ -9,3 +9,11 @@ export interface Restaurant {
   price: Price
   slug: string
 }
+
+export interface RestaurantBySlug {
+  id: number
+  name: string
+  images: string[]
+  description: string
+  slug: string
+}
