@@ -3,10 +3,10 @@ import Hero from '@/components/Hero'
 import SearchBar from '@/components/SearchBar'
 import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
 import { Restaurant } from '@/interfaces/Restaurant'
-import { RestaurantService } from '@/interfaces/RestaurantService'
 
 export default async function Home() {
-  const restaurantService: RestaurantService = new PrismaRestaurantService()
+  const restaurantService: PrismaRestaurantService =
+    PrismaRestaurantService.getInstance()
 
   const restaurants: Restaurant[] = await restaurantService.fetchRestaurants()
 
@@ -15,9 +15,9 @@ export default async function Home() {
       <Hero title="Find your table for any occasion">
         <SearchBar />
       </Hero>
-      <div className="py-3 px-36 mt-10 flex flex-wrap ">
+      <div className="py-3 mt-10 flex flex-wrap justify-center gap-6">
         {restaurants.map((restaurant) => (
-          <RestaurantCard restaurant={restaurant} />
+          <RestaurantCard restaurant={restaurant} key={restaurant.id} />
         ))}
       </div>
     </div>
