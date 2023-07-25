@@ -1,6 +1,7 @@
-import { Restaurant, RestaurantBySlug } from './Restaurant'
+import { Restaurant, RestaurantBySlug, RestaurantMenu } from './Restaurant'
 
 export interface RestaurantService {
   fetchRestaurants: () => Promise<Restaurant[]>
   fetchRestaurantBySlug: (slug: string) => Promise<RestaurantBySlug | null>
+  fetchRestaurantMenu: (slug: string) => Promise<RestaurantMenu>
 }
