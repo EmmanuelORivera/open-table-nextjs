@@ -86,7 +86,6 @@ export class PrismaRestaurantService implements RestaurantService {
         slug: true,
       },
     })
-    console.log(restaurants)
     return restaurants
   }
 }
