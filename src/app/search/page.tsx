@@ -3,19 +3,36 @@ import SearchBar from '@/components/SearchBar'
 import SearchSideBar from './components/SearchSideBar'
 import SearchRestaurantCard from './components/SearchRestaurantCard'
 import { Metadata } from 'next'
+import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
 export const metadata: Metadata = {
   title: 'Search',
 }
 
-const Search = () => {
+const Search = async ({ searchParams }: { searchParams: { city: string } }) => {
+  const restaurantService = PrismaRestaurantService.getInstance()
+  const restaurants = await restaurantService.fetchRestaurantsByCity(
+    searchParams.city
+  )
+
   return (
-    <article className="text-sm">
+    <article>
       <Hero>
         <SearchBar />
       </Hero>
-      <div className="sm:flex gap-10 container max-w-7xl mx-auto p-3">
+      <div className="mt-10 sm:flex container max-w-screen-xl mx-auto gap-8 justify-center">
         <SearchSideBar />
-        <SearchRestaurantCard />
+        <div className="w-full">
+          {restaurants.length ? (
+            restaurants.map((restaurant) => (
+              <SearchRestaurantCard
+                restaurant={restaurant}
+                key={restaurant.id}
+              />
+            ))
+          ) : (
+            <p>There is no restaurants registered in that location</p>
+          )}
+        </div>
       </div>
     </article>
   )
