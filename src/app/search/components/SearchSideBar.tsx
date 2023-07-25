@@ -1,23 +1,33 @@
-const SearchSideBar = () => {
+import { PrismaCuisineService } from '@/services/PrismaCuisineService'
+import { PrismaLocationService } from '@/services/PrismaLocationService'
+
+const SearchSideBar = async () => {
   {
     /* TODO: Display sidebar on mobile screen */
   }
+  const locationService = PrismaLocationService.getInstance()
+  const cuisineService = PrismaCuisineService.getInstance()
+  const promiseLocations = locationService.fetchLocations()
+  const promiseCuisines = cuisineService.fetchCuisines()
+
+  const [locations, cuisines] = await Promise.all([
+    promiseLocations,
+    promiseCuisines,
+  ])
+
   return (
     <div className="w-1/5 hidden sm:block">
       <div className="border-b pb-4">
         <h1 className="mb-2">Region</h1>
-        <p className="font-light text-reg">Toronto</p>
-        <p className="font-light text-reg">Ottawa</p>
-        <p className="font-light text-reg">Montreal</p>
-        <p className="font-light text-reg">Hamilton</p>
-        <p className="font-light text-reg">Kingston</p>
-        <p className="font-light text-reg">Niagara</p>
+        {locations.map((location) => (
+          <p className="font-light text-reg capitalize">{location.name}</p>
+        ))}
       </div>
       <div className="border-b pb-4 mt-3">
         <h1 className="mb-2">Cuisine</h1>
-        <p className="font-light text-reg">Mexican</p>
-        <p className="font-light text-reg">Italian</p>
-        <p className="font-light text-reg">Chinese</p>
+        {cuisines.map((cuisine) => (
+          <p className="font-light text-reg capitalize">{cuisine.name}</p>
+        ))}
       </div>
       <div className="mt-3 pb-4">
         <h1 className="mb-2">Price</h1>
