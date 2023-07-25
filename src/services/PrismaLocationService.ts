@@ -11,7 +11,7 @@ export class PrismaLocationService implements LocationService {
     return PrismaLocationService.instance
   }
 
-  fetchLocations() {
+  async fetchLocations() {
     const locations = prisma.location.findMany({
       select: {
         id: true,
