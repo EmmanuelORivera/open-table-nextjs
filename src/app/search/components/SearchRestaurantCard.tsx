@@ -1,30 +1,34 @@
+import RestaurantPrice from '@/components/RestaurantPrice'
+import { Restaurant } from '@/interfaces/Restaurant'
 import Link from 'next/link'
 
-const SearchRestaurantCard = () => {
+const SearchRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   return (
-    <div className="flex border-b h-[1%] pb-3">
+    <div className="sm:flex border-b sm:h-[250px] pb-8 mb-8 items-center">
       <img
-        src="https://images.otstatic.com/prod1/49153814/2/medium.jpg"
+        src={restaurant.main_image}
         alt=""
-        className="w-full h-full min-w-[90px] min-h-[90px] max-w-[205px] max-h-[205px]  object-cover rounded"
+        className="w-full h-full sm:min-w-[90px] sm:min-h-[90px] sm:max-w-[205px] sm:max-h-[205px]  object-cover rounded"
       />
-      <div className="w-full pl-5">
-        <h2 className="text-lg text-[#247f9e] font-semibold">
-          Aiāna Restaurant Collective
+      <div className="w-full sm:pl-5">
+        <h2 className="text-2xl text-[#247f9e] font-semibold">
+          {restaurant.name}
         </h2>
         <div className="flex items-start">
           <div className="flex mb-2">*****</div>
           <p className="ml-2 font-medium">Awesome</p>
         </div>
         <div className="mb-9">
-          <div className="font-light  ">
-            <p className="mr-4">$$$</p>
-            <p className="mr-4">Mexican</p>
-            <p className="mr-4">Ottawa</p>
+          <div className="font-light flex gap-3">
+            <RestaurantPrice price={restaurant.price} />
+            <p className="capitalize">{restaurant.cuisine.name}</p>
+            <p className="capitalize">{restaurant.location.name}</p>
           </div>
         </div>
         <div className="text-red-600">
-          <Link href="/restaurant/milestones-grill">View more information</Link>
+          <Link href={`/restaurant/${restaurant.slug}`}>
+            View more information
+          </Link>
         </div>
       </div>
     </div>
