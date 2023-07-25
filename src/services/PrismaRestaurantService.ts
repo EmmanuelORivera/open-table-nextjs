@@ -4,15 +4,10 @@ import {
   RestaurantMenu,
 } from '@/interfaces/Restaurant'
 import { RestaurantService } from '@/interfaces/RestaurantService'
-import { PrismaClient } from '@prisma/client'
+import prismaClient from './PrismaSingleton'
 
 export class PrismaRestaurantService implements RestaurantService {
   private static instance: PrismaRestaurantService
-  private prisma: PrismaClient
-
-  constructor() {
-    this.prisma = new PrismaClient()
-  }
 
   public static getInstance(): PrismaRestaurantService {
     if (!PrismaRestaurantService.instance) {
@@ -22,7 +17,7 @@ export class PrismaRestaurantService implements RestaurantService {
   }
 
   async fetchRestaurants(): Promise<Restaurant[]> {
-    const restaurants = await this.prisma.restaurant.findMany({
+    const restaurants = await prismaClient.restaurant.findMany({
       select: {
         id: true,
         name: true,
@@ -38,7 +33,7 @@ export class PrismaRestaurantService implements RestaurantService {
   }
 
   async fetchRestaurantBySlug(slug: string): Promise<RestaurantBySlug> {
-    const restaurant = await this.prisma.restaurant.findUnique({
+    const restaurant = await prismaClient.restaurant.findUnique({
       where: {
         slug,
       },
@@ -58,7 +53,7 @@ export class PrismaRestaurantService implements RestaurantService {
   }
 
   async fetchRestaurantMenu(slug: string): Promise<RestaurantMenu> {
-    const restaurant = await this.prisma.restaurant.findUnique({
+    const restaurant = await prismaClient.restaurant.findUnique({
       where: {
         slug,
       },
@@ -72,5 +67,26 @@ export class PrismaRestaurantService implements RestaurantService {
     }
 
     return restaurant
+  }
+
+  async fetchRestaurantsByCity(city: string): Promise<Restaurant[]> {
+    const restaurants = await prismaClient.restaurant.findMany({
+      where: {
+        location: {
+          name: city.toLowerCase(),
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        main_image: true,
+        cuisine: true,
+        location: true,
+        price: true,
+        slug: true,
+      },
+    })
+    console.log(restaurants)
+    return restaurants
   }
 }
