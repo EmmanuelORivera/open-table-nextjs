@@ -30,7 +30,7 @@ const Search = async ({ searchParams }: { searchParams: { city: string } }) => {
               />
             ))
           ) : (
-            <p>There is no restaurants registered in that location</p>
+            <p>Sorry, we found no restaurants in this area</p>
           )}
         </div>
       </div>
