@@ -70,6 +70,7 @@ export class PrismaRestaurantService implements RestaurantService {
   }
 
   async fetchRestaurantsByCity(city: string): Promise<Restaurant[]> {
+    if (!city) return this.fetchRestaurants()
     const restaurants = await prisma.restaurant.findMany({
       where: {
         location: {
