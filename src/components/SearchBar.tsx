@@ -13,8 +13,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [location, setLocation] = useState('')
 
   const handleClick = () => {
-    if (location === 'banana') return
-    router.push('/search')
+    if (location === '') return
+    const searchCity = `/search?city=${location}`
+    router.push(searchCity)
+    setLocation('')
   }
   return (
     <div className="flex flex-col gap-4 w-[90%] max-w-3xl sm:flex-row mx-auto">
