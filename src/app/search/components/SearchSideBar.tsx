@@ -1,29 +1,17 @@
 import { PrismaCuisineService } from '@/services/PrismaCuisineService'
 import { PrismaLocationService } from '@/services/PrismaLocationService'
 import ListFilter from './ListFilter'
+import PriceFilter from './PriceFilter'
 
-const generateRegionQuery = (
-  location: { id: number; name: string },
-  searchParams: { city?: string; cuisine?: string }
-) => {
-  return searchParams.cuisine
-    ? { city: location.name, cuisine: searchParams.cuisine }
-    : { city: location.name }
-}
-
-const generateCuisineQuery = (
-  cuisine: { id: number; name: string },
-  searchParams: { city?: string; cuisine?: string }
-) => {
-  return searchParams.city
-    ? { city: searchParams.city, cuisine: cuisine.name }
-    : { cuisine: cuisine.name }
+export enum ListFilterType {
+  Region = 'Region',
+  Cuisine = 'Cuisine',
 }
 
 const SearchSideBar = async ({
   searchParams,
 }: {
-  searchParams: { city?: string; cuisine?: string }
+  searchParams: { city?: string; cuisine?: string; price?: string }
 }) => {
   {
     /* TODO: Display sidebar on mobile screen */
@@ -42,30 +30,15 @@ const SearchSideBar = async ({
     <div className="w-1/5 hidden sm:block">
       <ListFilter
         searchParams={searchParams}
-        title="Region"
+        filterType={ListFilterType.Region}
         items={locations}
-        generateQuery={generateRegionQuery}
       />
       <ListFilter
         searchParams={searchParams}
-        title="Cuisine"
+        filterType={ListFilterType.Cuisine}
         items={cuisines}
-        generateQuery={generateCuisineQuery}
       />
-      <div className="mt-3 pb-4">
-        <h2 className="mb-2">Price</h2>
-        <div className="flex">
-          <button className="border w-full text-reg font-light rounded-l p-2">
-            $
-          </button>
-          <button className="border-r border-t border-b w-full text-reg font-light p-2">
-            $$
-          </button>
-          <button className="border-r border-t border-b w-full text-reg font-light p-2 rounded-r">
-            $$$
-          </button>
-        </div>
-      </div>
+      <PriceFilter />
     </div>
   )
 }
