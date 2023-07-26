@@ -5,6 +5,7 @@ import {
 } from '@/interfaces/Restaurant'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { prisma } from './PrismaSingleton'
+import { Prisma } from '@prisma/client'
 
 export class PrismaRestaurantService implements RestaurantService {
   private static instance: PrismaRestaurantService
@@ -69,14 +70,28 @@ export class PrismaRestaurantService implements RestaurantService {
     return restaurant
   }
 
-  async fetchRestaurantsByCity(city: string): Promise<Restaurant[]> {
-    if (!city) return this.fetchRestaurants()
+  async fetchRestaurantsWithFilter(
+    city?: string,
+    cuisine?: string
+  ): Promise<Restaurant[]> {
+    if (!city && !cuisine) return this.fetchRestaurants()
+
+    const where: Prisma.RestaurantWhereInput = {}
+
+    if (city) {
+      where.location = {
+        name: city.toLowerCase(),
+      }
+    }
+
+    if (cuisine) {
+      where.cuisine = {
+        name: cuisine.toLowerCase(),
+      }
+    }
+
     const restaurants = await prisma.restaurant.findMany({
-      where: {
-        location: {
-          name: city.toLowerCase(),
-        },
-      },
+      where,
       select: {
         id: true,
         name: true,
