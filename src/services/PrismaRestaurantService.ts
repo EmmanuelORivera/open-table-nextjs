@@ -5,7 +5,7 @@ import {
 } from '@/interfaces/Restaurant'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { prisma } from './PrismaSingleton'
-import { Prisma } from '@prisma/client'
+import { Price, Prisma } from '@prisma/client'
 
 export class PrismaRestaurantService implements RestaurantService {
   private static instance: PrismaRestaurantService
@@ -72,9 +72,10 @@ export class PrismaRestaurantService implements RestaurantService {
 
   async fetchRestaurantsWithFilter(
     city?: string,
-    cuisine?: string
+    cuisine?: string,
+    price?: Price
   ): Promise<Restaurant[]> {
-    if (!city && !cuisine) return this.fetchRestaurants()
+    if (!city && !cuisine && !price) return this.fetchRestaurants()
 
     const where: Prisma.RestaurantWhereInput = {}
 
@@ -87,6 +88,12 @@ export class PrismaRestaurantService implements RestaurantService {
     if (cuisine) {
       where.cuisine = {
         name: cuisine.toLowerCase(),
+      }
+    }
+
+    if (price) {
+      where.price = {
+        equals: price,
       }
     }
 
