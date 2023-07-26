@@ -3,7 +3,7 @@
 import { Price } from '@prisma/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-const generateQueryObject = (
+const getCurrentQueryObject = (
   generatorObject: IterableIterator<[string, string]>
 ) => {
   let query: Record<string, string> = {}
@@ -38,7 +38,7 @@ const PriceFilter = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  let query: Record<string, string> = generateQueryObject(
+  let query: Record<string, string> = getCurrentQueryObject(
     searchParams.entries()
   )
 
