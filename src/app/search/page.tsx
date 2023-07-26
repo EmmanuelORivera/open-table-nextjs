@@ -8,10 +8,17 @@ export const metadata: Metadata = {
   title: 'Search',
 }
 
-const Search = async ({ searchParams }: { searchParams: { city: string } }) => {
+const Search = async ({
+  searchParams,
+}: {
+  searchParams: { city?: string; cuisine?: string }
+}) => {
   const restaurantService = PrismaRestaurantService.getInstance()
-  const restaurants = await restaurantService.fetchRestaurantsByCity(
-    searchParams.city
+  const cityQueryString = searchParams.city
+  const cuisineQueryString = searchParams.cuisine
+  const restaurants = await restaurantService.fetchRestaurantsWithFilter(
+    cityQueryString,
+    cuisineQueryString
   )
 
   return (
@@ -20,7 +27,7 @@ const Search = async ({ searchParams }: { searchParams: { city: string } }) => {
         <SearchBar />
       </Hero>
       <div className="mt-10 sm:flex container max-w-screen-xl mx-auto gap-8 justify-center">
-        <SearchSideBar />
+        <SearchSideBar searchParams={searchParams} />
         <div className="w-full">
           {restaurants.length ? (
             restaurants.map((restaurant) => (
