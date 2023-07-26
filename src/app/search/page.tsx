@@ -4,6 +4,7 @@ import SearchSideBar from './components/SearchSideBar'
 import SearchRestaurantCard from './components/SearchRestaurantCard'
 import { Metadata } from 'next'
 import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
+import { Price } from '@prisma/client'
 export const metadata: Metadata = {
   title: 'Search',
 }
@@ -11,14 +12,13 @@ export const metadata: Metadata = {
 const Search = async ({
   searchParams,
 }: {
-  searchParams: { city?: string; cuisine?: string }
+  searchParams: { city?: string; cuisine?: string; price?: Price }
 }) => {
   const restaurantService = PrismaRestaurantService.getInstance()
-  const cityQueryString = searchParams.city
-  const cuisineQueryString = searchParams.cuisine
   const restaurants = await restaurantService.fetchRestaurantsWithFilter(
-    cityQueryString,
-    cuisineQueryString
+    searchParams.city,
+    searchParams.cuisine,
+    searchParams.price
   )
 
   return (
