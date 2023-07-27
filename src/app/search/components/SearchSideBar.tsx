@@ -38,7 +38,7 @@ const SearchSideBar = async ({
         filterType={ListFilterType.Cuisine}
         items={cuisines}
       />
-      <PriceFilter />
+      <PriceFilter searchParams={searchParams} />
     </div>
   )
 }
