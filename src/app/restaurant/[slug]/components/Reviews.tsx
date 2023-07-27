@@ -4,9 +4,15 @@ import { Review as ReviewType } from '@prisma/client'
 import Review from './Review'
 
 const Reviews = ({ reviews }: { reviews: ReviewType[] }) => {
+  const textDisplayed = reviews.length <= 1 ? 'person' : 'people'
   return (
     <div>
-      <Title title="What 100 people are saying" />
+      {reviews.length === 0 ? (
+        <Title title="There is no reviews yet" />
+      ) : (
+        <Title title={`What ${reviews.length} ${textDisplayed} are saying`} />
+      )}
+
       {reviews.map((review) => (
         <Review review={review} />
       ))}
