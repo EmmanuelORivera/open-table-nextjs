@@ -27,6 +27,7 @@ export class PrismaRestaurantService implements RestaurantService {
         location: true,
         price: true,
         slug: true,
+        reviews: true,
       },
     })
 
@@ -44,6 +45,7 @@ export class PrismaRestaurantService implements RestaurantService {
         images: true,
         description: true,
         slug: true,
+        reviews: true,
       },
     })
 
@@ -107,6 +109,7 @@ export class PrismaRestaurantService implements RestaurantService {
         location: true,
         price: true,
         slug: true,
+        reviews: true,
       },
     })
     return restaurants
