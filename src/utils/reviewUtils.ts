@@ -12,7 +12,9 @@ export const getReviewMessage = (reviewAvarage: number) => {
     return 'Awesome'
   } else if (reviewAvarage >= 2 && reviewAvarage <= 4.5) {
     return 'Regular'
-  } else {
+  } else if (reviewAvarage < 2) {
     return 'Bad'
+  } else {
+    return ''
   }
 }
