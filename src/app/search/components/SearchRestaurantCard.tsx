@@ -1,23 +1,7 @@
 import RestaurantPrice from '@/components/RestaurantPrice'
 import { Restaurant } from '@/interfaces/Restaurant'
-import { Review } from '@prisma/client'
+import { calculateReviewAvarage, getReviewMessage } from '@/utils/reviewUtils'
 import Link from 'next/link'
-
-const calculateReviewAvarage = (reviews: Review[]): number => {
-  return reviews
-    .map((review) => review.rating)
-    .reduce((acc, currVal) => acc + currVal, 0)
-}
-
-const getReviewMessage = (reviewAvarage: number) => {
-  if (reviewAvarage > 4.5) {
-    return 'Awesome'
-  } else if (reviewAvarage >= 2 && reviewAvarage <= 4.5) {
-    return 'Regular'
-  } else {
-    return 'Bad'
-  }
-}
 
 const SearchRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   const reviewAvarage = calculateReviewAvarage(restaurant.reviews)
