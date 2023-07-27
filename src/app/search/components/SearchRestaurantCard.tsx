@@ -1,8 +1,27 @@
 import RestaurantPrice from '@/components/RestaurantPrice'
 import { Restaurant } from '@/interfaces/Restaurant'
+import { Review } from '@prisma/client'
 import Link from 'next/link'
 
+const calculateReviewAvarage = (reviews: Review[]): number => {
+  return reviews
+    .map((review) => review.rating)
+    .reduce((acc, currVal) => acc + currVal, 0)
+}
+
+const getReviewMessage = (reviewAvarage: number) => {
+  if (reviewAvarage > 4.5) {
+    return 'Awesome'
+  } else if (reviewAvarage >= 2 && reviewAvarage <= 4.5) {
+    return 'Regular'
+  } else {
+    return 'Bad'
+  }
+}
+
 const SearchRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
+  const reviewAvarage = calculateReviewAvarage(restaurant.reviews)
+
   return (
     <div className="sm:flex border-b sm:h-[250px] pb-8 mb-8 items-center">
       <img
@@ -16,7 +35,7 @@ const SearchRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
         </h2>
         <div className="flex items-start">
           <div className="flex mb-2">*****</div>
-          <p className="ml-2 font-medium">Awesome</p>
+          <p className="ml-2 font-medium">{getReviewMessage(reviewAvarage)}</p>
         </div>
         <div className="mb-9">
           <div className="font-light flex gap-3">
