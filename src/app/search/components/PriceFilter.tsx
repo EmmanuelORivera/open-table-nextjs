@@ -10,37 +10,37 @@ const PriceFilter = ({
     price?: string
   }
 }) => {
+  const prices: { price: Price; label: string }[] = [
+    {
+      price: Price.CHEAP,
+      label: '$',
+    },
+    {
+      price: Price.REGULAR,
+      label: '$$',
+    },
+    {
+      price: Price.EXPENSIVE,
+      label: '$$$',
+    },
+  ]
+
   return (
     <div className="mt-3 pb-4">
       <h2 className="mb-2">Price</h2>
       <div className="flex">
-        <Link
-          href={{
-            pathname: '/search',
-            query: { ...searchParams, price: Price.CHEAP },
-          }}
-          className="border w-full text-reg font-light rounded-l p-2"
-        >
-          $
-        </Link>
-        <Link
-          href={{
-            pathname: '/search',
-            query: { ...searchParams, price: Price.REGULAR },
-          }}
-          className="border-r border-t border-b w-full text-reg font-light p-2"
-        >
-          $$
-        </Link>
-        <Link
-          href={{
-            pathname: '/search',
-            query: { ...searchParams, price: Price.EXPENSIVE },
-          }}
-          className="border-r border-t border-b w-full text-reg font-light p-2 rounded-r"
-        >
-          $$$
-        </Link>
+        {prices.map(({ price, label }) => (
+          <Link
+            key={label}
+            href={{
+              pathname: '/search',
+              query: { ...searchParams, price },
+            }}
+            className="border w-full text-reg font-light rounded-l p-2"
+          >
+            {label}
+          </Link>
+        ))}
       </div>
     </div>
   )
