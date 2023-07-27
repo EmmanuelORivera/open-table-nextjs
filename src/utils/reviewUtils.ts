@@ -1,9 +1,7 @@
 import { Review } from '@prisma/client'
 
 export const calculateReviewAvarage = (reviews: Review[]): number => {
-  return reviews
-    .map((review) => review.rating)
-    .reduce((acc, currVal) => acc + currVal, 0)
+  return reviews.reduce((acc, review) => acc + review.rating, 0)
 }
 
 export const getReviewMessage = (reviewAvarage: number) => {
