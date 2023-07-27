@@ -21,7 +21,7 @@ const RestaurantDetails = async ({ params }: { params: { slug: string } }) => {
             <Description description={restaurant.description} />
             <MakeAReservation hideOnLargeScreen />
             <Images images={restaurant.images} />
-            <Reviews />
+            <Reviews reviews={restaurant.reviews} />
           </div>
         </div>
 
