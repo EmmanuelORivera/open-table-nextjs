@@ -17,7 +17,7 @@ const RestaurantDetails = async ({ params }: { params: { slug: string } }) => {
           <div className="bg-white mx-auto rounded p-3 shadow text-sm">
             <RestaurantTabs slug={restaurant.slug} />
             <Title title={restaurant.name} />
-            <Rating />
+            <Rating reviews={restaurant.reviews} />
             <Description description={restaurant.description} />
             <MakeAReservation hideOnLargeScreen />
             <Images images={restaurant.images} />
