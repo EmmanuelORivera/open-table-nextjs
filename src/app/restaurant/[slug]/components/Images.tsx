@@ -9,6 +9,7 @@ const Images = ({ images }: { images: string[] }) => {
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-[repeat(4,150px)] md:grid-rows-2  gap-1">
         {images.map((image, index) => (
           <img
+            key={'image' + index}
             className="rounded col-span-2 row-span-2 object-cover h-full w-full"
             src={image}
             alt={`restaurant image ${index + 1}`}
