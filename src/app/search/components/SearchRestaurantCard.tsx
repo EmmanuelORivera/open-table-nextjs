@@ -1,4 +1,5 @@
 import RestaurantPrice from '@/components/RestaurantPrice'
+import Stars from '@/components/Stars'
 import { Restaurant } from '@/interfaces/Restaurant'
 import { calculateReviewAvarage, getReviewMessage } from '@/utils/reviewUtils'
 import Link from 'next/link'
@@ -18,7 +19,9 @@ const SearchRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
           {restaurant.name}
         </h2>
         <div className="flex items-start">
-          <div className="flex mb-2">*****</div>
+          <div className="flex mb-2">
+            <Stars reviews={restaurant.reviews} />
+          </div>
           <p className="ml-2 font-medium">{getReviewMessage(reviewAvarage)}</p>
         </div>
         <div className="mb-9">
