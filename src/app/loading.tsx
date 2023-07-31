@@ -9,6 +9,7 @@ const loading = () => {
           <div
             key={num}
             className="animate-pulse m-3 bg-slate-200 w-64 h-72 rounded overflow-hidden border cursor-pointer"
+            style={{ animationDelay: `${num * 0.5}s`, animationDuration: '1s' }}
           ></div>
         ))}
       </div>
