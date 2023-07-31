@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import LoginModal from './LoginModal'
+import AuthModal from './AuthModal'
 
 const Navbar = () => {
   return (
@@ -9,8 +9,8 @@ const Navbar = () => {
       </Link>
 
       <div className="flex">
-        <LoginModal action="sign-in" />
-        <LoginModal action="sign-up" />
+        <AuthModal action="sign-in" />
+        <AuthModal action="sign-up" />
       </div>
     </nav>
   )

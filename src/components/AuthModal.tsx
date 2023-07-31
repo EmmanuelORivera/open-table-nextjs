@@ -16,7 +16,7 @@ const style = {
   p: 4,
 }
 
-export default function LoginModal({
+export default function AuthModal({
   action = 'sign-in',
 }: {
   action: 'sign-in' | 'sign-up'
@@ -50,6 +50,14 @@ export default function LoginModal({
               <p className="text-sm">
                 {renderContent('Sign In', 'Create Account')}
               </p>
+            </div>
+            <div className="m-auto">
+              <h2 className="text-2xl font-light text-center">
+                {renderContent(
+                  'Log Into Your Account',
+                  'Create Your OpenTable Account'
+                )}
+              </h2>
             </div>
           </div>
         </Box>
