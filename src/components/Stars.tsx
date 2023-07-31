@@ -2,9 +2,9 @@ import { Review } from '@prisma/client'
 import { calculateReviewAvarage } from '@/utils/reviewUtils'
 import Star from './Star'
 
-const Stars = ({ reviews }: { reviews: Review[] }) => {
+const Stars = ({ reviews, rating }: { reviews: Review[]; rating?: number }) => {
   const maxStars = 5
-  const reviewAvarage = calculateReviewAvarage(reviews)
+  const reviewAvarage = rating || calculateReviewAvarage(reviews)
   const fullStars = Math.floor(reviewAvarage)
 
   const reviewRemainder = reviewAvarage % 1
@@ -30,7 +30,7 @@ const Stars = ({ reviews }: { reviews: Review[] }) => {
     starArray.push(<Star type="empty" />)
   }
 
-  return <>{starArray}</>
+  return <div className="flex gap-1">{starArray}</div>
 }
 
 export default Stars
