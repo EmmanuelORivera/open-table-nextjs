@@ -2,6 +2,7 @@ import { Restaurant } from '@/interfaces/Restaurant'
 import Link from 'next/link'
 import React from 'react'
 import RestaurantPrice from './RestaurantPrice'
+import Stars from './Stars'
 
 const getReviewInfo = (restaurant: Restaurant) => {
   const numberOfReviews = restaurant.reviews.length
@@ -23,7 +24,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
           <div className="flex items-start">
-            <div className="flex mb-2">*****</div>
+            <Stars reviews={restaurant.reviews} />
             <p className="ml-2">
               {numberOfReviews} {reviewText}
             </p>
