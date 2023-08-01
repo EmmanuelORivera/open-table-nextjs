@@ -3,6 +3,7 @@ import { prisma } from '@/services/PrismaSingleton'
 import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 import validator from 'validator'
+import bcrypt from 'bcrypt'
 
 export async function POST(req: NextRequest) {
   const { firstName, lastName, email, phone, city, password }: AuthInputs =
@@ -47,9 +48,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ errorMessage: errors[0] }, { status: 400 })
   }
 
-  const where: Prisma.UserWhereUniqueInput = { email }
-  const userExists = await prisma.user.findUnique({
-    where,
+  const userExists = await prisma.user.findFirst({
+    where: {
+      email,
+    },
   })
 
   if (userExists) {
@@ -59,7 +61,20 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10)
+
+  const user = await prisma.user.create({
+    data: {
+      first_name: firstName,
+      last_name: lastName,
+      password: hashedPassword,
+      city,
+      phone,
+      email,
+    },
+  })
+
   return NextResponse.json({
-    hello: 'data',
+    user,
   })
 }
