@@ -4,6 +4,7 @@ import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 import validator from 'validator'
 import bcrypt from 'bcrypt'
+import * as jose from 'jose'
 
 export async function POST(req: NextRequest) {
   const { firstName, lastName, email, phone, city, password }: AuthInputs =
@@ -74,7 +75,18 @@ export async function POST(req: NextRequest) {
     },
   })
 
+  const alg = 'HS256'
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+
+  const token = await new jose.SignJWT({ email: user.email })
+    .setProtectedHeader({
+      alg,
+    })
+    .setExpirationTime('24h')
+    .sign(secret)
+
   return NextResponse.json({
     user,
+    token,
   })
 }
