@@ -1,4 +1,6 @@
 import { AuthInputs } from '@/interfaces/AuthInputs'
+import { prisma } from '@/services/PrismaSingleton'
+import { Prisma } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 import validator from 'validator'
 
@@ -44,6 +46,19 @@ export async function POST(req: NextRequest) {
   if (errors.length) {
     return NextResponse.json({ errorMessage: errors[0] }, { status: 400 })
   }
+
+  const where: Prisma.UserWhereUniqueInput = { email }
+  const userExists = await prisma.user.findUnique({
+    where,
+  })
+
+  if (userExists) {
+    return NextResponse.json(
+      { errorMessage: 'Email is associated with another account' },
+      { status: 400 }
+    )
+  }
+
   return NextResponse.json({
     hello: 'data',
   })
