@@ -2,16 +2,10 @@ import { FormEvent } from 'react'
 import { Action } from './AuthModal'
 import Button from './Button'
 import { renderContent } from '@/utils/authModalUtils'
+import { AuthInputs } from '@/interfaces/AuthInputs'
 
 interface Props {
-  inputs: {
-    firstName: string
-    lastName: string
-    email: string
-    phone: string
-    city: string
-    password: string
-  }
+  inputs: AuthInputs
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void
   action: Action
 }
