@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Button from './Button'
 import AuthModalInputs from './AuthModalInputs'
+import { renderContent } from '@/utils/authModalUtils'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -39,17 +40,18 @@ export default function AuthModal({ action = 'sign-in' }: { action: Action }) {
       [e.target.name]: e.target.value,
     })
   }
-  const renderContent = (signinContent: string, signupContent: string) => {
-    return action === 'sign-in' ? signinContent : signupContent
-  }
   return (
     <div>
       <Button
         className="ml-3"
-        type={renderContent('primary', 'secondary') as 'primary' | 'secondary'}
+        type={
+          renderContent(action, 'primary', 'secondary') as
+            | 'primary'
+            | 'secondary'
+        }
         handleClick={handleOpen}
       >
-        {renderContent('Sign In', 'Sign Up')}
+        {renderContent(action, 'Sign In', 'Sign Up')}
       </Button>
 
       <Modal
@@ -62,12 +64,13 @@ export default function AuthModal({ action = 'sign-in' }: { action: Action }) {
           <div className="p-2 h-[600px]">
             <div className="uppercase font-bold text-center pb-2 border-b mb-2">
               <p className="text-sm">
-                {renderContent('Sign In', 'Create Account')}
+                {renderContent(action, 'Sign In', 'Create Account')}
               </p>
             </div>
             <div className="m-auto">
               <h2 className="text-2xl font-light text-center">
                 {renderContent(
+                  action,
                   'Log Into Your Account',
                   'Create Your OpenTable Account'
                 )}

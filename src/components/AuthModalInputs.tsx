@@ -1,6 +1,7 @@
-import { Button } from '@mui/material'
 import { FormEvent } from 'react'
 import { Action } from './AuthModal'
+import Button from './Button'
+import { renderContent } from '@/utils/authModalUtils'
 
 interface Props {
   inputs: {
@@ -99,8 +100,8 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
           />
         </label>
 
-        <Button className="md:col-span-2" type="submit" variant="contained">
-          Sign In
+        <Button handleClick={() => {}} className="md:col-span-2" type="action">
+          {renderContent(action, 'Sign In', 'Create Account')}
         </Button>
       </form>
     </div>
