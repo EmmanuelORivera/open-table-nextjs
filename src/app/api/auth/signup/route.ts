@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     password: hashedPassowrd,
   })
 
-  const token = AuthService.generateToken(user.email)
+  const token = await AuthService.generateToken(user.email)
 
   return NextResponse.json({
     user,
