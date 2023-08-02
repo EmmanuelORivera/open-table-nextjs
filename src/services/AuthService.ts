@@ -43,8 +43,8 @@ export class AuthService {
     return errors
   }
 
-  static async hashPassword(password: string): Promise<string> {
-    return await bcrypt.hash(password, 10)
+  static hashPassword(password: string): Promise<string> {
+    return bcrypt.hash(password, 10)
   }
 
   static generateToken(email: string): Promise<string> {
