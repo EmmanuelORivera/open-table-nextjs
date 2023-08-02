@@ -3,10 +3,24 @@ import bcrypt from 'bcrypt'
 import * as jose from 'jose'
 import { AuthInputs } from '@/interfaces/AuthInputs'
 
+interface ValidationSchema {
+  valid: boolean
+  errorMessage: string
+}
+
 export class AuthService {
-  static validateInputs(inputs: AuthInputs): string[] {
+  static validateInputs(validationSchema: ValidationSchema[]): string[] {
     const errors: string[] = []
 
+    validationSchema.forEach((check) => {
+      if (!check.valid) {
+        errors.push(check.errorMessage)
+      }
+    })
+
+    return errors
+  }
+  static validateSigupInputs(inputs: AuthInputs): string[] {
     const validationSchema = [
       {
         valid: validator.isLength(inputs.firstName, { min: 1, max: 25 }),
@@ -34,13 +48,22 @@ export class AuthService {
       },
     ]
 
-    validationSchema.forEach((check) => {
-      if (!check.valid) {
-        errors.push(check.errorMessage)
-      }
-    })
+    return AuthService.validateInputs(validationSchema)
+  }
 
-    return errors
+  static validateSigninInputs(email: string, password: string): string[] {
+    const validationSchema = [
+      {
+        valid: validator.isEmail(email),
+        errorMessage: 'Email is invalid',
+      },
+      {
+        valid: validator.isLength(password, { min: 1 }),
+        errorMessage: 'Password is invalid',
+      },
+    ]
+
+    return AuthService.validateInputs(validationSchema)
   }
 
   static hashPassword(password: string): Promise<string> {
