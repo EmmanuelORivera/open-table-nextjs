@@ -1,5 +1,6 @@
 import validator from 'validator'
 import bcrypt from 'bcrypt'
+import * as jose from 'jose'
 import { AuthInputs } from '@/interfaces/AuthInputs'
 
 export class AuthService {
@@ -44,5 +45,17 @@ export class AuthService {
 
   static async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(password, 10)
+  }
+
+  static generateToken(email: string): Promise<string> {
+    const alg = 'HS256'
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+
+    return new jose.SignJWT({ email })
+      .setProtectedHeader({
+        alg,
+      })
+      .setExpirationTime('24h')
+      .sign(secret)
   }
 }
