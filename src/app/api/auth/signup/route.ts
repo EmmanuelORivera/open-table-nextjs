@@ -7,7 +7,7 @@ import { UserService } from '@/interfaces/UserService'
 
 export async function POST(req: NextRequest) {
   const inputs: AuthInputs = await req.json()
-  const errors: string[] = AuthService.validateInputs(inputs)
+  const errors: string[] = AuthService.validateSigupInputs(inputs)
 
   if (errors.length) {
     return NextResponse.json({ errorMessage: errors[0] }, { status: 400 })
