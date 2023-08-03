@@ -8,6 +8,11 @@ interface ValidationSchema {
   errorMessage: string
 }
 
+interface JWTPayload {
+  email: string
+  exp: number
+}
+
 export class AuthService {
   static validateInputs(validationSchema: ValidationSchema[]): string[] {
     const errors: string[] = []
@@ -80,5 +85,20 @@ export class AuthService {
       })
       .setExpirationTime('24h')
       .sign(secret)
+  }
+
+  static async verifyToken(token: string): Promise<boolean> {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+
+    try {
+      await jose.jwtVerify(token, secret)
+      return true
+    } catch (error) {
+      return false
+    }
+  }
+
+  static decodeJwt(token: string): JWTPayload {
+    return jose.decodeJwt(token) as { email: string; exp: number }
   }
 }
