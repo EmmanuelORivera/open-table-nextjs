@@ -3,6 +3,11 @@ import { UserService } from '@/interfaces/UserService'
 import { prisma } from './PrismaSingleton'
 import { User } from '@prisma/client'
 
+export type SelectedUser = Pick<
+  User,
+  'id' | 'first_name' | 'last_name' | 'email' | 'city' | 'phone'
+>
+
 export class PrismaUserService implements UserService {
   async createUser(inputs: AuthInputs): Promise<User> {
     return prisma.user.create({
@@ -21,6 +26,20 @@ export class PrismaUserService implements UserService {
     return prisma.user.findFirst({
       where: {
         email,
+      },
+    })
+  }
+
+  async findUserByEmailWithSelect(email: string): Promise<SelectedUser | null> {
+    return prisma.user.findFirst({
+      where: { email },
+      select: {
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        city: true,
+        phone: true,
       },
     })
   }
