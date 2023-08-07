@@ -77,7 +77,7 @@ export class AuthService {
 
   static generateToken(email: string): Promise<string> {
     const alg = 'HS256'
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+    const secret = new TextEncoder().encode(process.env.JWT)
 
     return new jose.SignJWT({ email })
       .setProtectedHeader({
@@ -85,17 +85,6 @@ export class AuthService {
       })
       .setExpirationTime('24h')
       .sign(secret)
-  }
-
-  static async verifyToken(token: string): Promise<boolean> {
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET)
-
-    try {
-      await jose.jwtVerify(token, secret)
-      return true
-    } catch (error) {
-      return false
-    }
   }
 
   static decodeJwt(token: string): JWTPayload {
