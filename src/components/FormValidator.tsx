@@ -6,6 +6,9 @@ import { useEffect, useState } from 'react'
 import Button from './Button'
 import { renderContent } from '@/utils/authModalUtils'
 import useAuth from '@/hooks/useAuth'
+import { SignInValidationStrategy } from '@/strategies/SignInValidationStrategy'
+import { SignUpValidationStrategy } from '@/strategies/SignUpValidationStrategy'
+import { ValidationStrategy } from '@/interfaces/ValidationStrategy'
 
 interface Props {
   inputs: AuthInputs
@@ -15,25 +18,16 @@ const FormValidator = ({ inputs, action }: Props) => {
   const [disabled, setDisabled] = useState(true)
   const { signin } = useAuth()
 
+  const validationStrategy: ValidationStrategy =
+    action === 'sign-in'
+      ? new SignInValidationStrategy()
+      : new SignUpValidationStrategy()
+
+  const isFormValid = validationStrategy.isValid(inputs)
+
   useEffect(() => {
-    if (action === 'sign-in') {
-      if (inputs.password && inputs.email) {
-        return setDisabled(false)
-      }
-    } else {
-      if (
-        inputs.firstName &&
-        inputs.lastName &&
-        inputs.email &&
-        inputs.password &&
-        inputs.city &&
-        inputs.phone
-      ) {
-        return setDisabled(false)
-      }
-    }
-    setDisabled(true)
-  }, [inputs])
+    setDisabled(!isFormValid)
+  }, [inputs, isFormValid])
 
   const handleClick = () => {
     if (action === 'sign-in') {
