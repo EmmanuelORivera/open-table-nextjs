@@ -1,10 +1,8 @@
-'use client'
-
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent } from 'react'
 import { Action } from './AuthModal'
-import Button from './Button'
-import { renderContent } from '@/utils/authModalUtils'
 import { AuthInputs } from '@/interfaces/AuthInputs'
+import InputField from './InputField'
+import FormValidator from './FormValidator'
 
 interface Props {
   inputs: AuthInputs
@@ -17,27 +15,6 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
     e.preventDefault()
   }
 
-  const [disabled, setDisabled] = useState(true)
-  useEffect(() => {
-    if (action === 'sign-in') {
-      if (inputs.password && inputs.email) {
-        return setDisabled(false)
-      }
-    } else {
-      if (
-        inputs.firstName &&
-        inputs.lastName &&
-        inputs.email &&
-        inputs.password &&
-        inputs.city &&
-        inputs.phone
-      ) {
-        return setDisabled(false)
-      }
-    }
-    setDisabled(true)
-  }, [inputs])
-
   return (
     <div>
       <form
@@ -46,86 +23,54 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
       >
         {action === 'sign-up' && (
           <>
-            <label className="">
-              First Name
-              <input
-                type="text"
-                value={inputs.firstName}
-                name="firstName"
-                onChange={handleChangeInput}
-                className="border rounded px-2 py-3 w-full"
-              />
-            </label>
+            <InputField
+              label="First Name"
+              value={inputs.firstName}
+              name="firstName"
+              onChange={handleChangeInput}
+            />
 
-            <label>
-              Last Name
-              <input
-                type="text"
-                value={inputs.lastName}
-                onChange={handleChangeInput}
-                name="lastName"
-                className="border rounded px-2 py-3 w-full"
-              />
-            </label>
+            <InputField
+              label="Last Name"
+              value={inputs.lastName}
+              name="lastName"
+              onChange={handleChangeInput}
+            />
           </>
         )}
 
-        <label className="md:col-span-2">
-          Email
-          <input
-            type="email"
-            value={inputs.email}
-            name="email"
-            onChange={handleChangeInput}
-            className="border rounded px-2 py-3 w-full"
-          />
-        </label>
-
+        <InputField
+          label="Email"
+          value={inputs.email}
+          name="email"
+          onChange={handleChangeInput}
+        />
         {action === 'sign-up' && (
           <>
-            <label className="">
-              Phone
-              <input
-                type="text"
-                value={inputs.phone}
-                name="phone"
-                onChange={handleChangeInput}
-                className="border rounded px-2 py-3 w-full"
-              />
-            </label>
+            <InputField
+              label="Phone"
+              value={inputs.phone}
+              name="phone"
+              onChange={handleChangeInput}
+            />
 
-            <label className="">
-              City
-              <input
-                type="text"
-                value={inputs.city}
-                name="city"
-                onChange={handleChangeInput}
-                className="border rounded px-2 py-3 w-full"
-              />
-            </label>
+            <InputField
+              label="City"
+              value={inputs.city}
+              name="city"
+              onChange={handleChangeInput}
+            />
           </>
         )}
 
-        <label className="md:col-span-2">
-          Password
-          <input
-            type="password"
-            value={inputs.password}
-            name="password"
-            onChange={handleChangeInput}
-            className="border rounded px-2 py-3 w-full"
-          />
-        </label>
+        <InputField
+          label="Password"
+          value={inputs.password}
+          name="password"
+          onChange={handleChangeInput}
+        />
 
-        <Button
-          handleClick={() => {}}
-          disabled={disabled}
-          className="md:col-span-2"
-          type="action"
-        >
-          {renderContent(action, 'Sign In', 'Create Account')}
-        </Button>
+        <FormValidator inputs={inputs} action={action} />
       </form>
     </div>
   )
