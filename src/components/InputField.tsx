@@ -2,17 +2,18 @@ import React from 'react'
 
 interface Props {
   label: string
+  type: string
   value: string
   name: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputField = ({ label, value, name, onChange }: Props) => {
+const InputField = ({ label, type, value, name, onChange }: Props) => {
   return (
     <label>
       {label}
       <input
-        type="text"
+        type={type}
         value={value}
         name={name}
         onChange={onChange}

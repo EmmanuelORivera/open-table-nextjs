@@ -25,6 +25,7 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
           <>
             <InputField
               label="First Name"
+              type="text"
               value={inputs.firstName}
               name="firstName"
               onChange={handleChangeInput}
@@ -32,6 +33,7 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
 
             <InputField
               label="Last Name"
+              type="text"
               value={inputs.lastName}
               name="lastName"
               onChange={handleChangeInput}
@@ -41,6 +43,7 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
 
         <InputField
           label="Email"
+          type="email"
           value={inputs.email}
           name="email"
           onChange={handleChangeInput}
@@ -49,6 +52,7 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
           <>
             <InputField
               label="Phone"
+              type="text"
               value={inputs.phone}
               name="phone"
               onChange={handleChangeInput}
@@ -56,6 +60,7 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
 
             <InputField
               label="City"
+              type="text"
               value={inputs.city}
               name="city"
               onChange={handleChangeInput}
@@ -65,6 +70,7 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
 
         <InputField
           label="Password"
+          type="password"
           value={inputs.password}
           name="password"
           onChange={handleChangeInput}
