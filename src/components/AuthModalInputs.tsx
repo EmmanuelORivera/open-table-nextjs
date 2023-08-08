@@ -1,4 +1,6 @@
-import { FormEvent } from 'react'
+'use client'
+
+import { FormEvent, useEffect, useState } from 'react'
 import { Action } from './AuthModal'
 import Button from './Button'
 import { renderContent } from '@/utils/authModalUtils'
@@ -14,13 +16,35 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
   }
+
+  const [disabled, setDisabled] = useState(true)
+  useEffect(() => {
+    if (action === 'sign-in') {
+      if (inputs.password && inputs.email) {
+        return setDisabled(false)
+      }
+    } else {
+      if (
+        inputs.firstName &&
+        inputs.lastName &&
+        inputs.email &&
+        inputs.password &&
+        inputs.city &&
+        inputs.phone
+      ) {
+        return setDisabled(false)
+      }
+    }
+    setDisabled(true)
+  }, [inputs])
+
   return (
     <div>
       <form
         onSubmit={handleSubmit}
         className="my-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm"
       >
-        {action === 'sign-in' && (
+        {action === 'sign-up' && (
           <>
             <label className="">
               First Name
@@ -57,7 +81,7 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
           />
         </label>
 
-        {action === 'sign-in' && (
+        {action === 'sign-up' && (
           <>
             <label className="">
               Phone
@@ -94,7 +118,12 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
           />
         </label>
 
-        <Button handleClick={() => {}} className="md:col-span-2" type="action">
+        <Button
+          handleClick={() => {}}
+          disabled={disabled}
+          className="md:col-span-2"
+          type="action"
+        >
           {renderContent(action, 'Sign In', 'Create Account')}
         </Button>
       </form>
