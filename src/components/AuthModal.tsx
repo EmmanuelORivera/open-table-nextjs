@@ -61,7 +61,7 @@ export default function AuthModal({ action = 'sign-in' }: { action: Action }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className="p-2 h-[600px]">
+          <div className="p-2 h-[700px]">
             <div className="uppercase font-bold text-center pb-2 border-b mb-2">
               <p className="text-sm">
                 {renderContent(action, 'Sign In', 'Create Account')}
