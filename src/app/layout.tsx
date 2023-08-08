@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import AuthContext from './context/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,7 +27,7 @@ export default function RootLayout({
         </header>
         <main className="bg-gray-100 flex flex-col min-h-full flex-grow">
           <div className="bg-white container mx-auto max-w-screen-2xl">
-            {children}
+            <AuthContext>{children}</AuthContext>
           </div>
         </main>
       </body>
