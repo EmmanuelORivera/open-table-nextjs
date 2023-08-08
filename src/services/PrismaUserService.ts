@@ -2,11 +2,7 @@ import { AuthInputs } from '@/interfaces/AuthInputs'
 import { UserService } from '@/interfaces/UserService'
 import { prisma } from './PrismaSingleton'
 import { User } from '@prisma/client'
-
-export type SelectedUser = Pick<
-  User,
-  'id' | 'first_name' | 'last_name' | 'email' | 'city' | 'phone'
->
+import { SelectedUser } from '@/interfaces/SelectedUser'
 
 export class PrismaUserService implements UserService {
   async createUser(inputs: AuthInputs): Promise<User> {
