@@ -5,6 +5,7 @@ import { Action } from './AuthModal'
 import { useEffect, useState } from 'react'
 import Button from './Button'
 import { renderContent } from '@/utils/authModalUtils'
+import useAuth from '@/hooks/useAuth'
 
 interface Props {
   inputs: AuthInputs
@@ -12,6 +13,8 @@ interface Props {
 }
 const FormValidator = ({ inputs, action }: Props) => {
   const [disabled, setDisabled] = useState(true)
+  const { signin } = useAuth()
+
   useEffect(() => {
     if (action === 'sign-in') {
       if (inputs.password && inputs.email) {
@@ -32,9 +35,14 @@ const FormValidator = ({ inputs, action }: Props) => {
     setDisabled(true)
   }, [inputs])
 
+  const handleClick = () => {
+    if (action === 'sign-in') {
+      signin({ email: inputs.email, password: inputs.password })
+    }
+  }
   return (
     <Button
-      handleClick={() => {}}
+      handleClick={handleClick}
       disabled={disabled}
       className="md:col-span-2"
       type="action"
