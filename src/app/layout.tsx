@@ -22,14 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${inter.className} h-full`}>
-        <header className="bg-white">
-          <Navbar />
-        </header>
-        <main className="bg-gray-100 flex flex-col min-h-full flex-grow">
-          <div className="bg-white container mx-auto max-w-screen-2xl">
-            <AuthContext>{children}</AuthContext>
-          </div>
-        </main>
+        <AuthContext>
+          <header className="bg-white">
+            <Navbar />
+          </header>
+          <main className="bg-gray-100 flex flex-col min-h-full flex-grow">
+            <div className="bg-white container mx-auto max-w-screen-2xl">
+              {children}
+            </div>
+          </main>
+        </AuthContext>
       </body>
     </html>
   )
