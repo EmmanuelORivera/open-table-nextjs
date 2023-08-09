@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal'
 import Button from './Button'
 import AuthModalInputs from './AuthModalInputs'
 import { renderContent } from '@/utils/authModalUtils'
+import { useAuthContext } from '@/app/context/AuthContext'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -22,6 +23,7 @@ const style = {
 export type Action = 'sign-in' | 'sign-up'
 
 export default function AuthModal({ action = 'sign-in' }: { action: Action }) {
+  const { data, error, loading, setAuthState } = useAuthContext()
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)

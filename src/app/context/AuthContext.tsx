@@ -1,7 +1,7 @@
 'use client'
 
 import { SelectedUser } from '@/interfaces/SelectedUser'
-import { createContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 interface State {
   loading: boolean
@@ -37,3 +37,5 @@ export default function AuthContext({
     </AuthenticationContext.Provider>
   )
 }
+
+export const useAuthContext = () => useContext(AuthenticationContext)
