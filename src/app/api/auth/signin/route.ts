@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import { PrismaUserService } from '@/services/PrismaUserService'
 import { NextRequest, NextResponse } from 'next/server'
 import { AuthService } from '@/services/AuthService'
+import { cookies } from 'next/headers'
 
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json()
@@ -15,16 +16,16 @@ export async function POST(req: NextRequest) {
 
   const userService: UserService = new PrismaUserService()
 
-  const userExists = await userService.findUserByEmail(email)
+  const user = await userService.findUserByEmail(email)
 
-  if (!userExists) {
+  if (!user) {
     return NextResponse.json(
       { errorMessage: 'Email or password is invalid' },
       { status: 401 }
     )
   }
 
-  const isMatch = await bcrypt.compare(password, userExists.password)
+  const isMatch = await bcrypt.compare(password, user.password)
 
   if (!isMatch) {
     return NextResponse.json(
@@ -33,7 +34,16 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const token = await AuthService.generateToken(userExists.email)
+  const token = await AuthService.generateToken(user.email)
+  const oneDay = 24 * 60 * 60 * 1000
+  const expires = Date.now() + oneDay
+  cookies().set('jwt', token, { expires })
 
-  return NextResponse.json({ token })
+  return NextResponse.json({
+    firstName: user.first_name,
+    lastName: user.last_name,
+    email: user.email,
+    phone: user.phone,
+    city: user.city,
+  })
 }
