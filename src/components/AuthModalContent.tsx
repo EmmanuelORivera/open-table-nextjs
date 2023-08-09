@@ -1,12 +1,12 @@
 import { renderContent } from '@/utils/authModalUtils'
 import { Action } from './AuthModal'
 import AuthModalInputs from './AuthModalInputs'
-import { CircularProgress } from '@mui/material'
+import { Alert, CircularProgress } from '@mui/material'
 import { useAuthContext } from '@/context/AuthContext'
 import { useState } from 'react'
 
 const AuthModalContent = ({ action }: { action: Action }) => {
-  const { loading } = useAuthContext()
+  const { loading, error } = useAuthContext()
   const [inputs, setInputs] = useState({
     firstName: '',
     lastName: '',
@@ -43,11 +43,18 @@ const AuthModalContent = ({ action }: { action: Action }) => {
             <CircularProgress />
           </div>
         ) : (
-          <AuthModalInputs
-            inputs={inputs}
-            handleChangeInput={handleChangeInput}
-            action={action}
-          />
+          <>
+            {error && (
+              <Alert severity="error" className="my-4">
+                {error}
+              </Alert>
+            )}
+            <AuthModalInputs
+              inputs={inputs}
+              handleChangeInput={handleChangeInput}
+              action={action}
+            />
+          </>
         )}
       </div>
     </div>
