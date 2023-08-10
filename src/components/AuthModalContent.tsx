@@ -5,7 +5,13 @@ import { Alert, CircularProgress } from '@mui/material'
 import { useAuthContext } from '@/context/AuthContext'
 import { useState } from 'react'
 
-const AuthModalContent = ({ action }: { action: Action }) => {
+const AuthModalContent = ({
+  action,
+  handleClose,
+}: {
+  action: Action
+  handleClose: () => void
+}) => {
   const { loading, error } = useAuthContext()
   const [inputs, setInputs] = useState({
     firstName: '',
@@ -53,6 +59,7 @@ const AuthModalContent = ({ action }: { action: Action }) => {
               inputs={inputs}
               handleChangeInput={handleChangeInput}
               action={action}
+              handleClose={handleClose}
             />
           </>
         )}

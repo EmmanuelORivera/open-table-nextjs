@@ -46,7 +46,7 @@ export default function AuthModal({ action = 'sign-in' }: { action: Action }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <AuthModalContent action={action} />
+          <AuthModalContent action={action} handleClose={handleClose} />
         </Box>
       </Modal>
     </div>

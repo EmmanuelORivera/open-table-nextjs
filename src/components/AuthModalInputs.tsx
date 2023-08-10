@@ -8,9 +8,15 @@ interface Props {
   inputs: AuthInputs
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void
   action: Action
+  handleClose: () => void
 }
 
-const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
+const AuthModalInputs = ({
+  inputs,
+  handleChangeInput,
+  action,
+  handleClose,
+}: Props) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
   }
@@ -76,7 +82,11 @@ const AuthModalInputs = ({ inputs, handleChangeInput, action }: Props) => {
           onChange={handleChangeInput}
         />
 
-        <FormValidator inputs={inputs} action={action} />
+        <FormValidator
+          inputs={inputs}
+          action={action}
+          handleClose={handleClose}
+        />
       </form>
     </div>
   )
