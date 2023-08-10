@@ -17,7 +17,7 @@ interface Props {
 }
 const FormValidator = ({ inputs, action, handleClose }: Props) => {
   const [disabled, setDisabled] = useState(true)
-  const { signin } = useAuth()
+  const { signin, signup } = useAuth()
 
   const validationStrategy: ValidationStrategy =
     action === 'sign-in'
@@ -33,6 +33,8 @@ const FormValidator = ({ inputs, action, handleClose }: Props) => {
   const handleClick = () => {
     if (action === 'sign-in') {
       signin({ email: inputs.email, password: inputs.password }, handleClose)
+    } else {
+      signup(inputs, handleClose)
     }
   }
   return (

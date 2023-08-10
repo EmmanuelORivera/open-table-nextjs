@@ -4,6 +4,7 @@ import { AuthService } from '@/services/AuthService'
 import { PrismaUserService } from '@/services/PrismaUserService'
 import { User } from '@prisma/client'
 import { UserService } from '@/interfaces/UserService'
+import { cookies } from 'next/headers'
 
 export async function POST(req: NextRequest) {
   const inputs: AuthInputs = await req.json()
@@ -31,9 +32,15 @@ export async function POST(req: NextRequest) {
   })
 
   const token = await AuthService.generateToken(user.email)
+  const oneDay = 24 * 60 * 60 * 1000
+  const expires = Date.now() + oneDay
+  cookies().set('jwt', token, { expires })
 
   return NextResponse.json({
-    user,
-    token,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    email: user.email,
+    phone: user.phone,
+    city: user.city,
   })
 }
