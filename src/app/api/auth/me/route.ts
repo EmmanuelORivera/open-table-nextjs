@@ -19,5 +19,18 @@ export async function GET(req: NextRequest) {
   const userService: UserService = new PrismaUserService()
   const user = await userService.findUserByEmailWithSelect(payload.email)
 
-  return NextResponse.json({ user })
+  if (!user) {
+    return NextResponse.json(
+      { errorMessage: 'User not found' },
+      { status: 401 }
+    )
+  }
+
+  return NextResponse.json({
+    id: user.id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    phone: user.phone,
+    city: user.city,
+  })
 }
