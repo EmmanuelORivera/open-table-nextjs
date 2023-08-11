@@ -1,6 +1,6 @@
 import { User } from '@prisma/client'
 import { AuthInputs } from './AuthInputs'
-import { SelectedUser } from '@/services/PrismaUserService'
+import { SelectedUser } from '@/interfaces/SelectedUser'
 
 export interface UserService {
   createUser(inputs: AuthInputs): Promise<User>
