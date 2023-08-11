@@ -32,16 +32,16 @@ const AuthModalInputs = ({
             <InputField
               label="First Name"
               type="text"
-              value={inputs.firstName}
-              name="firstName"
+              value={inputs.first_name}
+              name="first_name"
               onChange={handleChangeInput}
             />
 
             <InputField
               label="Last Name"
               type="text"
-              value={inputs.lastName}
-              name="lastName"
+              value={inputs.last_name}
+              name="last_name"
               onChange={handleChangeInput}
             />
           </>
