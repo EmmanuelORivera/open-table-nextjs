@@ -1,8 +1,9 @@
 import { useAuthContext } from '@/context/AuthContext'
+import { getCookieFromClient } from '@/utils/getCookieFromClient'
 import axios from 'axios'
 
 const useAuth = () => {
-  const { setAuthState } = useAuthContext()
+  const { setAuthState, data, error, loading } = useAuthContext()
 
   const signin = async (
     {
@@ -75,7 +76,32 @@ const useAuth = () => {
     }
   }
 
-  return { signin, signup }
+  async function fetchUser() {
+    try {
+      setAuthState({ data: null, error: null, loading: true })
+      const jwt = getCookieFromClient('jwt')
+
+      if (!jwt) {
+        return setAuthState({ data: null, error: null, loading: false })
+      }
+
+      const response = await axios.get('http://localhost:3000/api/auth/me', {
+        headers: { Authorization: `Bearer ${jwt}` },
+      })
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
+
+      setAuthState({ data: response.data, error: null, loading: false })
+    } catch (error: any) {
+      setAuthState({
+        data: null,
+        error: error.response.data.errorMessage,
+        loading: false,
+      })
+    }
+  }
+
+  return { signin, signup, fetchUser }
 }
 
 export default useAuth
