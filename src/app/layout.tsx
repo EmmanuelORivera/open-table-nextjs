@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import './globals.css'
+import 'react-datepicker/dist/react-datepicker.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import AuthContext from '../context/AuthContext'
