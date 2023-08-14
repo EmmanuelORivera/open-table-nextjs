@@ -1,3 +1,7 @@
+'use client'
+import Button from '@/components/Button'
+import { partySize } from '@/data'
+
 const MakeAReservation = ({
   hideOnLargeScreen = false,
   className,
@@ -18,8 +22,9 @@ const MakeAReservation = ({
             Party size
           </label>
           <select name="" className="py-3 border-b font-light" id="">
-            <option value="">1 person</option>
-            <option value="">2 people</option>
+            {partySize.map((size) => (
+              <option value={size.value}>{size.label}</option>
+            ))}
           </select>
         </div>
 
@@ -38,6 +43,9 @@ const MakeAReservation = ({
             <option value="">7:30 AM</option>
             <option value="">9:30 AM</option>
           </select>
+          <Button className="mt-3" type="action" handleClick={() => {}}>
+            Find a time
+          </Button>
         </div>
       </div>
     </section>
