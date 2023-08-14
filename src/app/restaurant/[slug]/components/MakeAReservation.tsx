@@ -1,6 +1,8 @@
 'use client'
 import Button from '@/components/Button'
 import { partySize } from '@/data'
+import { useState } from 'react'
+import ReactDatePicker from 'react-datepicker'
 
 const MakeAReservation = ({
   hideOnLargeScreen = false,
@@ -9,7 +11,14 @@ const MakeAReservation = ({
   hideOnLargeScreen?: boolean
   className?: string
 }) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
   const hiddenStyle = hideOnLargeScreen ? 'lg:hidden' : ''
+  const handleChangeDate = (date: Date | null) => {
+    if (date) {
+      return setSelectedDate(date)
+    }
+    setSelectedDate(null)
+  }
   return (
     <section className={`shadow p-4 my-4 ${hiddenStyle} ${className}`}>
       <h2 className="text-lg font-semibold text-center pb-3 border-b">
@@ -32,7 +41,12 @@ const MakeAReservation = ({
           <label htmlFor="" className="font-medium">
             Date
           </label>
-          <input type="text" className="py-3 border-b font-light" />
+          <ReactDatePicker
+            selected={selectedDate}
+            onChange={handleChangeDate}
+            className="py-3 border-b font-light"
+            dateFormat="MMMM d yyyy"
+          />
         </div>
 
         <div className="flex flex-col w-full ">
