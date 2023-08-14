@@ -1,4 +1,5 @@
-import { useAuthContext } from '@/context/AuthContext'
+import { AuthContextState, useAuthContext } from '@/context/AuthContext'
+import { AuthInputs } from '@/interfaces/AuthInputs'
 import { getCookieFromClient } from '@/utils/getCookieFromClient'
 import axios from 'axios'
 
@@ -35,21 +36,7 @@ const useAuth = () => {
     }
   }
   const signup = async (
-    {
-      email,
-      password,
-      firstName,
-      lastName,
-      city,
-      phone,
-    }: {
-      email: string
-      password: string
-      firstName: string
-      lastName: string
-      city: string
-      phone: string
-    },
+    { email, password, first_name, last_name, city, phone }: AuthInputs,
     handleClose: () => void
   ) => {
     setAuthState({ data: null, error: null, loading: true })
@@ -59,8 +46,8 @@ const useAuth = () => {
         {
           email,
           password,
-          firstName,
-          lastName,
+          first_name,
+          last_name,
           city,
           phone,
         }
@@ -76,7 +63,9 @@ const useAuth = () => {
     }
   }
 
-  async function fetchUser() {
+  const fetchUser = async (
+    setAuthState: React.Dispatch<React.SetStateAction<AuthContextState>>
+  ) => {
     try {
       setAuthState({ data: null, error: null, loading: true })
       const jwt = getCookieFromClient('jwt')

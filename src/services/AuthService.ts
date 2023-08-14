@@ -28,11 +28,11 @@ export class AuthService {
   static validateSigupInputs(inputs: AuthInputs): string[] {
     const validationSchema = [
       {
-        valid: validator.isLength(inputs.firstName, { min: 1, max: 25 }),
+        valid: validator.isLength(inputs.first_name, { min: 1, max: 25 }),
         errorMessage: 'First name is invalid',
       },
       {
-        valid: validator.isLength(inputs.lastName, { min: 1, max: 25 }),
+        valid: validator.isLength(inputs.last_name, { min: 1, max: 25 }),
         errorMessage: 'Last name is invalid',
       },
       {

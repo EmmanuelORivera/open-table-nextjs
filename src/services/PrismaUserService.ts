@@ -8,8 +8,8 @@ export class PrismaUserService implements UserService {
   async createUser(inputs: AuthInputs): Promise<User> {
     return prisma.user.create({
       data: {
-        first_name: inputs.firstName,
-        last_name: inputs.lastName,
+        first_name: inputs.first_name,
+        last_name: inputs.last_name,
         password: inputs.password,
         city: inputs.city,
         phone: inputs.phone,
