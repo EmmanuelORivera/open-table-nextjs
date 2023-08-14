@@ -90,7 +90,7 @@ const useAuth = () => {
     }
   }
 
-  const signout = () => {
+  const signOut = () => {
     const cookieJWT = 'jwt'
     document.cookie = `${cookieJWT}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
 
@@ -101,7 +101,7 @@ const useAuth = () => {
     })
   }
 
-  return { signin, signup, fetchUser, signout }
+  return { signin, signup, fetchUser, signout: signOut }
 }
 
 export default useAuth
