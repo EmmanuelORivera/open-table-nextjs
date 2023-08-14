@@ -5,10 +5,17 @@ import AuthModal from './AuthModal'
 import { useAuthContext } from '@/context/AuthContext'
 import Button from './Button'
 import { SelectedUser } from '@/interfaces/SelectedUser'
+import useAuth from '@/hooks/useAuth'
 
-const AuthButtons = ({ userData }: { userData: SelectedUser | null }) => (
+const AuthButtons = ({
+  userData,
+  handleClick,
+}: {
+  userData: SelectedUser | null
+  handleClick: () => void
+}) => (
   <>
-    <Button handleClick={() => {}}>Logout</Button>
+    <Button handleClick={handleClick}>Logout</Button>
   </>
 )
 
@@ -25,6 +32,7 @@ const UnauthenticatedButtons = () => (
 
 const Navbar = () => {
   const { data, loading } = useAuthContext()
+  const { signout } = useAuth()
 
   return (
     <nav className="container mx-auto p-2 flex justify-between">
@@ -33,7 +41,7 @@ const Navbar = () => {
       </Link>
       <div className="flex">
         {loading && <LoadingIndicator />}
-        {data && <AuthButtons userData={data} />}
+        {data && <AuthButtons handleClick={signout} userData={data} />}
         {!data && !loading && <UnauthenticatedButtons />}
       </div>
     </nav>

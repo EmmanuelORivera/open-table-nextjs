@@ -90,7 +90,18 @@ const useAuth = () => {
     }
   }
 
-  return { signin, signup, fetchUser }
+  const signout = () => {
+    const cookieJWT = 'jwt'
+    document.cookie = `${cookieJWT}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+
+    setAuthState({
+      data: null,
+      error: null,
+      loading: false,
+    })
+  }
+
+  return { signin, signup, fetchUser, signout }
 }
 
 export default useAuth
