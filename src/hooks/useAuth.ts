@@ -4,7 +4,7 @@ import { getCookieFromClient } from '@/utils/getCookieFromClient'
 import axios from 'axios'
 
 const useAuth = () => {
-  const { setAuthState, data, error, loading } = useAuthContext()
+  const { setAuthState } = useAuthContext()
 
   const signin = async (
     {
