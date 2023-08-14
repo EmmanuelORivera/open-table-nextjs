@@ -1,16 +1,17 @@
 'use client'
 
+import useAuth from '@/hooks/useAuth'
 import { SelectedUser } from '@/interfaces/SelectedUser'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
-interface State {
+export interface AuthContextState {
   loading: boolean
   error: string | null
   data: SelectedUser | null
 }
 
-interface AuthState extends State {
-  setAuthState: React.Dispatch<React.SetStateAction<State>>
+interface AuthState extends AuthContextState {
+  setAuthState: React.Dispatch<React.SetStateAction<AuthContextState>>
 }
 
 const AuthenticationContext = createContext<AuthState>({
@@ -25,11 +26,17 @@ export default function AuthContext({
 }: {
   children: React.ReactNode
 }) {
-  const [authState, setAuthState] = useState<State>({
+  const [authState, setAuthState] = useState<AuthContextState>({
     loading: false,
     data: null,
     error: null,
   })
+
+  const { fetchUser } = useAuth()
+
+  useEffect(() => {
+    fetchUser(setAuthState)
+  }, [])
 
   return (
     <AuthenticationContext.Provider value={{ ...authState, setAuthState }}>
