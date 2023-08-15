@@ -1,16 +1,22 @@
 'use client'
 import Button from '@/components/Button'
-import { partySize } from '@/data'
+import { partySize, times } from '@/data'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 
-const MakeAReservation = ({
-  hideOnLargeScreen = false,
-  className,
-}: {
+interface MakeAReservationProps {
+  openTime: string
+  closeTime: string
   hideOnLargeScreen?: boolean
   className?: string
-}) => {
+}
+
+const MakeAReservation = ({
+  openTime,
+  closeTime,
+  hideOnLargeScreen = false,
+  className,
+}: MakeAReservationProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
   const hiddenStyle = hideOnLargeScreen ? 'lg:hidden' : ''
   const handleChangeDate = (date: Date | null) => {
@@ -19,6 +25,30 @@ const MakeAReservation = ({
     }
     setSelectedDate(null)
   }
+
+  const filterTimeByRestaurantOpenWindow = () => {
+    // openTime = 14:30:00.000Z 2:30PM
+    // closeTime = 21:30:00.000Z 9:30PM
+
+    const timesWithinWindow: typeof times = []
+
+    let isWithinWindow = false
+
+    for (const timeSlot of times) {
+      if (timeSlot.time === openTime) {
+        isWithinWindow = true
+      }
+      if (isWithinWindow) {
+        timesWithinWindow.push(timeSlot)
+      }
+      if (timeSlot.time === closeTime) {
+        break
+      }
+    }
+
+    return timesWithinWindow
+  }
+
   return (
     <section className={`shadow p-4 my-4 ${hiddenStyle} ${className}`}>
       <h2 className="text-lg font-semibold text-center pb-3 border-b">
@@ -54,8 +84,9 @@ const MakeAReservation = ({
             Time
           </label>
           <select name="" id="" className="py-3 border-b font-light">
-            <option value="">7:30 AM</option>
-            <option value="">9:30 AM</option>
+            {filterTimeByRestaurantOpenWindow().map((time) => (
+              <option value={time.time}>{time.displayTime}</option>
+            ))}
           </select>
           <Button className="mt-3" type="action" handleClick={() => {}}>
             Find a time
