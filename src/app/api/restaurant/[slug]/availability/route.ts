@@ -1,3 +1,5 @@
+import { times } from '@/data'
+
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -17,5 +19,14 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  return NextResponse.json({ slug, day, time, partySize })
+  const searchTimes = times.find((t) => t.time === time)?.searchTimes
+
+  if (!searchTimes) {
+    return NextResponse.json(
+      { errorMessage: 'Invalid time provided' },
+      { status: 400 }
+    )
+  }
+
+  return NextResponse.json({ searchTimes })
 }
