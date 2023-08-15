@@ -27,6 +27,7 @@ model Restaurant{
   cuisine Cuisine @relation(fields: [cuisine_id],references: [id])
   reviews Review[]
   bookings Booking[]
+  table Table[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -97,10 +98,31 @@ model Booking {
   booker_request String
   restaurant_id Int
   restaurant Restaurant @relation(fields: [restaurant_id],references: [id])
+  tables BookingsOnTables[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
+model Table{
+  id Int @id @default(autoincrement())
+  seats Int
+  restaurant_id Int
+  restaurant Restaurant @relation(fields: [restaurant_id],references: [id])
+  bookings BookingsOnTables[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model BookingsOnTables{
+  booking_id Int
+  booking Booking @relation(fields: [booking_id], references: [id])
+  table_id Int
+  table Table @relation(fields: [table_id],references: [id])
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@id([booking_id,table_id])
+}
 enum Price {
   CHEAP
   REGULAR
