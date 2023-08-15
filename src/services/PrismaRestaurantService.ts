@@ -46,6 +46,8 @@ export class PrismaRestaurantService implements RestaurantService {
         description: true,
         slug: true,
         reviews: true,
+        open_time: true,
+        close_time: true,
       },
     })
 

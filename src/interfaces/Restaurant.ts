@@ -18,6 +18,8 @@ export interface RestaurantBySlug {
   description: string
   slug: string
   reviews: Review[]
+  open_time: string
+  close_time: string
 }
 
 export interface RestaurantMenu {
