@@ -83,8 +83,23 @@ export async function GET(req: NextRequest) {
     return {
       date: new Date(`${day}T${searchTime}`),
       time: searchTime,
-      tables,
+      tables, // the list of all available tables
     }
+  })
+
+  searchTimesWithTables.forEach((searchTime) => {
+    const { date } = searchTime
+
+    searchTime.tables = searchTime.tables.filter((table) => {
+      const bookingTableObjForTime = bookingTablesObj[date.toISOString()]
+      console.log({ bookingTableObjForTime })
+
+      // if bookingTablesObj has a record for this time and table, exclude it
+      if (bookingTableObjForTime && bookingTableObjForTime[table.id]) {
+        return false
+      }
+      return true
+    })
   })
 
   return NextResponse.json({
