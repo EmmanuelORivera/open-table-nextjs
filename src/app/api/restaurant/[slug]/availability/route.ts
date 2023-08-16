@@ -1,7 +1,35 @@
 import { times } from '@/data'
-import { prisma } from '@/services/PrismaSingleton'
+import { Booking, BookingService } from '@/interfaces/BookingService'
+import { RestaurantService } from '@/interfaces/RestaurantService'
+import { PrismaBookingService } from '@/services/PrismaBookingService'
+import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
 
 import { NextRequest, NextResponse } from 'next/server'
+
+function parseQueryParameters(url: URL) {
+  const day = url.searchParams.get('day')
+  const time = url.searchParams.get('time')
+  const partySize = url.searchParams.get('partySize')
+
+  return { day, time, partySize }
+}
+
+function constructBookingTablesObj(bookings: Booking[]): {
+  [key: string]: { [key: number]: true }
+} {
+  const bookingTablesObj: { [key: string]: { [key: number]: true } } = {}
+
+  bookings.forEach((booking) => {
+    bookingTablesObj[booking.booking_time.toISOString()] =
+      booking.tables.reduce((obj, table) => {
+        return {
+          ...obj,
+          [table.table_id]: true,
+        }
+      }, {})
+  })
+  return bookingTablesObj
+}
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
@@ -9,9 +37,7 @@ export async function GET(req: NextRequest) {
   const slug = pathSegment[pathSegment.length - 2]
 
   //query strings
-  const day = url.searchParams.get('day')
-  const time = url.searchParams.get('time')
-  const partySize = url.searchParams.get('partySize')
+  const { day, time, partySize } = parseQueryParameters(url)
 
   if (!day || !time || !partySize) {
     return NextResponse.json(
@@ -29,31 +55,28 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  const bookings = await prisma.booking.findMany({
-    where: {
-      booking_time: {
-        gte: new Date(`${day}T${searchTimes[0]}`),
-        lte: new Date(`${day}T${searchTimes[searchTimes.length - 1]}`),
-      },
-    },
-    select: {
-      number_of_people: true,
-      booking_time: true,
-      tables: true,
-    },
-  })
+  const bookingService: BookingService = PrismaBookingService.getInstance()
 
-  const bookingTablesObj: { [key: string]: { [key: number]: true } } = {}
+  const startTime = new Date(`${day}T${searchTimes[0]}`)
+  const endTime = new Date(`${day}T${searchTimes[searchTimes.length - 1]}`)
 
-  bookings.forEach((booking) => {
-    bookingTablesObj[booking.booking_time.toISOString()] =
-      booking.tables.reduce((obj, table) => {
-        return {
-          ...obj,
-          [table.table_id]: true,
-        }
-      }, {})
-  })
+  const bookings = await bookingService.fetchBookingByTimeRange(
+    startTime,
+    endTime
+  )
 
-  return NextResponse.json({ searchTimes, bookings, bookingTablesObj })
+  const restaurantService: RestaurantService =
+    PrismaRestaurantService.getInstance()
+
+  const restaurant = await restaurantService.fetchRestaurantWithTables(slug)
+
+  if (!restaurant) {
+    return NextResponse.json(
+      { errorMessage: 'Slug was not found' },
+      { status: 400 }
+    )
+  }
+  const bookingTablesObj = constructBookingTablesObj(bookings)
+  const tables = restaurant.table
+  return NextResponse.json({ searchTimes, bookings, bookingTablesObj, tables })
 }
