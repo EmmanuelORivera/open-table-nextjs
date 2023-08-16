@@ -8,7 +8,7 @@ type Data = {
 }
 
 export async function GET(req: NextRequest) {
-  //   await prisma.table.deleteMany();
+  await prisma.table.deleteMany()
   await prisma.review.deleteMany()
   await prisma.item.deleteMany()
   await prisma.restaurant.deleteMany()
@@ -1301,22 +1301,22 @@ export async function GET(req: NextRequest) {
     ],
   })
 
-  // await prisma.table.createMany({
-  //   data: [
-  //     {
-  //       restaurant_id: vivaanId,
-  //       seats: 4,
-  //     },
-  //     {
-  //       restaurant_id: vivaanId,
-  //       seats: 4,
-  //     },
-  //     {
-  //       restaurant_id: vivaanId,
-  //       seats: 2,
-  //     },
-  //   ],
-  // });
+  await prisma.table.createMany({
+    data: [
+      {
+        restaurant_id: vivaanId,
+        seats: 4,
+      },
+      {
+        restaurant_id: vivaanId,
+        seats: 4,
+      },
+      {
+        restaurant_id: vivaanId,
+        seats: 2,
+      },
+    ],
+  })
 
   return NextResponse.json({
     response: 'Hello',
