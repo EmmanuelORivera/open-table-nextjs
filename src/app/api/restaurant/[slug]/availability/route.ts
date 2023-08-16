@@ -1,11 +1,12 @@
 import { times } from '@/data'
+import { prisma } from '@/services/PrismaSingleton'
 
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const pathSegment = url.pathname.split('/')
-  const slug = pathSegment[pathSegment.length - 1]
+  const slug = pathSegment[pathSegment.length - 2]
 
   //query strings
   const day = url.searchParams.get('day')
@@ -28,5 +29,18 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  return NextResponse.json({ searchTimes })
+  const bookings = await prisma.booking.findMany({
+    where: {
+      booking_time: {
+        gte: new Date(`${day}T${searchTimes[0]}`),
+        lte: new Date(`${day}T${searchTimes[searchTimes.length - 1]}`),
+      },
+    },
+    select: {
+      number_of_people: true,
+      booking_time: true,
+      tables: true,
+    },
+  })
+  return NextResponse.json({ searchTimes, bookings })
 }
