@@ -42,5 +42,18 @@ export async function GET(req: NextRequest) {
       tables: true,
     },
   })
-  return NextResponse.json({ searchTimes, bookings })
+
+  const bookingTablesObj: { [key: string]: { [key: number]: true } } = {}
+
+  bookings.forEach((booking) => {
+    bookingTablesObj[booking.booking_time.toISOString()] =
+      booking.tables.reduce((obj, table) => {
+        return {
+          ...obj,
+          [table.table_id]: true,
+        }
+      }, {})
+  })
+
+  return NextResponse.json({ searchTimes, bookings, bookingTablesObj })
 }
