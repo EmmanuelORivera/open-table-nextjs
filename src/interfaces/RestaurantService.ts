@@ -1,5 +1,10 @@
 import { Price } from '@prisma/client'
-import { Restaurant, RestaurantBySlug, RestaurantMenu } from './Restaurant'
+import {
+  Restaurant,
+  RestaurantBySlug,
+  RestaurantMenu,
+  RestaurantWithTables,
+} from './Restaurant'
 
 export interface RestaurantService {
   fetchRestaurants: () => Promise<Restaurant[]>
@@ -10,4 +15,7 @@ export interface RestaurantService {
     cuisine?: string,
     price?: Price
   ) => Promise<Restaurant[]>
+  fetchRestaurantWithTables: (
+    slug: string
+  ) => Promise<RestaurantWithTables | null>
 }

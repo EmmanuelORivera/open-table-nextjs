@@ -2,6 +2,7 @@ import {
   Restaurant,
   RestaurantBySlug,
   RestaurantMenu,
+  RestaurantWithTables,
 } from '@/interfaces/Restaurant'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { prisma } from './PrismaSingleton'
@@ -115,5 +116,20 @@ export class PrismaRestaurantService implements RestaurantService {
       },
     })
     return restaurants
+  }
+
+  async fetchRestaurantWithTables(
+    slug: string
+  ): Promise<RestaurantWithTables | null> {
+    const restaurant = prisma.restaurant.findUnique({
+      where: {
+        slug,
+      },
+      select: {
+        table: true,
+      },
+    })
+
+    return restaurant
   }
 }
