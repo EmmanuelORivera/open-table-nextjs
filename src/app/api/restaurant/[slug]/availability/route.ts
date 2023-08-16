@@ -78,5 +78,20 @@ export async function GET(req: NextRequest) {
   }
   const bookingTablesObj = constructBookingTablesObj(bookings)
   const tables = restaurant.table
-  return NextResponse.json({ searchTimes, bookings, bookingTablesObj, tables })
+
+  const searchTimesWithTables = searchTimes.map((searchTime) => {
+    return {
+      date: new Date(`${day}T${searchTime}`),
+      time: searchTime,
+      tables,
+    }
+  })
+
+  return NextResponse.json({
+    searchTimes,
+    bookings,
+    bookingTablesObj,
+    tables,
+    searchTimesWithTables,
+  })
 }
