@@ -1,5 +1,6 @@
 import { times } from '@/data'
 import { Booking, BookingService } from '@/interfaces/BookingService'
+import { RestaurantWithTables } from '@/interfaces/Restaurant'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { PrismaBookingService } from '@/services/PrismaBookingService'
 import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
@@ -68,7 +69,8 @@ export async function GET(req: NextRequest) {
   const restaurantService: RestaurantService =
     PrismaRestaurantService.getInstance()
 
-  const restaurant = await restaurantService.fetchRestaurantWithTables(slug)
+  const restaurant: RestaurantWithTables | null =
+    await restaurantService.fetchRestaurantWithTables(slug)
 
   if (!restaurant) {
     return NextResponse.json(
@@ -102,16 +104,31 @@ export async function GET(req: NextRequest) {
     })
   })
 
-  const availabilities = searchTimesWithTables.map((t) => {
-    const sumSeats = t.tables.reduce((sum, table) => {
-      return sum + table.seats
-    }, 0)
+  const availabilities: {
+    time: string
+    available: boolean
+  }[] = searchTimesWithTables
+    .map((t) => {
+      const sumSeats = t.tables.reduce((sum, table) => {
+        return sum + table.seats
+      }, 0)
 
-    return {
-      time: t.time,
-      available: sumSeats >= parseInt(partySize),
-    }
-  })
+      return {
+        time: t.time,
+        available: sumSeats >= parseInt(partySize),
+      }
+    })
+    .filter((availability) => {
+      const timeIsAfterOpeningHours =
+        new Date(`${day}T${availability.time}`) >=
+        new Date(`${day}T${restaurant.open_time}`)
+
+      const timeIsBeforeClosingHour =
+        new Date(`${day}T${availability.time}`) <=
+        new Date(`${day}T${restaurant.close_time}`)
+
+      return timeIsAfterOpeningHours && timeIsBeforeClosingHour
+    })
 
   return NextResponse.json({
     searchTimes,
