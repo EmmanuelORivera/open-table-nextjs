@@ -130,12 +130,5 @@ export async function GET(req: NextRequest) {
       return timeIsAfterOpeningHours && timeIsBeforeClosingHour
     })
 
-  return NextResponse.json({
-    searchTimes,
-    bookings,
-    bookingTablesObj,
-    tables,
-    searchTimesWithTables,
-    availabilities,
-  })
+  return NextResponse.json(availabilities)
 }
