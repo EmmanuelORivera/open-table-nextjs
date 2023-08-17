@@ -1,3 +1,4 @@
+import { Time } from '@/utils/convertToDisplayTime'
 import axios from 'axios'
 import { useState } from 'react'
 
@@ -8,7 +9,7 @@ interface FetchAvailabilitiesProps {
   time: string
 }
 interface Availabilities {
-  time: string
+  time: Time
   available: boolean
 }
 
