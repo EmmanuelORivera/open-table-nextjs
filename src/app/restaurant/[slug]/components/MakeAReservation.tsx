@@ -2,6 +2,7 @@
 import Button from '@/components/Button'
 import { partySize as partySizes, times } from '@/data'
 import useAvailabilities from '@/hooks/useAvailabilities'
+import { convertToDisplayTime } from '@/utils/convertToDisplayTime'
 import { CircularProgress } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -144,7 +145,9 @@ const MakeAReservation = ({
                     className="bg-red-600 cursor-pointer p-2 w-24 text-center text-white  rounded "
                     href={`/reserve/${slug}?date=${day}T${time.time}&partySize=${partySize}`}
                   >
-                    <p className="text-sm font-bold">{time.time}</p>
+                    <p className="text-sm font-bold">
+                      {convertToDisplayTime(time.time)}
+                    </p>
                   </Link>
                 ) : (
                   <p
