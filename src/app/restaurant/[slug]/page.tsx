@@ -24,6 +24,7 @@ const RestaurantDetails = async ({ params }: { params: { slug: string } }) => {
             <MakeAReservation
               openTime={restaurant.open_time}
               closeTime={restaurant.close_time}
+              slug={restaurant.slug}
               hideOnLargeScreen
             />
             <Images images={restaurant.images} />
@@ -35,6 +36,7 @@ const RestaurantDetails = async ({ params }: { params: { slug: string } }) => {
           <MakeAReservation
             openTime={restaurant.open_time}
             closeTime={restaurant.close_time}
+            slug={restaurant.slug}
             className="fixed -mt-11 bg-white rounded"
           />
         </div>
