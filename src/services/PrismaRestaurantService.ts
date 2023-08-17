@@ -127,6 +127,8 @@ export class PrismaRestaurantService implements RestaurantService {
       },
       select: {
         table: true,
+        open_time: true,
+        close_time: true,
       },
     })
 
