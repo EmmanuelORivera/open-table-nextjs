@@ -1,12 +1,16 @@
 'use client'
 import Button from '@/components/Button'
-import { partySize, times } from '@/data'
+import { partySize as partySizes, times } from '@/data'
+import useAvailabilities from '@/hooks/useAvailabilities'
+import { CircularProgress } from '@mui/material'
+import Link from 'next/link'
 import { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 
 interface MakeAReservationProps {
   openTime: string
   closeTime: string
+  slug: string
   hideOnLargeScreen?: boolean
   className?: string
 }
@@ -14,16 +18,32 @@ interface MakeAReservationProps {
 const MakeAReservation = ({
   openTime,
   closeTime,
+  slug,
   hideOnLargeScreen = false,
   className,
 }: MakeAReservationProps) => {
+  const { data, loading, error, fetchAvailabilities } = useAvailabilities()
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
+  const [time, setTime] = useState(openTime)
+  const [partySize, setPartySize] = useState('2')
+  const [day, setDay] = useState(new Date().toISOString().split('T')[0])
+
   const hiddenStyle = hideOnLargeScreen ? 'lg:hidden' : ''
   const handleChangeDate = (date: Date | null) => {
     if (date) {
+      setDay(date.toISOString().split('T')[0])
       return setSelectedDate(date)
     }
     setSelectedDate(null)
+  }
+
+  const handleClick = () => {
+    fetchAvailabilities({
+      slug,
+      day,
+      time,
+      partySize,
+    })
   }
 
   const filterTimeByRestaurantOpenWindow = () => {
@@ -60,9 +80,17 @@ const MakeAReservation = ({
           <label htmlFor="" className="font-medium">
             Party size
           </label>
-          <select name="" className="py-3 border-b font-light" id="">
-            {partySize.map((size) => (
-              <option value={size.value}>{size.label}</option>
+          <select
+            name=""
+            className="py-3 border-b font-light"
+            id=""
+            value={partySize}
+            onChange={(e) => setPartySize(e.target.value)}
+          >
+            {partySizes.map((size) => (
+              <option key={size.label} value={size.value}>
+                {size.label}
+              </option>
             ))}
           </select>
         </div>
@@ -83,15 +111,51 @@ const MakeAReservation = ({
           <label htmlFor="" className="font-medium">
             Time
           </label>
-          <select name="" id="" className="py-3 border-b font-light">
+          <select
+            name=""
+            id=""
+            className="py-3 border-b font-light"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+          >
             {filterTimeByRestaurantOpenWindow().map((time) => (
-              <option value={time.time}>{time.displayTime}</option>
+              <option key={time.displayTime} value={time.time}>
+                {time.displayTime}
+              </option>
             ))}
           </select>
-          <Button className="mt-3" type="action" handleClick={() => {}}>
-            Find a time
+          <Button
+            className="mt-3"
+            type="action"
+            handleClick={handleClick}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress color="inherit" /> : 'Find a time'}
           </Button>
         </div>
+        {data && data.length ? (
+          <div className="mt-4 ">
+            <p>Select a Time</p>
+            <div className="flex flex-wrap mt-2 lg:max-w-sm gap-3">
+              {data.map((time) => {
+                return time.available ? (
+                  <Link
+                    key={time.time}
+                    className="bg-red-600 cursor-pointer p-2 w-24 text-center text-white  rounded "
+                    href={`/reserve/${slug}?date=${day}T${time.time}&partySize=${partySize}`}
+                  >
+                    <p className="text-sm font-bold">{time.time}</p>
+                  </Link>
+                ) : (
+                  <p
+                    key={time.time}
+                    className="bg-gray-300 p-2 w-24 rounded "
+                  ></p>
+                )
+              })}
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   )
