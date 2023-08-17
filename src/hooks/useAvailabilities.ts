@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { useState } from 'react'
 
 interface FetchAvailabilitiesProps {
@@ -7,10 +7,15 @@ interface FetchAvailabilitiesProps {
   day: string
   time: string
 }
+interface Availabilities {
+  time: string
+  available: boolean
+}
+
 export default function useAvailabilities() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<Availabilities[] | null>(null)
 
   const fetchAvailabilities = async ({
     slug,
@@ -21,7 +26,7 @@ export default function useAvailabilities() {
     setLoading(true)
 
     try {
-      const response = await axios.get(
+      const response = await axios.get<Availabilities[]>(
         `http://localhost:3000/api/restaurant/${slug}/availability`,
         {
           params: {
