@@ -1,125 +1,24 @@
-import { times } from '@/data'
-import { Booking, BookingService } from '@/interfaces/BookingService'
-import { RestaurantWithTables } from '@/interfaces/Restaurant'
+import { BookingService } from '@/interfaces/BookingService'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { PrismaBookingService } from '@/services/PrismaBookingService'
 import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
-import { parseQueryParameters } from '@/utils/parseQueryParameters'
+import { AvailabilitiesCalculator } from '@/utils/AvailabilitiesCalculator'
 
-import { NextRequest, NextResponse } from 'next/server'
-
-function constructBookingTablesObj(bookings: Booking[]): {
-  [key: string]: { [key: number]: true }
-} {
-  const bookingTablesObj: { [key: string]: { [key: number]: true } } = {}
-
-  bookings.forEach((booking) => {
-    bookingTablesObj[booking.booking_time.toISOString()] =
-      booking.tables.reduce((obj, table) => {
-        return {
-          ...obj,
-          [table.table_id]: true,
-        }
-      }, {})
-  })
-  return bookingTablesObj
-}
+import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
 
-  //query strings
-  const { day, time, partySize, slug } = parseQueryParameters(url)
-
-  if (!day || !time || !partySize) {
-    return NextResponse.json(
-      { errorMessage: 'Invalid data provided' },
-      { status: 400 }
-    )
-  }
-
-  const searchTimes = times.find((t) => t.time === time)?.searchTimes
-
-  if (!searchTimes) {
-    return NextResponse.json(
-      { errorMessage: 'Invalid time provided' },
-      { status: 400 }
-    )
-  }
-
   const bookingService: BookingService = PrismaBookingService.getInstance()
-
-  const startTime = new Date(`${day}T${searchTimes[0]}`)
-  const endTime = new Date(`${day}T${searchTimes[searchTimes.length - 1]}`)
-
-  const bookings = await bookingService.fetchBookingByTimeRange(
-    startTime,
-    endTime
-  )
-
   const restaurantService: RestaurantService =
     PrismaRestaurantService.getInstance()
 
-  const restaurant: RestaurantWithTables | null =
-    await restaurantService.fetchRestaurantWithTables(slug)
+  const calculator = new AvailabilitiesCalculator(
+    bookingService,
+    restaurantService
+  )
 
-  if (!restaurant) {
-    return NextResponse.json(
-      { errorMessage: 'Slug was not found' },
-      { status: 400 }
-    )
-  }
-  const bookingTablesObj = constructBookingTablesObj(bookings)
-  const tables = restaurant.table
+  const response = await calculator.calculateAvailabilities(url)
 
-  const searchTimesWithTables = searchTimes.map((searchTime) => {
-    return {
-      date: new Date(`${day}T${searchTime}`),
-      time: searchTime,
-      tables, // the list of all available tables
-    }
-  })
-
-  searchTimesWithTables.forEach((searchTime) => {
-    const { date } = searchTime
-
-    searchTime.tables = searchTime.tables.filter((table) => {
-      const bookingTableObjForTime = bookingTablesObj[date.toISOString()]
-      console.log({ bookingTableObjForTime })
-
-      // if bookingTablesObj has a record for this time and table, exclude it
-      if (bookingTableObjForTime && bookingTableObjForTime[table.id]) {
-        return false
-      }
-      return true
-    })
-  })
-
-  const availabilities: {
-    time: string
-    available: boolean
-  }[] = searchTimesWithTables
-    .map((t) => {
-      const sumSeats = t.tables.reduce((sum, table) => {
-        return sum + table.seats
-      }, 0)
-
-      return {
-        time: t.time,
-        available: sumSeats >= parseInt(partySize),
-      }
-    })
-    .filter((availability) => {
-      const timeIsAfterOpeningHours =
-        new Date(`${day}T${availability.time}`) >=
-        new Date(`${day}T${restaurant.open_time}`)
-
-      const timeIsBeforeClosingHour =
-        new Date(`${day}T${availability.time}`) <=
-        new Date(`${day}T${restaurant.close_time}`)
-
-      return timeIsAfterOpeningHours && timeIsBeforeClosingHour
-    })
-
-  return NextResponse.json(availabilities)
+  return response
 }
