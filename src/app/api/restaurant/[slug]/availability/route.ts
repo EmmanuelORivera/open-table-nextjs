@@ -4,16 +4,9 @@ import { RestaurantWithTables } from '@/interfaces/Restaurant'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { PrismaBookingService } from '@/services/PrismaBookingService'
 import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
+import { parseQueryParameters } from '@/utils/parseQueryParameters'
 
 import { NextRequest, NextResponse } from 'next/server'
-
-function parseQueryParameters(url: URL) {
-  const day = url.searchParams.get('day')
-  const time = url.searchParams.get('time')
-  const partySize = url.searchParams.get('partySize')
-
-  return { day, time, partySize }
-}
 
 function constructBookingTablesObj(bookings: Booking[]): {
   [key: string]: { [key: number]: true }
@@ -34,11 +27,9 @@ function constructBookingTablesObj(bookings: Booking[]): {
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
-  const pathSegment = url.pathname.split('/')
-  const slug = pathSegment[pathSegment.length - 2]
 
   //query strings
-  const { day, time, partySize } = parseQueryParameters(url)
+  const { day, time, partySize, slug } = parseQueryParameters(url)
 
   if (!day || !time || !partySize) {
     return NextResponse.json(
