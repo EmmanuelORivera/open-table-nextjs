@@ -2,11 +2,11 @@ import { Booking, BookingService } from '@/interfaces/BookingService'
 import { RestaurantService } from '@/interfaces/RestaurantService'
 import { parseQueryParameters } from './parseQueryParameters'
 import { times } from '@/data'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { RestaurantWithTables } from '@/interfaces/Restaurant'
 import { Table } from '@prisma/client'
 
-interface TableBookingMap {
+export interface TableBookingMap {
   [key: string]: { [key: number]: true }
 }
 
@@ -31,7 +31,7 @@ export class AvailabilitiesCalculator {
     this.isAvailabilityRoute = isAvailabilityRoute
   }
 
-  async calculateAvailabilities(url: URL) {
+  async calculateAvailabilities(url: URL, req: NextRequest) {
     const { day, partySize, time, slug } = parseQueryParameters(url)
 
     if (!day || !time || !partySize) {
@@ -89,6 +89,10 @@ export class AvailabilitiesCalculator {
         bookingTablesObj
       )
 
+    if (!searchTimesWithTables) {
+      return NextResponse.json('Invalid data provided', { status: 400 })
+    }
+
     if (this.isAvailabilityRoute) {
       const availabilities = this.calculateAvailableTimes(
         searchTimesWithTables,
@@ -99,10 +103,6 @@ export class AvailabilitiesCalculator {
       )
       return NextResponse.json(availabilities)
     } else {
-      if (!searchTimesWithTables) {
-        return NextResponse.json('Invalid data provided', { status: 400 })
-      }
-
       const searchTimeWithTables = searchTimesWithTables.find((t) => {
         return t.date.toISOString() === new Date(`${day}T${time}`).toISOString()
       })
@@ -154,7 +154,32 @@ export class AvailabilitiesCalculator {
         }
       }
 
-      return NextResponse.json({ tablesToBooks })
+      const {
+        bookerEmail,
+        bookerPhone,
+        bookerFirstName,
+        bookerLastName,
+        bookerOccasion,
+        bookerRequest,
+      } = await req.json()
+
+      const booking = this.bookingService.createBooking(
+        {
+          partySize,
+          restaurant,
+          day,
+          time,
+          bookerEmail,
+          bookerPhone,
+          bookerFirstName,
+          bookerLastName,
+          bookerOccasion,
+          bookerRequest,
+        },
+        tablesToBooks
+      )
+
+      return NextResponse.json(booking)
     }
   }
 
