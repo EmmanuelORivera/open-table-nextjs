@@ -1,6 +1,7 @@
 'use client'
 
 import Button from '@/components/Button'
+import InputField from '@/components/InputField'
 import { useEffect, useState } from 'react'
 
 const Form = () => {
@@ -37,55 +38,53 @@ const Form = () => {
 
   return (
     <div className="mt-10 grid md:grid-cols-2 gap-4  w-full">
-      <input
+      <InputField
         type="text"
+        value={inputs.bookerFirstName}
+        placeholder="First name"
         name="bookerFirstName"
         onChange={handleChangeInput}
-        value={inputs.bookerFirstName}
-        className="border rounded p-3 w-full"
-        placeholder="First name"
-      />
-      <input
-        type="text"
-        name="bookerLastName"
-        onChange={handleChangeInput}
-        value={inputs.bookerLastName}
-        className="border rounded p-3 w-full"
-        placeholder="Last name"
       />
 
-      <input
+      <InputField
         type="text"
+        value={inputs.bookerLastName}
+        placeholder="Last name"
+        name="bookerLastName"
+        onChange={handleChangeInput}
+      />
+      <InputField
+        type="text"
+        value={inputs.bookerPhone}
+        placeholder="Phone number"
         name="bookerPhone"
         onChange={handleChangeInput}
-        value={inputs.bookerPhone}
-        className="border rounded p-3 w-full"
-        placeholder="Phone number"
       />
-      <input
+
+      <InputField
         type="text"
+        value={inputs.bookerEmail}
+        placeholder="Email"
         name="bookerEmail"
         onChange={handleChangeInput}
-        value={inputs.bookerEmail}
-        className="border rounded p-3 w-full"
-        placeholder="Email"
       />
-      <input
+
+      <InputField
         type="text"
+        value={inputs.bookerOccasion}
+        placeholder="Occasion (optional)"
         name="bookerOccasion"
         onChange={handleChangeInput}
-        value={inputs.bookerOccasion}
-        className="border rounded p-3 w-full"
-        placeholder="Occasion (optional)"
       />
-      <input
+
+      <InputField
         type="text"
+        value={inputs.bookerRequests}
+        placeholder="Occasion (optional)"
         name="bookerRequests"
         onChange={handleChangeInput}
-        value={inputs.bookerRequests}
-        className="border rounded p-3 w-full"
-        placeholder="Requests (optional)"
       />
+
       <Button
         className="md:col-span-2 w-full font-bold"
         type="action"
