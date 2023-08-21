@@ -1,4 +1,8 @@
-import { Booking, BookingService } from '@/interfaces/BookingService'
+import {
+  Booking,
+  BookingService,
+  CreateBookingProps,
+} from '@/interfaces/BookingService'
 import { prisma } from './PrismaSingleton'
 
 export class PrismaBookingService implements BookingService {
@@ -30,5 +34,48 @@ export class PrismaBookingService implements BookingService {
     })
 
     return bookings
+  }
+
+  async createBooking(
+    {
+      partySize,
+      restaurant,
+      day,
+      time,
+      bookerEmail,
+      bookerPhone,
+      bookerFirstName,
+      bookerLastName,
+      bookerOccasion,
+      bookerRequest,
+    }: CreateBookingProps,
+    tablesToBooks: number[]
+  ) {
+    {
+      const booking = await prisma.booking.create({
+        data: {
+          restaurant_id: restaurant.id,
+          number_of_people: parseInt(partySize),
+          booking_time: new Date(`${day}T${time}`),
+          booker_email: bookerEmail,
+          booker_phone: bookerPhone,
+          booker_first_name: bookerFirstName,
+          booker_last_name: bookerLastName,
+          booker_occasion: bookerOccasion,
+          booker_request: bookerRequest,
+        },
+      })
+
+      const bookingsOnTablesData = tablesToBooks.map((table_id) => {
+        return {
+          table_id,
+          booking_id: booking.id,
+        }
+      })
+
+      await prisma.bookingsOnTables.createMany({
+        data: bookingsOnTablesData,
+      })
+    }
   }
 }
