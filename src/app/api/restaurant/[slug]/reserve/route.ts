@@ -3,9 +3,9 @@ import { RestaurantService } from '@/interfaces/RestaurantService'
 import { PrismaBookingService } from '@/services/PrismaBookingService'
 import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
 import { AvailabilitiesCalculator } from '@/utils/AvailabilitiesCalculator'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const url = new URL(req.url)
 
   const bookingService: BookingService = PrismaBookingService.getInstance()
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     false
   )
 
-  const response = await calculator.calculateAvailabilities(url)
+  const response = await calculator.calculateAvailabilities(url, req)
 
   return response
 }
