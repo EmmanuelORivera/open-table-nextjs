@@ -19,13 +19,16 @@ interface SearchTimesWithTables {
 export class AvailabilitiesCalculator {
   public bookingService: BookingService
   public restaurantService: RestaurantService
+  private isAvailabilityRoute: boolean
 
   constructor(
     bookingService: BookingService,
-    restaurantService: RestaurantService
+    restaurantService: RestaurantService,
+    isAvailabilityRoute: boolean = true
   ) {
     this.bookingService = bookingService
     this.restaurantService = restaurantService
+    this.isAvailabilityRoute = isAvailabilityRoute
   }
 
   async calculateAvailabilities(url: URL) {
@@ -60,7 +63,17 @@ export class AvailabilitiesCalculator {
 
     if (!restaurant) {
       return NextResponse.json(
-        { errorMessage: 'Slug was not found' },
+        { errorMessage: 'Restaurant not found' },
+        { status: 400 }
+      )
+    }
+
+    if (
+      new Date(`${day}T${time}`) < new Date(`${day}T${restaurant.open_time}`) ||
+      new Date(`${day}T${time}`) > new Date(`${day}T${restaurant.close_time}`)
+    ) {
+      return NextResponse.json(
+        { errorMessage: 'Restaurant is not open at that time' },
         { status: 400 }
       )
     }
@@ -76,19 +89,77 @@ export class AvailabilitiesCalculator {
         bookingTablesObj
       )
 
-    const availabilities = this.calculateAvailableTimes(
-      searchTimesWithTables,
-      partySize,
-      day,
-      restaurant.open_time,
-      restaurant.close_time
-    )
+    if (this.isAvailabilityRoute) {
+      const availabilities = this.calculateAvailableTimes(
+        searchTimesWithTables,
+        partySize,
+        day,
+        restaurant.open_time,
+        restaurant.close_time
+      )
+      return NextResponse.json(availabilities)
+    } else {
+      if (!searchTimesWithTables) {
+        return NextResponse.json('Invalid data provided', { status: 400 })
+      }
 
-    return NextResponse.json(availabilities)
+      const searchTimeWithTables = searchTimesWithTables.find((t) => {
+        return t.date.toISOString() === new Date(`${day}T${time}`).toISOString()
+      })
+
+      if (!searchTimeWithTables) {
+        return NextResponse.json('No availability, cannot book', {
+          status: 400,
+        })
+      }
+
+      const tablesCount: { 2: number[]; 4: number[] } = {
+        2: [],
+        4: [],
+      }
+
+      searchTimeWithTables.tables.forEach((table) => {
+        if (table.seats === 2) {
+          tablesCount[2].push(table.id)
+        } else {
+          tablesCount[4].push(table.id)
+        }
+      })
+
+      const tablesToBooks: number[] = []
+
+      let seatsRemaining = parseInt(partySize)
+
+      while (seatsRemaining > 0) {
+        if (seatsRemaining >= 3) {
+          if (tablesCount[4].length) {
+            tablesToBooks.push(tablesCount[4][0])
+            tablesCount[4].shift()
+            seatsRemaining = seatsRemaining - 4
+          } else {
+            tablesToBooks.push(tablesCount[2][0])
+            tablesCount[2].shift()
+            seatsRemaining = seatsRemaining - 2
+          }
+        } else {
+          if (tablesCount[2].length) {
+            tablesToBooks.push(tablesCount[2][0])
+            tablesCount[2].shift()
+            seatsRemaining = seatsRemaining - 2
+          } else {
+            tablesToBooks.push(tablesCount[4][0])
+            tablesCount[4].shift()
+            seatsRemaining = seatsRemaining - 4
+          }
+        }
+      }
+
+      return NextResponse.json({ tablesToBooks })
+    }
   }
 
   generateBookingTablesObj(bookings: Booking[]): TableBookingMap {
-    const bookingTablesObj: { [key: string]: { [key: number]: true } } = {}
+    const bookingTablesObj: TableBookingMap = {}
 
     bookings.forEach((booking) => {
       bookingTablesObj[booking.booking_time.toISOString()] =
