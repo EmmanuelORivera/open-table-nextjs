@@ -1,4 +1,4 @@
-import { BookingsOnTables } from '@prisma/client'
+import { BookingsOnTables, Prisma } from '@prisma/client'
 import { RestaurantWithTables } from './Restaurant'
 
 export interface Booking {
@@ -20,5 +20,8 @@ export interface CreateBookingProps {
 }
 export interface BookingService {
   fetchBookingByTimeRange(startTime: Date, endTime: Date): Promise<Booking[]>
-  createBooking(props: CreateBookingProps, tablesToBooks: number[]): void
+  createBooking(
+    props: CreateBookingProps,
+    tablesToBooks: number[]
+  ): Promise<Booking>
 }

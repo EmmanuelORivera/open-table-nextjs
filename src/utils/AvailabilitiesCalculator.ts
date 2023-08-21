@@ -163,7 +163,7 @@ export class AvailabilitiesCalculator {
         bookerRequest,
       } = await req.json()
 
-      const booking = this.bookingService.createBooking(
+      const booking = await this.bookingService.createBooking(
         {
           partySize,
           restaurant,

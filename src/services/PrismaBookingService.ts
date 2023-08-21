@@ -76,6 +76,8 @@ export class PrismaBookingService implements BookingService {
       await prisma.bookingsOnTables.createMany({
         data: bookingsOnTablesData,
       })
+
+      return booking
     }
   }
 }
