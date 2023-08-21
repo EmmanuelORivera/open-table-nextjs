@@ -4,8 +4,8 @@ import { ValidationStrategy } from '@/interfaces/ValidationStrategy'
 export class SignUpValidationStrategy implements ValidationStrategy {
   isValid(inputs: AuthInputs): boolean {
     return (
-      !!inputs.firstName &&
-      !!inputs.lastName &&
+      !!inputs.first_name &&
+      !!inputs.last_name &&
       !!inputs.email &&
       !!inputs.password &&
       !!inputs.city &&
