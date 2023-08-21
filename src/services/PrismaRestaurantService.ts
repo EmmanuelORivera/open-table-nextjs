@@ -126,6 +126,7 @@ export class PrismaRestaurantService implements RestaurantService {
         slug,
       },
       select: {
+        id: true,
         table: true,
         open_time: true,
         close_time: true,

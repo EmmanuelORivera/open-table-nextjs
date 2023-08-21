@@ -27,6 +27,7 @@ export interface RestaurantMenu {
 }
 
 export interface RestaurantWithTables {
+  id: number
   table: Table[]
   open_time: string
   close_time: string
