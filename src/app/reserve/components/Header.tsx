@@ -2,13 +2,14 @@ import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
 import { Time, convertToDisplayTime } from '@/utils/convertToDisplayTime'
 import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
+import { ReservePageParams, ReserveSearchParams } from '../[slug]/page'
 
 const Header = async ({
   params,
   searchParams,
 }: {
-  params: { slug: string }
-  searchParams: { date: string; partySize: string }
+  params: ReservePageParams
+  searchParams: ReserveSearchParams
 }) => {
   const restaurantService = PrismaRestaurantService.getInstance()
   const restaurant = await restaurantService.fetchRestaurantBySlug(params.slug)
