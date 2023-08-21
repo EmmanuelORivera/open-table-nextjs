@@ -49,6 +49,7 @@ export class PrismaRestaurantService implements RestaurantService {
         reviews: true,
         open_time: true,
         close_time: true,
+        main_image: true,
       },
     })
 

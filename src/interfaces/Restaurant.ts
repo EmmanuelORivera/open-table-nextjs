@@ -20,6 +20,7 @@ export interface RestaurantBySlug {
   reviews: Review[]
   open_time: string
   close_time: string
+  main_image: string
 }
 
 export interface RestaurantMenu {
