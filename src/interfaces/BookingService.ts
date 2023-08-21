@@ -20,8 +20,5 @@ export interface CreateBookingProps {
 }
 export interface BookingService {
   fetchBookingByTimeRange(startTime: Date, endTime: Date): Promise<Booking[]>
-  createBooking(
-    props: CreateBookingProps,
-    tablesToBooks: number[]
-  ): Promise<Booking>
+  createBooking(props: CreateBookingProps, tablesToBooks: number[]): any
 }
