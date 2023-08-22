@@ -5,7 +5,7 @@ import useAvailabilities from '@/hooks/useAvailabilities'
 import { convertToDisplayTime } from '@/utils/convertToDisplayTime'
 import { CircularProgress } from '@mui/material'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 
 interface MakeAReservationProps {
@@ -70,6 +70,10 @@ const MakeAReservation = ({
     return timesWithinWindow
   }
 
+  useEffect(() => {
+    fetchAvailabilities({ slug, partySize, day, time })
+  }, [slug, partySize, day, time])
+
   return (
     <section className={`shadow p-4 my-4 ${hiddenStyle} ${className}`}>
       <h2 className="text-lg font-semibold text-center pb-3 border-b">
@@ -125,14 +129,6 @@ const MakeAReservation = ({
               </option>
             ))}
           </select>
-          <Button
-            className="mt-3"
-            type="action"
-            handleClick={handleClick}
-            disabled={loading}
-          >
-            {loading ? <CircularProgress color="inherit" /> : 'Find a time'}
-          </Button>
         </div>
         {data && data.length ? (
           <div className="mt-4 ">
