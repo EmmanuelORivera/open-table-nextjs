@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import Button from './Button'
 
 interface SearchBarProps {
   placeholder?: string
@@ -18,6 +19,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
     router.push(searchCity)
     setLocation('')
   }
+
+  const isButtonDisabled = () => {
+    return !location.trim()
+  }
   return (
     <div className="flex flex-col gap-4 w-[90%] max-w-3xl sm:flex-row mx-auto">
       <input
@@ -27,12 +32,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
         type="text"
         placeholder={placeholder}
       />
-      <button
-        onClick={handleClick}
-        className="rounded bg-red-600  py-2 text-white sm:w-32 sm:max-w-md"
+      <Button
+        handleClick={handleClick}
+        type="action"
+        className="capitalize"
+        disabled={isButtonDisabled()}
       >
         Let's go
-      </button>
+      </Button>
     </div>
   )
 }
