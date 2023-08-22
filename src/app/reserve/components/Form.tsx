@@ -23,6 +23,7 @@ const Form = ({
     bookerRequests: '',
   })
 
+  const [didBook, setDidBook] = useState(false)
   const [disabled, setDisabled] = useState(true)
 
   const { error, loading, createReservation } = useReservation()
@@ -61,75 +62,85 @@ const Form = ({
       bookerOccasion: inputs.bookerOccasion,
       bookerPhone: inputs.bookerPhone,
       bookerRequests: inputs.bookerRequests,
+      setDidBook,
     })
   }
 
   return (
     <div className="mt-10 grid md:grid-cols-2 gap-4  w-full">
-      <InputField
-        type="text"
-        value={inputs.bookerFirstName}
-        placeholder="First name"
-        name="bookerFirstName"
-        onChange={handleChangeInput}
-      />
+      {didBook ? (
+        <div>
+          <h1>You are all booked up</h1>
+          <p>Enjoy your reservation</p>
+        </div>
+      ) : (
+        <>
+          <InputField
+            type="text"
+            value={inputs.bookerFirstName}
+            placeholder="First name"
+            name="bookerFirstName"
+            onChange={handleChangeInput}
+          />
 
-      <InputField
-        type="text"
-        value={inputs.bookerLastName}
-        placeholder="Last name"
-        name="bookerLastName"
-        onChange={handleChangeInput}
-      />
-      <InputField
-        type="text"
-        value={inputs.bookerPhone}
-        placeholder="Phone number"
-        name="bookerPhone"
-        onChange={handleChangeInput}
-      />
+          <InputField
+            type="text"
+            value={inputs.bookerLastName}
+            placeholder="Last name"
+            name="bookerLastName"
+            onChange={handleChangeInput}
+          />
+          <InputField
+            type="text"
+            value={inputs.bookerPhone}
+            placeholder="Phone number"
+            name="bookerPhone"
+            onChange={handleChangeInput}
+          />
 
-      <InputField
-        type="text"
-        value={inputs.bookerEmail}
-        placeholder="Email"
-        name="bookerEmail"
-        onChange={handleChangeInput}
-      />
+          <InputField
+            type="text"
+            value={inputs.bookerEmail}
+            placeholder="Email"
+            name="bookerEmail"
+            onChange={handleChangeInput}
+          />
 
-      <InputField
-        type="text"
-        value={inputs.bookerOccasion}
-        placeholder="Occasion (optional)"
-        name="bookerOccasion"
-        onChange={handleChangeInput}
-      />
+          <InputField
+            type="text"
+            value={inputs.bookerOccasion}
+            placeholder="Occasion (optional)"
+            name="bookerOccasion"
+            onChange={handleChangeInput}
+          />
 
-      <InputField
-        type="text"
-        value={inputs.bookerRequests}
-        placeholder="Occasion (optional)"
-        name="bookerRequests"
-        onChange={handleChangeInput}
-      />
+          <InputField
+            type="text"
+            value={inputs.bookerRequests}
+            placeholder="Occasion (optional)"
+            name="bookerRequests"
+            onChange={handleChangeInput}
+          />
 
-      <Button
-        className="md:col-span-2 w-full font-bold"
-        type="action"
-        handleClick={handleClick}
-        disabled={disabled || loading}
-      >
-        {loading ? (
-          <CircularProgress color="inherit" />
-        ) : (
-          'Complete reservation'
-        )}
-      </Button>
-      <p className="md:col-span-2 mt-4 text-sm">
-        By clicking “Complete reservation” you agree to the OpenTable Terms of
-        Use and Privacy Policy. Standard text message rates may apply. You may
-        opt out of receiving text messages at any time.
-      </p>
+          <Button
+            className="md:col-span-2 w-full font-bold"
+            type="action"
+            handleClick={handleClick}
+            disabled={disabled || loading}
+          >
+            {loading ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              'Complete reservation'
+            )}
+          </Button>
+          <p className="md:col-span-2 mt-4 text-sm">
+            By clicking “Complete reservation” you agree to the OpenTable Terms
+            of Use and Privacy Policy. Standard text message rates may apply.
+            You may opt out of receiving text messages at any time.
+          </p>
+        </>
+      )}
     </div>
   )
 }

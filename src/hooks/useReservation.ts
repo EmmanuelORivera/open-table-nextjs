@@ -10,6 +10,7 @@ interface FetchReservationProps {
   bookerLastName: string
   bookerPhone: string
   bookerEmail: string
+  setDidBook: React.Dispatch<React.SetStateAction<boolean>>
   bookerOccasion?: string
   bookerRequests?: string
 }
@@ -43,6 +44,7 @@ export default function useReservation() {
     bookerOccasion,
     bookerPhone,
     bookerRequests,
+    setDidBook,
   }: FetchReservationProps) => {
     setLoading(true)
 
@@ -66,6 +68,7 @@ export default function useReservation() {
         }
       )
       setLoading(false)
+      setDidBook(true)
 
       return response.data
     } catch (error: any) {
