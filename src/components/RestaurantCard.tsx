@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import RestaurantPrice from './RestaurantPrice'
 import Stars from './Stars'
+import { ReservationManager } from '@/utils/ReservationManager'
 
 const getReviewInfo = (restaurant: Restaurant) => {
   const numberOfReviews = restaurant.reviews.length
@@ -12,6 +13,8 @@ const getReviewInfo = (restaurant: Restaurant) => {
 }
 const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   const { numberOfReviews, reviewText } = getReviewInfo(restaurant)
+  const reservationManager = new ReservationManager(restaurant.bookings)
+  const todayReservationsCount = reservationManager.todayReservationsCount
 
   return (
     <div className="pb-3 w-full max-w-[270px] rounded overflow-hidden border cursor-pointer">
@@ -34,7 +37,9 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
             <RestaurantPrice price={restaurant.price} />
             <p className="ml-3">{restaurant.location.name}</p>
           </div>
-          <p className="text-sm mt-1 font-bold">Booked 3 times today</p>
+          <p className="text-sm mt-1 font-bold">
+            Booked {todayReservationsCount} times today
+          </p>
         </div>
       </Link>
     </div>
