@@ -10,8 +10,8 @@ interface FetchReservationProps {
   bookerLastName: string
   bookerPhone: string
   bookerEmail: string
-  bookerOccasion: string
-  bookerRequests: string
+  bookerOccasion?: string
+  bookerRequests?: string
 }
 interface Reservation {
   id: number
