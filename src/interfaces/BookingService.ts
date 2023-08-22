@@ -16,7 +16,7 @@ export interface CreateBookingProps {
   bookerFirstName: string
   bookerLastName: string
   bookerOccasion?: string
-  bookerRequest?: string
+  bookerRequests?: string
 }
 export interface BookingService {
   fetchBookingByTimeRange(startTime: Date, endTime: Date): Promise<Booking[]>
