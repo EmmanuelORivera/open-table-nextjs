@@ -14,20 +14,21 @@ const Stars = ({ reviews, rating }: { reviews: Review[]; rating?: number }) => {
 
   //add full stars
   for (let index = 0; index < fullStars; index++) {
-    starArray.push(<Star type="full" />)
+    starArray.push(<Star key={`full-${index}`} type="full" />)
   }
 
   //add half star
   if (hasHalfStar) {
     const minRemainder = 0.4
-    if (reviewRemainder < minRemainder) starArray.push(<Star type="empty" />)
-    else starArray.push(<Star type="half" />)
+    if (reviewRemainder < minRemainder)
+      starArray.push(<Star key={`empty-${fullStars}`} type="empty" />)
+    else starArray.push(<Star key={`half-${fullStars}`} type="half" />)
   }
 
   //add empty stars
   const emptyStars = maxStars - starArray.length
   for (let index = 0; index < emptyStars; index++) {
-    starArray.push(<Star type="empty" />)
+    starArray.push(<Star key={`empty-${index}`} type="empty" />)
   }
 
   return <div className="flex gap-1">{starArray}</div>
