@@ -47,7 +47,7 @@ export class PrismaBookingService implements BookingService {
       bookerFirstName,
       bookerLastName,
       bookerOccasion,
-      bookerRequest,
+      bookerRequests,
     }: CreateBookingProps,
     tablesToBooks: number[]
   ) {
@@ -62,7 +62,7 @@ export class PrismaBookingService implements BookingService {
           booker_first_name: bookerFirstName,
           booker_last_name: bookerLastName,
           booker_occasion: bookerOccasion,
-          booker_request: bookerRequest,
+          booker_request: bookerRequests,
         },
       })
 
