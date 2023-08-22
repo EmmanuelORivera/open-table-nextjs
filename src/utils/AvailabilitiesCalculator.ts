@@ -6,6 +6,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { RestaurantWithTables } from '@/interfaces/Restaurant'
 import { Table } from '@prisma/client'
 
+interface JsonRequestData {
+  bookerEmail: string
+  bookerPhone: string
+  bookerFirstName: string
+  bookerLastName: string
+  bookerOccasion?: string
+  bookerRequests?: string
+}
 export interface TableBookingMap {
   [key: string]: { [key: number]: true }
 }
@@ -160,8 +168,8 @@ export class AvailabilitiesCalculator {
         bookerFirstName,
         bookerLastName,
         bookerOccasion,
-        bookerRequest,
-      } = await req.json()
+        bookerRequests,
+      }: JsonRequestData = await req.json()
 
       const booking = await this.bookingService.createBooking(
         {
@@ -174,7 +182,7 @@ export class AvailabilitiesCalculator {
           bookerFirstName,
           bookerLastName,
           bookerOccasion,
-          bookerRequest,
+          bookerRequests,
         },
         tablesToBooks
       )
