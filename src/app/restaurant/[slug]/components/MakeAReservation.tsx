@@ -38,15 +38,6 @@ const MakeAReservation = ({
     setSelectedDate(null)
   }
 
-  const handleClick = () => {
-    fetchAvailabilities({
-      slug,
-      day,
-      time,
-      partySize,
-    })
-  }
-
   const filterTimeByRestaurantOpenWindow = () => {
     // openTime = 14:30:00.000Z 2:30PM
     // closeTime = 21:30:00.000Z 9:30PM
