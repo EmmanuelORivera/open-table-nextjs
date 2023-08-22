@@ -6,7 +6,7 @@ import Review from './Review'
 const Reviews = ({ reviews }: { reviews: ReviewType[] }) => {
   const textDisplayed = reviews.length <= 1 ? 'person' : 'people'
   return (
-    <div>
+    <div className="my-8">
       {reviews.length === 0 ? (
         <Title title="There is no reviews yet" />
       ) : (
