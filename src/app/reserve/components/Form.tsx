@@ -5,6 +5,7 @@ import InputField from '@/components/InputField'
 import useReservation from '@/hooks/useReservation'
 import { useEffect, useState } from 'react'
 import { ReservePageParams, ReserveSearchParams } from '../[slug]/page'
+import { CircularProgress } from '@mui/material'
 
 const Form = ({
   params,
@@ -116,9 +117,13 @@ const Form = ({
         className="md:col-span-2 w-full font-bold"
         type="action"
         handleClick={handleClick}
-        disabled={disabled}
+        disabled={disabled || loading}
       >
-        Complete reservation
+        {loading ? (
+          <CircularProgress color="inherit" />
+        ) : (
+          'Complete reservation'
+        )}
       </Button>
       <p className="md:col-span-2 mt-4 text-sm">
         By clicking “Complete reservation” you agree to the OpenTable Terms of
