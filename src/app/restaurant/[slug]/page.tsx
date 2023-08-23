@@ -7,6 +7,7 @@ import Images from './components/Images'
 import Reviews from './components/Reviews'
 import { PrismaRestaurantService } from '@/services/PrismaRestaurantService'
 import { RestaurantBySlug } from '@/interfaces/Restaurant'
+import CreateReview from './components/CreateReview'
 
 const RestaurantDetails = async ({ params }: { params: { slug: string } }) => {
   const restaurantService = PrismaRestaurantService.getInstance()
@@ -28,6 +29,7 @@ const RestaurantDetails = async ({ params }: { params: { slug: string } }) => {
               hideOnLargeScreen
             />
             <Images images={restaurant.images} />
+            <CreateReview />
             <Reviews reviews={restaurant.reviews} />
           </div>
         </div>
