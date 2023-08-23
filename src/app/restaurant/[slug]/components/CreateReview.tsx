@@ -5,11 +5,26 @@ import InputField from '@/components/InputField'
 import { useState } from 'react'
 import Button from '@/components/Button'
 import StarRating from '@/components/StarRating'
-const CreateReview = () => {
+import axios from 'axios'
+
+const CreateReview = ({ restaurantId }: { restaurantId: number }) => {
   const { data } = useAuthContext()
   const [value, setValue] = useState('')
   const [rating, setRating] = useState(5)
 
+  const handleClick = async () => {
+    await axios.post(
+      'http://localhost:3000/api/restaurant/vivaan-fine-indian-cuisine-ottawa/review',
+      {
+        first_name: data?.first_name,
+        last_name: data?.last_name,
+        rating,
+        text: value,
+        restaurantId: restaurantId,
+        userId: data?.id,
+      }
+    )
+  }
   return (
     <div>
       {!!data && (
@@ -19,10 +34,10 @@ const CreateReview = () => {
             We'd love to hear your thoughts! Your feedback helps us improve and
             provide better experiences.
           </p>
-          <p className="flex gap-1 items-center">
+          <div className="flex gap-1 items-center">
             <span className="font-semibold">Rating (1 Bad, 5 Excellent):</span>
             <StarRating rating={rating} setRating={setRating} />
-          </p>
+          </div>
           <div className="flex flex-col mt-6 gap-6">
             <InputField
               name="comment"
@@ -32,7 +47,7 @@ const CreateReview = () => {
               type="text"
             />
             <Button
-              handleClick={() => {}}
+              handleClick={handleClick}
               type="action"
               className="capitalize max-w-[180px] self-end"
             >
