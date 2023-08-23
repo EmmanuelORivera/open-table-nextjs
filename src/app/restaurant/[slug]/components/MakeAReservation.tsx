@@ -27,6 +27,9 @@ const MakeAReservation = ({
   const [partySize, setPartySize] = useState('2')
   const [day, setDay] = useState(new Date().toISOString().split('T')[0])
 
+  const hasAvailabilities = () => {
+    return data?.some((availability) => availability.available === true)
+  }
   const hiddenStyle = hideOnLargeScreen ? 'lg:hidden' : ''
   const handleChangeDate = (date: Date | null) => {
     if (date) {
@@ -119,7 +122,7 @@ const MakeAReservation = ({
             ))}
           </select>
         </div>
-        {data && data.length ? (
+        {data && data.length && hasAvailabilities() ? (
           <div className="mt-4 ">
             <p>Select a Time</p>
             <div className="flex flex-wrap mt-2 lg:max-w-sm gap-3">
@@ -143,7 +146,13 @@ const MakeAReservation = ({
               })}
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div>
+            <p className="text-center text-lg font-semibold text-red-600">
+              There is no tables available
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )
