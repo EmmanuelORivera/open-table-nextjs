@@ -32,18 +32,24 @@ const PriceFilter = ({
     <div className="mt-3 pb-4">
       <h2 className="mb-2">Price</h2>
       <div className="flex">
-        {prices.map(({ price, label, className }) => (
-          <Link
-            key={label}
-            href={{
-              pathname: '/search',
-              query: { ...searchParams, price },
-            }}
-            className={className}
-          >
-            {label}
-          </Link>
-        ))}
+        {prices.map(({ price, label, className }) => {
+          const isActive = () => price === searchParams.price
+
+          return (
+            <Link
+              key={label}
+              href={{
+                pathname: '/search',
+                query: { ...searchParams, price },
+              }}
+              className={`${className} ${
+                isActive() ? 'font-semibold text-red-600' : ''
+              } `}
+            >
+              {label}
+            </Link>
+          )
+        })}
       </div>
     </div>
   )
