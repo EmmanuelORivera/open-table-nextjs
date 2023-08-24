@@ -5,8 +5,10 @@ import { SelectedUser } from '@/interfaces/SelectedUser'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 export interface AuthContextState {
-  loading: boolean
-  error: string | null
+  loadingSignIn: boolean
+  loadingSignUp: boolean
+  errorSignIn: string | null
+  errorSignUp: string | null
   data: SelectedUser | null
 }
 
@@ -15,22 +17,28 @@ interface AuthState extends AuthContextState {
 }
 
 const AuthenticationContext = createContext<AuthState>({
-  loading: false,
-  error: null,
+  loadingSignIn: false,
+  loadingSignUp: false,
+  errorSignIn: null,
+  errorSignUp: null,
   data: null,
   setAuthState: () => {},
 })
+
+export const initialState: AuthContextState = {
+  loadingSignIn: true,
+  loadingSignUp: true,
+  data: null,
+  errorSignIn: null,
+  errorSignUp: null,
+}
 
 export default function AuthContext({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const [authState, setAuthState] = useState<AuthContextState>({
-    loading: true,
-    data: null,
-    error: null,
-  })
+  const [authState, setAuthState] = useState<AuthContextState>(initialState)
 
   const { fetchUser } = useAuth()
 
