@@ -31,7 +31,7 @@ const UnauthenticatedButtons = () => (
 )
 
 const Navbar = () => {
-  const { data, loading } = useAuthContext()
+  const { data, loadingSignIn: loading } = useAuthContext()
   const { signout } = useAuth()
 
   return (
