@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
   cookies().set('jwt', token, { expires })
 
   return NextResponse.json({
+    id: user.id,
     first_name: user.first_name,
     last_name: user.last_name,
     email: user.email,
