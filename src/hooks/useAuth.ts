@@ -16,8 +16,13 @@ const useAuth = () => {
     },
     handleClose: () => void
   ) => {
-    setAuthState({ data: null, error: null, loading: true })
     try {
+      setAuthState((prevState) => ({
+        ...prevState,
+        data: null,
+        errorSignIn: null,
+        loadingSignIn: true,
+      }))
       const response = await axios.post(
         'http://localhost:3000/api/auth/signin',
         {
@@ -25,21 +30,33 @@ const useAuth = () => {
           password,
         }
       )
-      setAuthState({ data: response.data, error: null, loading: false })
+      setAuthState((prevState) => ({
+        ...prevState,
+        data: response.data,
+        errorSignIn: null,
+        loadingSignIn: false,
+      }))
+
       handleClose()
     } catch (error: any) {
-      setAuthState({
+      setAuthState((prevState) => ({
+        ...prevState,
         data: null,
-        error: error.response.data.errorMessage,
-        loading: false,
-      })
+        errorSignIn: error.response.data.errorMessage,
+        loadingSignIn: false,
+      }))
     }
   }
   const signup = async (
     { email, password, first_name, last_name, city, phone }: AuthInputs,
     handleClose: () => void
   ) => {
-    setAuthState({ data: null, error: null, loading: true })
+    setAuthState((prevState) => ({
+      ...prevState,
+      data: null,
+      errorSignUp: null,
+      loadingSignUp: true,
+    }))
     try {
       const response = await axios.post(
         'http://localhost:3000/api/auth/signup',
@@ -52,14 +69,22 @@ const useAuth = () => {
           phone,
         }
       )
-      setAuthState({ data: response.data, error: null, loading: false })
+
+      setAuthState((prevState) => ({
+        ...prevState,
+        data: response.data,
+        errorSignUp: null,
+        loadingSignUp: false,
+      }))
+
       handleClose()
     } catch (error: any) {
-      setAuthState({
+      setAuthState((prevState) => ({
+        ...prevState,
         data: null,
-        error: error.response.data.errorMessage,
-        loading: false,
-      })
+        errorSignUp: error.response.data.errorMessage,
+        loadingSignUp: false,
+      }))
     }
   }
 
@@ -67,11 +92,24 @@ const useAuth = () => {
     setAuthState: React.Dispatch<React.SetStateAction<AuthContextState>>
   ) => {
     try {
-      setAuthState({ data: null, error: null, loading: true })
+      setAuthState((prevState) => ({
+        ...prevState,
+        data: null,
+        errorSignIn: null,
+        errorSignUp: null,
+        loadingSignUp: true,
+      }))
       const jwt = getCookieFromClient('jwt')
 
       if (!jwt) {
-        return setAuthState({ data: null, error: null, loading: false })
+        return setAuthState((prevState) => ({
+          ...prevState,
+          data: null,
+          errorSignIn: null,
+          errorSignUp: null,
+          loadingSignIn: false,
+          loadingSignUp: false,
+        }))
       }
 
       const response = await axios.get('http://localhost:3000/api/auth/me', {
@@ -80,13 +118,23 @@ const useAuth = () => {
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`
 
-      setAuthState({ data: response.data, error: null, loading: false })
+      setAuthState((prevState) => ({
+        ...prevState,
+        data: response.data,
+        errorSignIn: null,
+        errorSignUp: null,
+        loadingSignIn: false,
+        loadingSignUp: false,
+      }))
     } catch (error: any) {
-      setAuthState({
+      setAuthState((prevState) => ({
+        ...prevState,
         data: null,
-        error: error.response.data.errorMessage,
-        loading: false,
-      })
+        errorSignIn: error.response.data.errorMessage,
+        errorSignUp: null,
+        loadingSignIn: false,
+        loadingSignUp: false,
+      }))
     }
   }
 
@@ -94,11 +142,14 @@ const useAuth = () => {
     const cookieJWT = 'jwt'
     document.cookie = `${cookieJWT}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
 
-    setAuthState({
+    setAuthState((prevState) => ({
+      ...prevState,
       data: null,
-      error: null,
-      loading: false,
-    })
+      errorSignIn: null,
+      errorSignUp: null,
+      loadingSignIn: false,
+      loadingSignUp: false,
+    }))
   }
 
   return { signin, signup, fetchUser, signout: signOut }
