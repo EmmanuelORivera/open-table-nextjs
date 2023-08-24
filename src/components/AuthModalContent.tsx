@@ -12,7 +12,12 @@ const AuthModalContent = ({
   action: Action
   handleClose: () => void
 }) => {
-  const { loading, error } = useAuthContext()
+  const { loadingSignIn, loadingSignUp, errorSignIn, errorSignUp } =
+    useAuthContext()
+
+  const loading = action === 'sign-in' ? loadingSignIn : loadingSignUp
+  const error = action === 'sign-in' ? errorSignIn : errorSignUp
+
   const [inputs, setInputs] = useState({
     first_name: '',
     last_name: '',
