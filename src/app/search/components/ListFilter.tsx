@@ -30,13 +30,23 @@ const getQuery = (
 const ListFilter = ({ searchParams, filterType, items }: Props) => {
   return (
     <div className="border-b pb-4">
-      <h2 className="mb-2">{filterType}</h2>
+      <h2 className="mb-2 font-bold">{filterType}</h2>
       {items.map((item) => {
         const { query } = getQuery(filterType, item, searchParams)
+        const isActive =
+          (filterType === ListFilterType.Cuisine &&
+            item.name === searchParams.cuisine) ||
+          (filterType === ListFilterType.Region &&
+            item.name === searchParams.city)
 
         return (
           <p className="font-light text-reg capitalize" key={item.id}>
-            <Link href={{ pathname: '/search', query }}>{item.name}</Link>
+            <Link
+              className={`${isActive ? 'font-bold text-red-600' : ''}`}
+              href={{ pathname: '/search', query }}
+            >
+              {item.name}
+            </Link>
           </p>
         )
       })}
