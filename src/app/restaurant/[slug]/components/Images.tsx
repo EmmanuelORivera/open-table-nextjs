@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 const Images = ({ images }: { images: string[] }) => {
   const totalOfImages = images.length
   const titleText = totalOfImages === 1 ? 'photo' : 'photos'
@@ -8,7 +10,9 @@ const Images = ({ images }: { images: string[] }) => {
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-[repeat(4,150px)] md:grid-rows-2  gap-1">
         {images.map((image, index) => (
-          <img
+          <Image
+            width={1000}
+            height={1000}
             key={'image' + index}
             className="rounded col-span-2 row-span-2 object-cover h-full w-full"
             src={image}

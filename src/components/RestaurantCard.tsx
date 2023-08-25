@@ -4,6 +4,7 @@ import React from 'react'
 import RestaurantPrice from './RestaurantPrice'
 import Stars from './Stars'
 import { ReservationManager } from '@/utils/ReservationManager'
+import Image from 'next/image'
 
 const getReviewInfo = (restaurant: Restaurant) => {
   const numberOfReviews = restaurant.reviews.length
@@ -19,9 +20,9 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
   return (
     <div className="pb-3 w-full max-w-[270px] rounded overflow-hidden border cursor-pointer">
       <Link href={`/restaurant/${restaurant.slug}`}>
-        <img
+        <Image
           src={restaurant.main_image}
-          alt=""
+          alt={restaurant.name}
           className="w-full h-36 object-cover"
         />
         <div className="p-1">

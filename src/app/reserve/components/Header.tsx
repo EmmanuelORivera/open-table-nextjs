@@ -3,6 +3,7 @@ import { Time, convertToDisplayTime } from '@/utils/convertToDisplayTime'
 import { format } from 'date-fns'
 import { notFound } from 'next/navigation'
 import { ReservePageParams, ReserveSearchParams } from '../[slug]/page'
+import Image from 'next/image'
 
 const Header = async ({
   params,
@@ -24,9 +25,11 @@ const Header = async ({
     <div>
       <h3 className="font-bold hidden md:block">You're almost done!</h3>
       <div className="mt-5 flex gap-4">
-        <img
+        <Image
           src={restaurant.main_image}
           alt={restaurant.name}
+          height={128}
+          width={80}
           className="w-32 h-20 rounded hidden md:block object-cover"
         />
         <div className="">

@@ -2,6 +2,7 @@ import RestaurantPrice from '@/components/RestaurantPrice'
 import Stars from '@/components/Stars'
 import { Restaurant } from '@/interfaces/Restaurant'
 import { calculateReviewAvarage, getReviewMessage } from '@/utils/reviewUtils'
+import Image from 'next/image'
 import Link from 'next/link'
 
 const SearchRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
@@ -9,9 +10,11 @@ const SearchRestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
 
   return (
     <div className="sm:flex border-b sm:h-[250px] pb-8 mb-8 items-center">
-      <img
+      <Image
+        width={300}
+        height={300}
         src={restaurant.main_image}
-        alt=""
+        alt={restaurant.name}
         className="w-full h-full sm:min-w-[90px] sm:min-h-[90px] sm:max-w-[205px] sm:max-h-[205px]  object-cover rounded"
       />
       <div className="w-full sm:pl-5">
