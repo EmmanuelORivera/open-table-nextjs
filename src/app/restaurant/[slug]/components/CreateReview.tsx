@@ -58,8 +58,8 @@ const CreateReview = ({ restaurantId }: { restaurantId: number }) => {
             <div>
               <Title title="Leave a Review"></Title>
               <p className="text-gray-500 my-4">
-                We'd love to hear your thoughts! Your feedback helps us improve
-                and provide better experiences.
+                We&apos;d love to hear your thoughts! Your feedback helps us
+                improve and provide better experiences.
               </p>
               <div className="flex gap-1 items-center">
                 <span className="font-semibold">
