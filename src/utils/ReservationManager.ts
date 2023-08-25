@@ -8,9 +8,13 @@ export class ReservationManager {
 
   get todayReservations() {
     const today = new Date()
-
+    console.log('reservations: ')
+    console.log(this.reservations)
     return this.reservations.filter((reservation) => {
       const reservationDate = new Date(reservation.booking_time)
+      console.log('reservation:' + reservation.booking_time)
+      console.log('reservationDate' + reservationDate)
+      console.log('today:' + today)
 
       return (
         reservationDate.getDate() === today.getDate() &&
