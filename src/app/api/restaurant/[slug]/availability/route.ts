@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     restaurantService
   )
 
-  const response = await calculator.calculateAvailabilities(url)
+  const response = await calculator.calculateAvailabilities(url, req)
 
   return response
 }
