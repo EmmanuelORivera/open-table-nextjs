@@ -97,6 +97,7 @@ const MakeAReservation = ({
             Date
           </label>
           <ReactDatePicker
+            minDate={new Date()}
             selected={selectedDate}
             onChange={handleChangeDate}
             className="py-3 border-b font-light"
