@@ -45,7 +45,7 @@ const CreateReview = ({ restaurantId }: { restaurantId: number }) => {
             title="Thanks for sharing your thoughts !!"
           ></Title>
           <div className="flex gap-1 items-center">
-            <span className="font-bold">Rate:</span>{' '}
+            <span className="font-bold">Rate:</span>
             <Stars reviews={[]} rating={rating}></Stars>
           </div>
           <div className="flex gap-1 mt-3 items-center">

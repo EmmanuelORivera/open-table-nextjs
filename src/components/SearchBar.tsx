@@ -38,7 +38,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         className="capitalize"
         disabled={isButtonDisabled()}
       >
-        Let's go
+        Search
       </Button>
     </div>
   )

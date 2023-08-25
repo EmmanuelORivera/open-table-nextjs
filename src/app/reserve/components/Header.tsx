@@ -38,7 +38,7 @@ const Header = async ({
             <p className="mr-6">{formattedDate}</p>
             <p className="mr-6">{convertToDisplayTime(time as Time)}</p>
             <p className="mr-6">
-              {searchParams.partySize}{' '}
+              {searchParams.partySize}
               {parseInt(searchParams.partySize) === 1 ? 'person' : 'people'}
             </p>
           </div>

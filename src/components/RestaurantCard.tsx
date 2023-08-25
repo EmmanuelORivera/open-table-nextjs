@@ -21,6 +21,8 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
     <div className="pb-3 w-full max-w-[270px] rounded overflow-hidden border cursor-pointer">
       <Link href={`/restaurant/${restaurant.slug}`}>
         <Image
+          width={1000}
+          height={144}
           src={restaurant.main_image}
           alt={restaurant.name}
           className="w-full h-36 object-cover"
