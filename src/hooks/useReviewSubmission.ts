@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import axios from 'axios'
 import { ReviewData } from '@/app/restaurant/[slug]/components/CreateReview'
+import api from '@/app/api'
 
 export const useReviewSubmission = () => {
   const [loading, setLoading] = useState(false)
@@ -13,8 +13,8 @@ export const useReviewSubmission = () => {
     setSuccess(false)
 
     try {
-      await axios.post(
-        'http://localhost:3000/api/restaurant/vivaan-fine-indian-cuisine-ottawa/review',
+      await api.post(
+        '/api/restaurant/vivaan-fine-indian-cuisine-ottawa/review',
         data
       )
       setSuccess(true)

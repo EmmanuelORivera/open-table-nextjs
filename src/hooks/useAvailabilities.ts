@@ -1,5 +1,5 @@
+import api from '@/app/api'
 import { Time } from '@/utils/convertToDisplayTime'
-import axios from 'axios'
 import { useState } from 'react'
 
 interface FetchAvailabilitiesProps {
@@ -27,8 +27,8 @@ export default function useAvailabilities() {
     setLoading(true)
 
     try {
-      const response = await axios.get<Availabilities[]>(
-        `http://localhost:3000/api/restaurant/${slug}/availability`,
+      const response = await api.get<Availabilities[]>(
+        `/api/restaurant/${slug}/availability`,
         {
           params: {
             day,

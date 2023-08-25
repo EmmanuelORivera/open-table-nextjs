@@ -1,3 +1,4 @@
+import api from '@/app/api'
 import { AuthContextState, useAuthContext } from '@/context/AuthContext'
 import { AuthInputs } from '@/interfaces/AuthInputs'
 import { getCookieFromClient } from '@/utils/getCookieFromClient'
@@ -23,13 +24,10 @@ const useAuth = () => {
         errorSignIn: null,
         loadingSignIn: true,
       }))
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/signin',
-        {
-          email,
-          password,
-        }
-      )
+      const response = await api.post('/api/auth/signin', {
+        email,
+        password,
+      })
       setAuthState((prevState) => ({
         ...prevState,
         data: response.data,
@@ -58,17 +56,14 @@ const useAuth = () => {
       loadingSignUp: true,
     }))
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/signup',
-        {
-          email,
-          password,
-          first_name,
-          last_name,
-          city,
-          phone,
-        }
-      )
+      const response = await api.post('/api/auth/signup', {
+        email,
+        password,
+        first_name,
+        last_name,
+        city,
+        phone,
+      })
 
       setAuthState((prevState) => ({
         ...prevState,
@@ -112,7 +107,7 @@ const useAuth = () => {
         }))
       }
 
-      const response = await axios.get('http://localhost:3000/api/auth/me', {
+      const response = await api.get('/api/auth/me', {
         headers: { Authorization: `Bearer ${jwt}` },
       })
 

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '@/app/api'
 import { useState } from 'react'
 
 interface FetchReservationProps {
@@ -49,8 +49,8 @@ export default function useReservation() {
     setLoading(true)
 
     try {
-      const response = await axios.post<Reservation>(
-        `http://localhost:3000/api/restaurant/${slug}/reserve`,
+      const response = await api.post<Reservation>(
+        `/api/restaurant/${slug}/reserve`,
         {
           bookerEmail,
           bookerFirstName,
