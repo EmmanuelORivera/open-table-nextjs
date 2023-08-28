@@ -19,20 +19,19 @@ export async function GET(req: NextRequest) {
   await prisma.location.deleteMany()
 
   const resetSequenceQueries = [
-    `SELECT setval(pg_get_serial_sequence('"Review"', 'id'), COALESCE(max(id),0)+1, false) FROM "Review";`,
-    `SELECT setval(pg_get_serial_sequence('"User"', 'id'), COALESCE(max(id),0)+1, false) FROM "User";`,
-    `SELECT setval(pg_get_serial_sequence('"BookingsOnTables"', 'id'), COALESCE(max(id),0)+1, false) FROM "BookingsOnTables";`,
-    `SELECT setval(pg_get_serial_sequence('"Table"', 'id'), COALESCE(max(id),0)+1, false) FROM "Table";`,
-    `SELECT setval(pg_get_serial_sequence('"Item"', 'id'), COALESCE(max(id),0)+1, false) FROM "Item";`,
-    `SELECT setval(pg_get_serial_sequence('"Booking"', 'id'), COALESCE(max(id),0)+1, false) FROM "Booking";`,
-    `SELECT setval(pg_get_serial_sequence('"Restaurant"', 'id'), COALESCE(max(id),0)+1, false) FROM "Restaurant";`,
-    `SELECT setval(pg_get_serial_sequence('"Cuisine"', 'id'), COALESCE(max(id),0)+1, false) FROM "Cuisine";`,
-    `SELECT setval(pg_get_serial_sequence('"Location"', 'id'), COALESCE(max(id),0)+1, false) FROM "Location";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Review"', 'id'), COALESCE(max(id),0)+1, false) FROM "Review";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"User"', 'id'), COALESCE(max(id),0)+1, false) FROM "User";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"BookingsOnTables"', 'id'), COALESCE(max(id),0)+1, false) FROM "BookingsOnTables";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Table"', 'id'), COALESCE(max(id),0)+1, false) FROM "Table";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Item"', 'id'), COALESCE(max(id),0)+1, false) FROM "Item";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Booking"', 'id'), COALESCE(max(id),0)+1, false) FROM "Booking";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Restaurant"', 'id'), COALESCE(max(id),0)+1, false) FROM "Restaurant";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Cuisine"', 'id'), COALESCE(max(id),0)+1, false) FROM "Cuisine";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Location"', 'id'), COALESCE(max(id),0)+1, false) FROM location;`,
   ]
 
   for (const query of resetSequenceQueries) {
-    //@ts-ignore
-    await prisma.$queryRaw(query)
+    await query
   }
 
   await prisma.location.createMany({
