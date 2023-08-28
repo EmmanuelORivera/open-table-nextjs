@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <div>
       {JSON.stringify(specificRestaurant?.reviews)}
-      {JSON.stringify(specificReview?.restaurant)}
+      {JSON.stringify(specificReview)}
       <Hero title="Find your table for any occasion">
         <SearchBar />
       </Hero>
