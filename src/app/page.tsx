@@ -16,11 +16,17 @@ export default async function Home() {
     include: { reviews: true },
   })
 
-  console.log(specificRestaurant)
+  const specificReview = await prisma.review.findUnique({
+    where: {
+      id: 27,
+    },
+    include: { restaurant: true },
+  })
 
   return (
     <div>
       {JSON.stringify(specificRestaurant?.reviews)}
+      {JSON.stringify(specificReview?.restaurant)}
       <Hero title="Find your table for any occasion">
         <SearchBar />
       </Hero>
