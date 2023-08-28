@@ -19,15 +19,15 @@ export async function GET(req: NextRequest) {
   await prisma.location.deleteMany()
 
   const resetSequenceQueries = [
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('Review', 'id'), COALESCE(max(id),0)+1, false) FROM review;`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('User', 'id'), COALESCE(max(id),0)+1, false) FROM "user";`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('BookingsOnTables', 'id'), COALESCE(max(id),0)+1, false) FROM "bookingsOnTables";`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('Table', 'id'), COALESCE(max(id),0)+1, false) FROM "table";`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('Item', 'id'), COALESCE(max(id),0)+1, false) FROM item;`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('Booking', 'id'), COALESCE(max(id),0)+1, false) FROM booking;`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('Restaurant', 'id'), COALESCE(max(id),0)+1, false) FROM restaurant;`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('Cuisine', 'id'), COALESCE(max(id),0)+1, false) FROM cuisine;`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('Location', 'id'), COALESCE(max(id),0)+1, false) FROM location;`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Review"', 'id'), COALESCE(max(id),0)+1, false) FROM "Review";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"User"', 'id'), COALESCE(max(id),0)+1, false) FROM "User";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"BookingsOnTables"', 'id'), COALESCE(max(id),0)+1, false) FROM "BookingsOnTables";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Table"', 'id'), COALESCE(max(id),0)+1, false) FROM "Table";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Item"', 'id'), COALESCE(max(id),0)+1, false) FROM "Item";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Booking"', 'id'), COALESCE(max(id),0)+1, false) FROM "Booking";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Restaurant"', 'id'), COALESCE(max(id),0)+1, false) FROM "Restaurant";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Cuisine"', 'id'), COALESCE(max(id),0)+1, false) FROM "Cuisine";`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Location"', 'id'), COALESCE(max(id),0)+1, false) FROM "Location";`,
   ]
 
   for (const query of resetSequenceQueries) {
