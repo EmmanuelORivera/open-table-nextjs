@@ -12,7 +12,7 @@ export default async function Home() {
   const restaurants: Restaurant[] = await restaurantService.fetchRestaurants()
 
   const specificRestaurant = await prisma.restaurant.findUnique({
-    where: { id: 217 },
+    where: { id: 1 },
     include: { reviews: true },
   })
 
