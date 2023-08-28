@@ -28,8 +28,23 @@ export class PrismaRestaurantService implements RestaurantService {
         location: true,
         price: true,
         slug: true,
-        reviews: true,
+        reviews: {
+          select: {
+            id: true,
+            first_name: true,
+            last_name: true,
+            text: true,
+            rating: true,
+            created_at: true,
+            updated_at: true,
+            restaurant: true,
+            user: true,
+            restaurant_id: true,
+            user_id: true,
+          },
+        },
         bookings: true,
+        items: true,
       },
     })
 
