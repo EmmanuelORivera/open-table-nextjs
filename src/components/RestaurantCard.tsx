@@ -5,18 +5,22 @@ import RestaurantPrice from './RestaurantPrice'
 import Stars from './Stars'
 import { ReservationManager } from '@/utils/ReservationManager'
 import Image from 'next/image'
+import { prisma } from '@/services/PrismaSingleton'
+import { Review } from '@prisma/client'
 
-const getReviewInfo = (restaurant: Restaurant) => {
-  const numberOfReviews = restaurant.reviews.length
-  const reviewText = numberOfReviews === 1 ? 'review' : 'reviews'
-
-  return { numberOfReviews, reviewText }
+const renderReviewText = (reviews: Review[]) => {
+  return reviews.length === 1 ? 'review' : 'reviews'
 }
-const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
-  const { numberOfReviews, reviewText } = getReviewInfo(restaurant)
+const RestaurantCard = async ({ restaurant }: { restaurant: Restaurant }) => {
   const reservationManager = new ReservationManager(restaurant.bookings)
   const todayReservationsCount = reservationManager.todayReservationsCount
 
+  let reviews: Review[] | undefined
+  if (restaurant.id) {
+    reviews = await prisma.review.findMany({
+      where: { restaurant_id: restaurant.id },
+    })
+  }
   return (
     <div className="pb-3 w-full max-w-[270px] rounded overflow-hidden border cursor-pointer">
       <Link href={`/restaurant/${restaurant.slug}`}>
@@ -29,12 +33,13 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
         />
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
-          {JSON.stringify(restaurant)}
           <div className="flex items-start">
-            <Stars reviews={restaurant.reviews} />
-            <p className="ml-2">
-              {numberOfReviews} {reviewText}
-            </p>
+            {reviews && <Stars reviews={reviews} />}
+            {reviews && (
+              <p className="ml-2">
+                {reviews.length} {renderReviewText(reviews)}
+              </p>
+            )}
           </div>
           <div className="flex font-light capitalize">
             <p className=" mr-3">{restaurant.cuisine.name}</p>
