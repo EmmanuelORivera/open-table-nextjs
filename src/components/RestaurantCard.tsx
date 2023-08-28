@@ -29,6 +29,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
         />
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
+          {JSON.stringify(restaurant)}
           <div className="flex items-start">
             <Stars reviews={restaurant.reviews} />
             <p className="ml-2">
