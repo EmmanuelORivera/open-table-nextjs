@@ -18,8 +18,8 @@ export class PrismaRestaurantService implements RestaurantService {
     return PrismaRestaurantService.instance
   }
 
-  async fetchRestaurants(): Promise<Restaurant[]> {
-    const restaurants = await prisma.restaurant.findMany({
+  fetchRestaurants(): Promise<Restaurant[]> {
+    const restaurants = prisma.restaurant.findMany({
       select: {
         id: true,
         name: true,
