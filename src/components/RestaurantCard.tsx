@@ -23,6 +23,7 @@ const RestaurantCard = async ({ restaurant }: { restaurant: Restaurant }) => {
   }
   return (
     <div className="pb-3 w-full max-w-[270px] rounded overflow-hidden border cursor-pointer">
+      {JSON.stringify(reviews)}
       <Link href={`/restaurant/${restaurant.slug}`}>
         <Image
           width={1000}
