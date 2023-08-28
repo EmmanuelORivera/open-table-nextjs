@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   const resetSequenceQueries = [
     prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Review"', 'id'), COALESCE((SELECT max(id) FROM "Review"), 0) + 1, false);`,
     prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"User"', 'id'), COALESCE((SELECT max(id) FROM "User"), 0) + 1, false);`,
-    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"BookingsOnTables"', 'id'), COALESCE((SELECT max(id) FROM "BookingsOnTables"), 0) + 1, false);`,
+    prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"BookingsOnTables"', 'booking_id'), COALESCE((SELECT max(booking_id) FROM "BookingsOnTables"), 0) + 1, false);`,
     prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Table"', 'id'), COALESCE((SELECT max(id) FROM "Table"), 0) + 1, false);`,
     prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Item"', 'id'), COALESCE((SELECT max(id) FROM "Item"), 0) + 1, false);`,
     prisma.$queryRaw`SELECT setval(pg_get_serial_sequence('"Booking"', 'id'), COALESCE((SELECT max(id) FROM "Booking"), 0) + 1, false);`,
