@@ -131,7 +131,7 @@ const MakeAReservation = ({
                 return time.available ? (
                   <Link
                     key={time.time}
-                    className="bg-red-600 cursor-pointer p-2 w-24 text-center text-white  rounded "
+                    className="bg-red-600 cursor-pointer p-2 w-24 h-9 text-center text-white  rounded "
                     href={`/reserve/${slug}?date=${day}T${time.time}&partySize=${partySize}`}
                   >
                     <p className="text-sm font-bold">
@@ -141,7 +141,7 @@ const MakeAReservation = ({
                 ) : (
                   <p
                     key={time.time}
-                    className="bg-gray-300 p-2 w-24 rounded "
+                    className="bg-gray-300 p-2 w-24 rounded h-9"
                   ></p>
                 )
               })}
