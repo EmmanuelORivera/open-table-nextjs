@@ -310,60 +310,60 @@ export async function GET(req: NextRequest) {
         location_id: torontoLocationId,
         cuisine_id: mexicanCuisineId,
       },
-      {
-        name: 'Casa Madera',
-        main_image:
-          'https://resizer.otstatic.com/v2/photos/wide-huge/3/47744844.jpg',
-        price: Price.EXPENSIVE,
-        description:
-          'The first location in Canada, from famed restauranteurs Noble 33, welcomes patrons into an immersive dining experience.',
-        images: [
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47745080.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47745081.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47745093.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47745097.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47745144.jpg',
-        ],
-        open_time: '15:00:00.000Z',
-        close_time: '21:00:00.000Z',
-        slug: 'casa-madera-toronto',
-        location_id: torontoLocationId,
-        cuisine_id: mexicanCuisineId,
-      },
-      {
-        name: 'Taco N Tequila',
-        main_image:
-          'https://resizer.otstatic.com/v2/photos/wide-huge/3/47429858.jpg',
-        price: Price.CHEAP,
-        description:
-          'As a family owned business, our goal is simple: to consistently deliver fresh and delicious Mexican flavours in a FUN and friendly atmosphere with the best service around!',
-        images: [
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47600418.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47429797.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47429802.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47745097.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/47429814.jpg',
-        ],
-        open_time: '10:00:00.000Z',
-        close_time: '21:00:00.000Z',
-        slug: 'casa-madera-niagara',
-        location_id: niagaraLocationId,
-        cuisine_id: mexicanCuisineId,
-      },
-      {
-        name: 'El Jefe',
-        main_image:
-          'https://resizer.otstatic.com/v2/photos/wide-huge/3/47710768.jpg',
-        price: Price.CHEAP,
-        description:
-          'Lively cantina serving Mexican favorites & potent margaritas in a vibrant, airy space with murals.',
-        images: [],
-        open_time: '10:00:00.000Z',
-        close_time: '21:00:00.000Z',
-        slug: 'el-jefe-niagara',
-        location_id: niagaraLocationId,
-        cuisine_id: mexicanCuisineId,
-      },
+      // {
+      //   name: 'Casa Madera',
+      //   main_image:
+      //     'https://resizer.otstatic.com/v2/photos/wide-huge/3/47744844.jpg',
+      //   price: Price.EXPENSIVE,
+      //   description:
+      //     'The first location in Canada, from famed restauranteurs Noble 33, welcomes patrons into an immersive dining experience.',
+      //   images: [
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47745080.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47745081.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47745093.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47745097.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47745144.jpg',
+      //   ],
+      //   open_time: '15:00:00.000Z',
+      //   close_time: '21:00:00.000Z',
+      //   slug: 'casa-madera-toronto',
+      //   location_id: torontoLocationId,
+      //   cuisine_id: mexicanCuisineId,
+      // },
+      // {
+      //   name: 'Taco N Tequila',
+      //   main_image:
+      //     'https://resizer.otstatic.com/v2/photos/wide-huge/3/47429858.jpg',
+      //   price: Price.CHEAP,
+      //   description:
+      //     'As a family owned business, our goal is simple: to consistently deliver fresh and delicious Mexican flavours in a FUN and friendly atmosphere with the best service around!',
+      //   images: [
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47600418.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47429797.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47429802.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47745097.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/47429814.jpg',
+      //   ],
+      //   open_time: '10:00:00.000Z',
+      //   close_time: '21:00:00.000Z',
+      //   slug: 'casa-madera-niagara',
+      //   location_id: niagaraLocationId,
+      //   cuisine_id: mexicanCuisineId,
+      // },
+      // {
+      //   name: 'El Jefe',
+      //   main_image:
+      //     'https://resizer.otstatic.com/v2/photos/wide-huge/3/47710768.jpg',
+      //   price: Price.CHEAP,
+      //   description:
+      //     'Lively cantina serving Mexican favorites & potent margaritas in a vibrant, airy space with murals.',
+      //   images: [],
+      //   open_time: '10:00:00.000Z',
+      //   close_time: '21:00:00.000Z',
+      //   slug: 'el-jefe-niagara',
+      //   location_id: niagaraLocationId,
+      //   cuisine_id: mexicanCuisineId,
+      // },
       // ITALIAN //
       {
         name: 'Cano Restaurant',
@@ -427,48 +427,48 @@ export async function GET(req: NextRequest) {
         location_id: ottawaLocationId,
         cuisine_id: italianCuisineId,
       },
-      {
-        name: 'Terroni Adelaide',
-        main_image:
-          'https://resizer.otstatic.com/v2/photos/wide-huge/3/46827195.jpg',
-        price: Price.REGULAR,
-        description:
-          'Terroni Adelaide’s multi-level location is located in Toronto’s historic York County Court House circa 1853.',
-        images: [
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/42309468.png',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/42309469.png',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/42309470.png',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/42309472.png',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/42309474.png',
-        ],
-        open_time: '12:00:00.000Z',
-        close_time: '18:00:00.000Z',
-        slug: 'terroni-adelaide-niagara',
-        location_id: niagaraLocationId,
-        cuisine_id: italianCuisineId,
-      },
-      {
-        name: 'EST Restaurant',
-        main_image:
-          'https://resizer.otstatic.com/v2/photos/wide-huge/3/49169798.jpg',
-        price: Price.CHEAP,
-        description:
-          'ēst is a modern, newly reopened restaurant serving Italian-French courses, captivating cocktails and wine.',
-        images: [
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/49253937.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/49253940.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/49253941.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/1/49415599.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/1/49415604.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/1/49696221.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/1/49999039.jpg',
-        ],
-        open_time: '09:00:00.000Z',
-        close_time: '21:00:00.000Z',
-        slug: 'est-restaurant-niagara',
-        location_id: niagaraLocationId,
-        cuisine_id: italianCuisineId,
-      },
+      // {
+      //   name: 'Terroni Adelaide',
+      //   main_image:
+      //     'https://resizer.otstatic.com/v2/photos/wide-huge/3/46827195.jpg',
+      //   price: Price.REGULAR,
+      //   description:
+      //     'Terroni Adelaide’s multi-level location is located in Toronto’s historic York County Court House circa 1853.',
+      //   images: [
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/42309468.png',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/42309469.png',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/42309470.png',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/42309472.png',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/42309474.png',
+      //   ],
+      //   open_time: '12:00:00.000Z',
+      //   close_time: '18:00:00.000Z',
+      //   slug: 'terroni-adelaide-niagara',
+      //   location_id: niagaraLocationId,
+      //   cuisine_id: italianCuisineId,
+      // },
+      // {
+      //   name: 'EST Restaurant',
+      //   main_image:
+      //     'https://resizer.otstatic.com/v2/photos/wide-huge/3/49169798.jpg',
+      //   price: Price.CHEAP,
+      //   description:
+      //     'ēst is a modern, newly reopened restaurant serving Italian-French courses, captivating cocktails and wine.',
+      //   images: [
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/49253937.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/49253940.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/49253941.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/1/49415599.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/1/49415604.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/1/49696221.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/1/49999039.jpg',
+      //   ],
+      //   open_time: '09:00:00.000Z',
+      //   close_time: '21:00:00.000Z',
+      //   slug: 'est-restaurant-niagara',
+      //   location_id: niagaraLocationId,
+      //   cuisine_id: italianCuisineId,
+      // },
       {
         name: 'Sofia',
         main_image:
@@ -489,46 +489,46 @@ export async function GET(req: NextRequest) {
         location_id: torontoLocationId,
         cuisine_id: italianCuisineId,
       },
-      {
-        name: 'Terroni Sud Forno',
-        main_image:
-          'https://resizer.otstatic.com/v2/photos/wide-huge/3/49463645.png',
-        price: Price.REGULAR,
-        description:
-          'Spaccio West, near the Lower Junction on the West Toronto Railpath, acts as the backstage to the main show taking place at all Terroni locations.',
-        images: [
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/48741813.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/48741816.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/48741821.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/48741826.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/48741827.jpg',
-        ],
-        open_time: '10:00:00.000Z',
-        close_time: '21:00:00.000Z',
-        slug: 'terroni-sud-forno-produzione-e-spaccio-toronto',
-        location_id: torontoLocationId,
-        cuisine_id: italianCuisineId,
-      },
-      {
-        name: 'il Padrino',
-        main_image:
-          'https://resizer.otstatic.com/v2/photos/wide-huge/3/49616181.jpg',
-        price: Price.CHEAP,
-        description:
-          'Welcome to the newest edition to College street iL PADRINO Ristorante has joined the list of Italian restaurants where Chef Connie award winning Italian Chef makes every Italian dish with love like no other. ',
-        images: [
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/49494556.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/49494562.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/2/49494563.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/3/49494887.jpg',
-          'https://resizer.otstatic.com/v2/photos/xlarge/3/49533502.jpg',
-        ],
-        open_time: '07:00:00.000Z',
-        close_time: '21:00:00.000Z',
-        slug: 'il-padrino-toronto',
-        location_id: torontoLocationId,
-        cuisine_id: italianCuisineId,
-      },
+      // {
+      //   name: 'Terroni Sud Forno',
+      //   main_image:
+      //     'https://resizer.otstatic.com/v2/photos/wide-huge/3/49463645.png',
+      //   price: Price.REGULAR,
+      //   description:
+      //     'Spaccio West, near the Lower Junction on the West Toronto Railpath, acts as the backstage to the main show taking place at all Terroni locations.',
+      //   images: [
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/48741813.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/48741816.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/48741821.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/48741826.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/48741827.jpg',
+      //   ],
+      //   open_time: '10:00:00.000Z',
+      //   close_time: '21:00:00.000Z',
+      //   slug: 'terroni-sud-forno-produzione-e-spaccio-toronto',
+      //   location_id: torontoLocationId,
+      //   cuisine_id: italianCuisineId,
+      // },
+      // {
+      //   name: 'il Padrino',
+      //   main_image:
+      //     'https://resizer.otstatic.com/v2/photos/wide-huge/3/49616181.jpg',
+      //   price: Price.CHEAP,
+      //   description:
+      //     'Welcome to the newest edition to College street iL PADRINO Ristorante has joined the list of Italian restaurants where Chef Connie award winning Italian Chef makes every Italian dish with love like no other. ',
+      //   images: [
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/49494556.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/49494562.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/2/49494563.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/3/49494887.jpg',
+      //     'https://resizer.otstatic.com/v2/photos/xlarge/3/49533502.jpg',
+      //   ],
+      //   open_time: '07:00:00.000Z',
+      //   close_time: '21:00:00.000Z',
+      //   slug: 'il-padrino-toronto',
+      //   location_id: torontoLocationId,
+      //   cuisine_id: italianCuisineId,
+      // },
     ],
   })
 
