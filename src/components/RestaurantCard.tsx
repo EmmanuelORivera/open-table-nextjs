@@ -29,12 +29,13 @@ const RestaurantCard = ({ restaurant }: { restaurant: Restaurant }) => {
         />
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
-          <div className="flex items-start">
+          {/* TODO: Find why reviews is an empty an array on deploy */}
+          {/* <div className="flex items-start">
             <Stars reviews={restaurant.reviews} />
             <p className="ml-2">
               {numberOfReviews} {reviewText}
             </p>
-          </div>
+          </div> */}
           <div className="flex font-light capitalize">
             <p className=" mr-3">{restaurant.cuisine.name}</p>
             <RestaurantPrice price={restaurant.price} />

@@ -15,7 +15,6 @@ export default async function Home() {
       <Hero title="Find your table for any occasion">
         <SearchBar />
       </Hero>
-      {JSON.stringify(restaurants)}
       <div className="py-3 mt-10 flex flex-wrap justify-center gap-6">
         {restaurants.map((restaurant) => (
           <RestaurantCard restaurant={restaurant} key={restaurant.id} />
