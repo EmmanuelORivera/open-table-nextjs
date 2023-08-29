@@ -1,5 +1,5 @@
 import { FormEvent } from 'react'
-import { Action } from './AuthModal'
+import { Action } from '@/types/Action'
 import { AuthInputs } from '@/interfaces/AuthInputs'
 import InputField from './InputField'
 import FormValidator from './FormValidator'

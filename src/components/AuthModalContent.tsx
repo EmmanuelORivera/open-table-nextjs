@@ -1,5 +1,5 @@
 import { renderContent } from '@/utils/authModalUtils'
-import { Action } from './AuthModal'
+import { Action } from '@/types/Action'
 import AuthModalInputs from './AuthModalInputs'
 import { Alert, CircularProgress } from '@mui/material'
 import { useAuthContext } from '@/context/AuthContext'

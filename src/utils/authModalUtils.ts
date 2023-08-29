@@ -1,4 +1,4 @@
-import { Action } from '@/components/AuthModal'
+import { Action } from '@/types/Action'
 
 export const renderContent = (
   action: Action,

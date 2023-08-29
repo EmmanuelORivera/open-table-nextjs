@@ -1,7 +1,7 @@
 'use client'
 
 import { AuthInputs } from '@/interfaces/AuthInputs'
-import { Action } from './AuthModal'
+import { Action } from '@/types/Action'
 import { useEffect, useState } from 'react'
 import Button from './Button'
 import { renderContent } from '@/utils/authModalUtils'
