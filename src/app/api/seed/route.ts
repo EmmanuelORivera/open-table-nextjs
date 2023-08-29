@@ -1333,6 +1333,70 @@ export async function GET(req: NextRequest) {
         restaurant_id: vivaanId,
         seats: 2,
       },
+
+      { restaurant_id: RamaKrishnaId, seats: 4 },
+      { restaurant_id: RamaKrishnaId, seats: 4 },
+      { restaurant_id: RamaKrishnaId, seats: 2 },
+
+      { restaurant_id: coconutLagoonId, seats: 4 },
+      { restaurant_id: coconutLagoonId, seats: 4 },
+      { restaurant_id: coconutLagoonId, seats: 2 },
+
+      { restaurant_id: lastTrainToDelhiId, seats: 4 },
+      { restaurant_id: lastTrainToDelhiId, seats: 4 },
+      { restaurant_id: lastTrainToDelhiId, seats: 2 },
+
+      { restaurant_id: adrakYorkvilleId, seats: 4 },
+      { restaurant_id: adrakYorkvilleId, seats: 4 },
+      { restaurant_id: adrakYorkvilleId, seats: 2 },
+
+      { restaurant_id: curryishTavernId, seats: 4 },
+      { restaurant_id: curryishTavernId, seats: 4 },
+      { restaurant_id: curryishTavernId, seats: 2 },
+
+      { restaurant_id: utsavId, seats: 4 },
+      { restaurant_id: utsavId, seats: 4 },
+      { restaurant_id: utsavId, seats: 2 },
+
+      { restaurant_id: pukkaId, seats: 4 },
+      { restaurant_id: pukkaId, seats: 4 },
+      { restaurant_id: pukkaId, seats: 2 },
+
+      { restaurant_id: kamasutraIndianId, seats: 4 },
+      { restaurant_id: kamasutraIndianId, seats: 4 },
+      { restaurant_id: kamasutraIndianId, seats: 2 },
+
+      { restaurant_id: eldoradoTacoId, seats: 4 },
+      { restaurant_id: eldoradoTacoId, seats: 4 },
+      { restaurant_id: eldoradoTacoId, seats: 2 },
+
+      { restaurant_id: laBartolaId, seats: 4 },
+      { restaurant_id: laBartolaId, seats: 4 },
+      { restaurant_id: laBartolaId, seats: 2 },
+
+      { restaurant_id: elCatrinId, seats: 4 },
+      { restaurant_id: elCatrinId, seats: 4 },
+      { restaurant_id: elCatrinId, seats: 2 },
+
+      { restaurant_id: mariachisId, seats: 4 },
+      { restaurant_id: mariachisId, seats: 4 },
+      { restaurant_id: mariachisId, seats: 2 },
+
+      { restaurant_id: canoRestaurantId, seats: 4 },
+      { restaurant_id: canoRestaurantId, seats: 4 },
+      { restaurant_id: canoRestaurantId, seats: 2 },
+
+      { restaurant_id: bluRistoranteId, seats: 4 },
+      { restaurant_id: bluRistoranteId, seats: 4 },
+      { restaurant_id: bluRistoranteId, seats: 2 },
+
+      { restaurant_id: stelvioId, seats: 4 },
+      { restaurant_id: stelvioId, seats: 4 },
+      { restaurant_id: stelvioId, seats: 2 },
+
+      { restaurant_id: sofiaId, seats: 4 },
+      { restaurant_id: sofiaId, seats: 4 },
+      { restaurant_id: sofiaId, seats: 2 },
     ],
   })
 
