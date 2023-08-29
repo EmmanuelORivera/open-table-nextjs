@@ -195,14 +195,20 @@ export class AvailabilitiesCalculator {
     const bookingTablesObj: TableBookingMap = {}
 
     bookings.forEach((booking) => {
-      bookingTablesObj[booking.booking_time.toISOString()] =
-        booking.tables.reduce((obj, table) => {
-          return {
-            ...obj,
-            [table.table_id]: true,
-          }
-        }, {})
+      const bookingTimeKey = booking.booking_time.toISOString()
+
+      // Check if tablesForBooking already exists for this booking time
+      if (!bookingTablesObj[bookingTimeKey]) {
+        bookingTablesObj[bookingTimeKey] = {}
+      }
+
+      const tablesForBooking = bookingTablesObj[bookingTimeKey]
+
+      booking.tables.forEach((table) => {
+        tablesForBooking[table.table_id] = true
+      })
     })
+
     return bookingTablesObj
   }
 
