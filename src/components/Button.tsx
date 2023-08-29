@@ -20,7 +20,7 @@ const Button = ({
   } else if (type === 'action') {
     buttonStyles = 'bg-red-600 hover:bg-red-500 text-white uppercase p-3'
   } else {
-    buttonStyles = 'hover:bg-gray-100 cursor-auto'
+    buttonStyles = 'hover:bg-gray-100'
   }
 
   return (
