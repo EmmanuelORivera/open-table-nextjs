@@ -2,6 +2,7 @@
 import { partySize as partySizes, times } from '@/data'
 import useAvailabilities from '@/hooks/useAvailabilities'
 import { convertToDisplayTime } from '@/utils/convertToDisplayTime'
+import { CircularProgress } from '@mui/material'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
@@ -123,7 +124,9 @@ const MakeAReservation = ({
             ))}
           </select>
         </div>
-        {data && data.length && hasAvailabilities() ? (
+        {loading ? (
+          <CircularProgress />
+        ) : data && data.length && hasAvailabilities() ? (
           <div className="mt-4 ">
             <p>Select a Time</p>
             <div className="flex flex-wrap mt-2 lg:max-w-sm gap-3">
