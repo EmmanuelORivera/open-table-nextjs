@@ -52,12 +52,12 @@ export default function useReservation() {
       const response = await api.post<Reservation>(
         `/api/restaurant/${slug}/reserve`,
         {
-          bookerEmail,
-          bookerFirstName,
-          bookerLastName,
-          bookerOccasion,
-          bookerPhone,
-          bookerRequests,
+          email: bookerEmail,
+          first_name: bookerFirstName,
+          last_name: bookerLastName,
+          occasion: bookerOccasion,
+          phone: bookerPhone,
+          request: bookerRequests,
         },
         {
           params: {
@@ -68,6 +68,7 @@ export default function useReservation() {
         }
       )
       setLoading(false)
+      setError(null)
       setDidBook(true)
 
       return response.data
