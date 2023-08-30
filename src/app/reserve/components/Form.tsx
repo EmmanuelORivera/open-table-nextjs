@@ -2,13 +2,14 @@
 
 import Button from '@/components/Button'
 import InputField from '@/components/InputField'
-import useReservation from '@/hooks/useReservation'
+import useReservation, { Reservation } from '@/hooks/useReservation'
 import { useEffect, useState } from 'react'
 import { ReservePageParams, ReserveSearchParams } from '../[slug]/page'
 import { Alert, CircularProgress } from '@mui/material'
 import { ReserveValidationStrategy } from '@/strategies/ReserveValidationStrategy'
 import { ValidationStrategy } from '@/interfaces/ValidationStrategy'
 import { ReserveFormInputs } from '@/interfaces/ReserveFormInputs'
+import Link from 'next/link'
 
 const Form = ({
   params,
@@ -28,6 +29,9 @@ const Form = ({
 
   const [didBook, setDidBook] = useState(false)
   const [disabled, setDisabled] = useState(true)
+  const [reservation, setReservation] = useState<Reservation | undefined>(
+    undefined
+  )
 
   const { error, loading, createReservation } = useReservation()
 
@@ -49,7 +53,7 @@ const Form = ({
   const [day, time] = searchParams.date.split('T')
 
   const handleClick = async () => {
-    const booking = await createReservation({
+    const reservation = await createReservation({
       slug: params.slug,
       partySize: searchParams.partySize,
       time,
@@ -62,6 +66,8 @@ const Form = ({
       bookerRequests: inputs.request,
       setDidBook,
     })
+
+    setReservation(reservation)
   }
 
   return (
@@ -71,13 +77,21 @@ const Form = ({
           {error}
         </Alert>
       )}
-      <div className="mt-10 grid md:grid-cols-2 gap-4  w-full">
-        {didBook ? (
-          <div>
-            <h1>You are all booked up</h1>
-            <p>Enjoy your reservation</p>
-          </div>
-        ) : (
+      {didBook && (
+        <div className="mt-3">
+          <h2 className="font-bold text-lg text-green-700">
+            Reservation Created Succesfully!!!
+          </h2>
+          <Link
+            href="/"
+            className="hover:bg-gray-50 text-gray-600 border p-3 inline-block mt-3 rounded"
+          >
+            Back to the Home Page
+          </Link>
+        </div>
+      )}
+      <div className="mt-10 grid md:grid-cols-2 gap-4">
+        {didBook ? null : (
           <>
             <InputField
               type="text"
