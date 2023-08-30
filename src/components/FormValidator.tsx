@@ -9,6 +9,7 @@ import useAuth from '@/hooks/useAuth'
 import { SignInValidationStrategy } from '@/strategies/SignInValidationStrategy'
 import { SignUpValidationStrategy } from '@/strategies/SignUpValidationStrategy'
 import { ValidationStrategy } from '@/interfaces/ValidationStrategy'
+import { SignInAuthInputs } from '@/interfaces/SignInAuthInputs'
 
 interface Props {
   inputs: AuthInputs
@@ -19,7 +20,7 @@ const FormValidator = ({ inputs, action, handleClose }: Props) => {
   const [disabled, setDisabled] = useState(true)
   const { signin, signup } = useAuth()
 
-  const validationStrategy: ValidationStrategy =
+  const validationStrategy: ValidationStrategy<AuthInputs | SignInAuthInputs> =
     action === 'sign-in'
       ? new SignInValidationStrategy()
       : new SignUpValidationStrategy()

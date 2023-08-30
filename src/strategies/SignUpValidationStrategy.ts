@@ -1,7 +1,9 @@
 import { AuthInputs } from '@/interfaces/AuthInputs'
 import { ValidationStrategy } from '@/interfaces/ValidationStrategy'
 
-export class SignUpValidationStrategy implements ValidationStrategy {
+export class SignUpValidationStrategy
+  implements ValidationStrategy<AuthInputs>
+{
   isValid(inputs: AuthInputs): boolean {
     return (
       !!inputs.first_name &&
