@@ -14,7 +14,7 @@ interface FetchReservationProps {
   bookerOccasion?: string
   bookerRequests?: string
 }
-interface Reservation {
+export interface Reservation {
   id: number
   number_of_people: number
   booking_time: string
