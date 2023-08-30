@@ -68,7 +68,9 @@ const MakeAReservation = ({
   }, [slug, partySize, day, time])
 
   return (
-    <section className={`shadow p-4 my-4 ${hiddenStyle} ${className}`}>
+    <section
+      className={`shadow p-4 my-4 ${hiddenStyle} ${className} lg:min-w-[448px]`}
+    >
       <h2 className="text-lg font-semibold text-center pb-3 border-b">
         Make a Reservation
       </h2>
