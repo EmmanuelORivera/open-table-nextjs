@@ -1,5 +1,3 @@
-import { AuthInputs } from './AuthInputs'
-
-export interface ValidationStrategy {
-  isValid(inputs: AuthInputs): boolean
+export interface ValidationStrategy<T> {
+  isValid(inputs: T): boolean
 }
