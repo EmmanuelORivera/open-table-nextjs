@@ -5,15 +5,8 @@ import { times } from '@/data'
 import { NextRequest, NextResponse } from 'next/server'
 import { RestaurantWithTables } from '@/interfaces/Restaurant'
 import { Table } from '@prisma/client'
+import { ReserveFormInputs } from '@/interfaces/ReserveFormInputs'
 
-interface JsonRequestData {
-  bookerEmail: string
-  bookerPhone: string
-  bookerFirstName: string
-  bookerLastName: string
-  bookerOccasion?: string
-  bookerRequests?: string
-}
 export interface TableBookingMap {
   [key: string]: { [key: number]: true }
 }
@@ -39,7 +32,11 @@ export class AvailabilitiesCalculator {
     this.isAvailabilityRoute = isAvailabilityRoute
   }
 
-  async calculateAvailabilities(url: URL, req: NextRequest) {
+  async calculateAvailabilities(
+    url: URL,
+    req: NextRequest,
+    body?: ReserveFormInputs
+  ) {
     const { day, partySize, time, slug } = parseQueryParameters(url)
 
     if (!day || !time || !partySize) {
@@ -162,30 +159,24 @@ export class AvailabilitiesCalculator {
         }
       }
 
-      const {
-        bookerEmail,
-        bookerPhone,
-        bookerFirstName,
-        bookerLastName,
-        bookerOccasion,
-        bookerRequests,
-      }: JsonRequestData = await req.json()
-
-      const booking = await this.bookingService.createBooking(
-        {
-          partySize,
-          restaurant,
-          day,
-          time,
-          bookerEmail,
-          bookerPhone,
-          bookerFirstName,
-          bookerLastName,
-          bookerOccasion,
-          bookerRequests,
-        },
-        tablesToBooks
-      )
+      let booking
+      if (body) {
+        booking = await this.bookingService.createBooking(
+          {
+            partySize,
+            restaurant,
+            day,
+            time,
+            bookerEmail: body.email,
+            bookerPhone: body.phone,
+            bookerFirstName: body.first_name,
+            bookerLastName: body.last_name,
+            bookerOccasion: body.occasion,
+            bookerRequests: body.request,
+          },
+          tablesToBooks
+        )
+      }
 
       return NextResponse.json(booking)
     }
