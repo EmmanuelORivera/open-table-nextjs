@@ -23,7 +23,7 @@ const Header = async ({
 
   return (
     <div>
-      <h3 className="font-bold hidden md:block">You&apos;re almost done!</h3>
+      <h3 className="font-bold hidden md:block">Reservation</h3>
       <div className="mt-5 flex gap-4">
         <Image
           src={restaurant.main_image}
