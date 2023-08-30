@@ -2,6 +2,7 @@ import validator from 'validator'
 import bcrypt from 'bcrypt'
 import * as jose from 'jose'
 import { AuthInputs } from '@/interfaces/AuthInputs'
+import { ReserveFormInputs } from '@/interfaces/ReserveFormInputs'
 
 interface ValidationSchema {
   valid: boolean
@@ -24,6 +25,36 @@ export class AuthService {
     })
 
     return errors
+  }
+  static validateReserveInputs(inputs: ReserveFormInputs): string[] {
+    const validationSchema = [
+      {
+        valid: validator.isLength(inputs.first_name, { min: 1, max: 25 }),
+        errorMessage: 'First name is invalid',
+      },
+      {
+        valid: validator.isLength(inputs.last_name, { min: 1, max: 25 }),
+        errorMessage: 'Last name is invalid',
+      },
+      {
+        valid: validator.isEmail(inputs.email),
+        errorMessage: 'Email is invalid',
+      },
+      {
+        valid: validator.isMobilePhone(inputs.phone),
+        errorMessage: 'Phone number is invalid',
+      },
+      {
+        valid: validator.isLength(inputs.occasion || '', { max: 100 }),
+        errorMessage: 'Occasion must be at most 100 characters',
+      },
+      {
+        valid: validator.isLength(inputs.request || '', { max: 100 }),
+        errorMessage: 'Request must be at most 100 characters',
+      },
+    ]
+
+    return AuthService.validateInputs(validationSchema)
   }
   static validateSigupInputs(inputs: AuthInputs): string[] {
     const validationSchema = [
