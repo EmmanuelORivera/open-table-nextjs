@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Open Table
+
+Welcome to **Open Table**, a project designed to streamline the reservation process, facilitate restaurant ratings, and enhance user experiences.
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Reservation System](#reservation-system)
+- [Live Demo](#live-demo)
 
 ## Getting Started
 
-First, run the development server:
+To start using Open Table on your local machine, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+### Prerequisites
+
+Make sure you have the following prerequisites:
+
+- **Node.js**: Ensure Node.js is installed.
+- **npm**: npm is used for package management.
+- **Environment Variables**: Set up the `.env` file at the root of the project with the following environment variables:
+  - `JWT`: A secret JWT word.
+  - `DATABASE_URL`: Your PostgreSQL database connection.
+  - `PUBLIC_API_URL`: The base URL for the public API (e.g., `http://localhost:3000`).
+
+
+### Installation
+1. Clone the repository.
+2. Navigate to the project direcotry.
+3. Install dependencies.
+   ```sh
+   npm install
+  
+### Usage
+1. To start the app run:
+```sh
+npm run start
 ```
+2. The database at the beggining needs to be seeded so it is necessary to make a GET request to the endpoint:
+``` sh
+http://localhost:3000/api/seed
+```
+  or by using this curl command
+```sh
+curl --location 'http://localhost:3000/api/seed'
+```
+### Features
+1. User-Friendly Login: Users can create reviews and share their experiences.
+2. Smart Search: A powerful search bar helps users find restaurants by city (e.g., Toronto).
+3. Detailed Restaurant Pages: Individual restaurant pages showcase an overview and a menu.
+4. Effortless Reservations: A user-friendly reservation system simplifies the process.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Reservation System
+The reservation system is designed with user convenience in mind:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Each restaurant has three types of tables: two tables with four seats and one table with two seats.
+- When making a reservation for a specific number of people, the system optimizes table allocation. For example, a reservation for five people will be assigned to a table with four seats and another table with two seats.
+- Table availability considers existing reservations. If the next reservation is for five people and only one table for four people is available, the system won't show the available time slot to the user.
+Please note that this overview simplifies the system for a user-friendly experience.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Live Demo
+Visit this page at https://open-table-nextjs.vercel.app/
+ 
