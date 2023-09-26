@@ -1,6 +1,10 @@
 # Open Table
 
 Welcome to **Open Table**, a project designed to streamline the reservation process, facilitate restaurant ratings, and enhance user experiences.
+
+## Live Demo
+Visit this page at https://open-table-nextjs.vercel.app/
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -9,7 +13,6 @@ Welcome to **Open Table**, a project designed to streamline the reservation proc
 - [Usage](#usage)
 - [Features](#features)
 - [Reservation System](#reservation-system)
-- [Live Demo](#live-demo)
 
 ## Getting Started
 
@@ -61,6 +64,5 @@ The reservation system is designed with user convenience in mind:
 - Table availability considers existing reservations. If the next reservation is for five people and only one table for four people is available, the system won't show the available time slot to the user.
 Please note that this overview simplifies the system for a user-friendly experience.
 
-### Live Demo
-Visit this page at https://open-table-nextjs.vercel.app/
+
  
